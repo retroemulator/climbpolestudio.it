@@ -17,12 +17,11 @@ const DISCIPLINE = ["Pole Dance", "Cerchio Aereo", "Flexibility", "Functional Tr
 export default function Home() {
   return (
     <main>
-      <Section tone="stage" className="flex min-h-screen flex-col justify-between py-10 md:py-14">
+      <Section tone="stage" className="flex min-h-screen flex-col justify-between pb-10 pt-24 md:pb-14 md:pt-28">
         <Container className="flex items-center justify-between">
           <span className="eyebrow text-paper/70">
             {strings.brand.city} · {strings.brand.payoff}
           </span>
-          <span className="eyebrow text-paper/40">Fase 2 · design system</span>
         </Container>
 
         <Container className="relative">

@@ -30,3 +30,6 @@ yarn-error.log*
 # Working artifacts (Fase 0 — non committare)
 logo-extracted.*
 logo-img*.png
+
+# Anteprima statica offline (mockup usa-e-getta, non parte dell'app Next)
+preview/

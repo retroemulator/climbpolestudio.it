@@ -8,7 +8,6 @@ import { Reveal, RevealText } from "@/components/motion/reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { Magnetic } from "@/components/motion/magnetic";
 import { Parallax } from "@/components/motion/parallax";
-import { CustomCursor } from "@/components/motion/custom-cursor";
 import { Media } from "@/components/media/media";
 
 export const metadata: Metadata = {
@@ -40,9 +39,8 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 export default function Styleguide() {
   return (
     <>
-      <CustomCursor />
       <Section tone="light">
-        <Container className="py-16">
+        <Container className="py-16 pt-28">
           <p className="eyebrow text-brand-strong">Climb Pole Studio · Design System</p>
           <h1 className="text-display mt-3" style={{ fontSize: "clamp(3rem, 10vw, 7rem)" }}>
             Styleguide

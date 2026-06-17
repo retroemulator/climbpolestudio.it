@@ -1,0 +1,180 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ──────────────────────────────────────────────────────────────
+   TOKEN DI BRAND — Climb Pole Studio (derivati dal logo reale)
+   Vedi NOTES.md → Fase 0. Core 6 + sistema.
+   ────────────────────────────────────────────────────────────── */
+@theme {
+  --color-paper: #faf3f4; /* off-white caldo · sfondo "luce"        */
+  --color-paper-pure: #ffffff;
+  --color-ink: #0d0d0f; /* near-black · testo su chiaro / "stage"  */
+  --color-ink-soft: #2a2a2e;
+  --color-brand: #f087dd; /* ORCHIDEA reale (campionata dal logo)    */
+  --color-brand-strong: #b81fa8; /* magenta · accenti testuali/CTA (AA ~5:1) */
+  --color-electric: #ff2ec4; /* magenta elettrico · SOLO glow su scuro  */
+  --color-cyan: #2ee6ff; /* SOLO split RGB della firma, minimale    */
+  --color-line: rgba(13, 13, 15, 0.12); /* hairline / "spina" su chiaro */
+
+  --font-display: var(--font-archivo), "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+
+  --radius: 0.25rem;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   TOKEN SEMANTICI shadcn/ui — mappati sul brand.
+   :root = tema "luce" (paper). .dark = tema "stage" (ink),
+   usato per isolotti scuri (es. navbar su hero) e componenti.
+   ────────────────────────────────────────────────────────────── */
+:root {
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --card: var(--color-paper);
+  --card-foreground: var(--color-ink);
+  --popover: var(--color-paper-pure);
+  --popover-foreground: var(--color-ink);
+  --primary: var(--color-brand-strong);
+  --primary-foreground: var(--color-paper);
+  --secondary: #f1e6ef;
+  --secondary-foreground: var(--color-ink);
+  --muted: #f1e9ec;
+  --muted-foreground: #6b6469;
+  --accent: var(--color-brand);
+  --accent-foreground: var(--color-ink);
+  --destructive: #d33a2c;
+  --destructive-foreground: var(--color-paper);
+  --border: var(--color-line);
+  --input: rgba(13, 13, 15, 0.16);
+  --ring: var(--color-brand-strong);
+}
+
+.dark {
+  --background: var(--color-ink);
+  --foreground: var(--color-paper);
+  --card: var(--color-ink-soft);
+  --card-foreground: var(--color-paper);
+  --popover: var(--color-ink-soft);
+  --popover-foreground: var(--color-paper);
+  --primary: var(--color-brand);
+  --primary-foreground: var(--color-ink);
+  --secondary: #1f1f24;
+  --secondary-foreground: var(--color-paper);
+  --muted: #1c1c20;
+  --muted-foreground: #a39ba0;
+  --accent: var(--color-electric);
+  --accent-foreground: var(--color-ink);
+  --destructive: #ff6b5e;
+  --destructive-foreground: var(--color-ink);
+  --border: rgba(250, 243, 244, 0.16);
+  --input: rgba(250, 243, 244, 0.22);
+  --ring: var(--color-brand);
+}
+
+/* Espone i token semantici come utility (bg-background, text-primary, …) */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  ::selection {
+    background-color: var(--color-brand);
+    color: var(--color-ink);
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-brand-strong);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@layer components {
+  /* Display "signature": Archivo espanso, uppercase, tracking stretto.
+     font-stretch:125% richiede l'asse `wdth` (vedi lib/fonts.ts). */
+  .text-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-stretch: 125%;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    line-height: 0.9;
+  }
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   ACCESSIBILITÀ — prefers-reduced-motion (brief §10).
+   Disattiva animazioni/parallax; il signature degrada a statico.
+   ────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lenis smooth scroll (Fase 3 lo attiva; CSS di supporto qui) */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}

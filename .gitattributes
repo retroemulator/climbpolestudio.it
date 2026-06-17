@@ -1,0 +1,10 @@
+# Normalizza i fine-riga a LF nel repo (coerenza cross-platform)
+* text=auto eol=lf
+
+# Binari: nessuna normalizzazione
+*.png binary
+*.jpg binary
+*.svg -text
+*.ico binary
+*.woff binary
+*.woff2 binary

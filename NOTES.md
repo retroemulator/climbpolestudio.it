@@ -180,5 +180,50 @@ con tema chiaro — lì la navbar è leggibile solo da scrolled; accettabile.)
 **TODO Fase 3 → chiusi:** ~~variante logo chiara~~ (Logo tipografico), ~~navbar/footer/transizioni/
 montaggio globale~~.
 
-**Prossima — Fase 4 (Sanity):** setup + schemi (§6) + Studio `/studio` + seed contenuti reali
-(§5) + query GROQ tipizzate.
+---
+
+## Fase 4 — Sanity / CMS (2026-06-17)
+
+**Fatto:** CMS Sanity completo — schemi §6, Studio embeddato su `/studio`, client + query GROQ
+tipizzate, script di seed coi dati reali §5. Project ID **`shudbapr`**, dataset **`production`**.
+
+- **Stack/versioni (vincolo importante):** `next-sanity@11` (peer Next `^15.1`; la v12+ vuole
+  Next 16) + **`sanity@4.22` / `@sanity/vision@4.22`**. `sanity@5/6` richiede React ≥19.2.2
+  (usa `useEffectEvent`), ma **Next 15.5 fa il bundle di una sua copia di React 19.0/19.1** →
+  errore `useEffectEvent is not exported`. La v4 (peer React `^18||^19`) evita il problema.
+  *Quando passeremo a Next 16 si potrà salire a sanity 5/6 + next-sanity 12/13.*
+- **Architettura route:** introdotto il route group **`app/(site)/`** con il proprio
+  `layout.tsx` (SmoothScroll + Navbar + Footer). Il root `app/layout.tsx` è ora minimale
+  (html/body/font/metadata). Così **`/studio` NON eredita** chrome né smooth-scroll del sito.
+  (Il route group non cambia gli URL.) Tutte le pagine marketing spostate sotto `(site)/`.
+- **Studio client-only:** `/studio` falliva in *page-data collection* (`createContext is not a
+  function`: la config Sanity valutata sul server). Risolto caricando lo Studio via
+  `next/dynamic` **`ssr:false`** (`studio-loader` → `StudioInner`), isolando l'import della
+  config nel chunk client. Bundle route piccolissimo; lo Studio si scarica on-demand.
+- **Schemi** (`sanity/schemaTypes/`): `siteSettings` (singleton via `structure.ts`), `discipline`,
+  `instructor`, `scheduleSlot` (template orario §7), `pricingPlan`, `galleryItem`, `newsPost`,
+  `testimonial`.
+- **Client/lib:** `sanity/env.ts` (env validate), `lib/client.ts` (useCdn, published),
+  `lib/image.ts` (`urlFor`), `lib/fetch.ts` (`sanityFetch` con revalidate/tag, `server-only`),
+  `lib/queries.ts` (GROQ via `defineQuery`), `sanity/types.ts` (tipi a mano; typegen in futuro).
+- **Seed** (`scripts/seed.ts`, `npm run seed`): popola siteSettings + 6 discipline + **31 slot
+  orario** + **18 voci di listino** coi dati reali §5. Idempotente (delete-by-query dei tipi
+  gestiti + `createOrReplace` con _id deterministici). Carica le env con `@next/env`. Richiede
+  `SANITY_API_TOKEN` (Editor). **Eseguito e verificato (lettura pubblica OK).**
+- **⚠️ Gotcha _id con punto:** la prima passata usava _id tipo `discipline.pole-dance` →
+  i documenti risultavano **esclusi dalla lettura pubblica** (`omitted: reason "permission"`),
+  mentre `siteSettings` (senza punto) era leggibile. Sanity riserva il `.` a namespace speciali
+  (`drafts.`/`versions.`/`system.`). **Fix: _id con trattino** (`discipline-pole-dance`,
+  `slot-…`, `price-…`); il seed ripulisce prima i vecchi doc dottati. **Regola: mai punti negli
+  _id custom.**
+- **Env:** `.env.local` (con projectId, **token da inserire**) + `.env.example` aggiornato.
+
+**Collaudo:** `npm run build` pulita (23 route, `/studio` inclusa); `npm run typecheck` pulito;
+dev: sito + `/studio` rispondono 200 (Studio compila ~11s al primo accesso, normale).
+
+**Ancora da fare (utente):** creare il **token Editor** su sanity.io/manage → metterlo in
+`.env.local` → `npm run seed`. Poi `/studio` mostrerà i contenuti. **CORS**: aggiungere
+`http://localhost:3000` (e poi il dominio) in API → CORS origins.
+
+**Prossima — Fase 5 (Home):** hero video + sezioni kinetic, leggendo i contenuti da Sanity
+(le query sono pronte in `lib/queries.ts`).

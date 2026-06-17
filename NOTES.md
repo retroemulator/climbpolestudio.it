@@ -257,3 +257,25 @@ pronti); horizontal-scroll pinnato discipline (enhancement); foto/video reali de
 
 **Prossima — Fase 6:** schede disciplina `/discipline/[slug]` (da Sanity: body, livelli, a chi è
 adatto, cosa imparerai, slot collegati).
+
+---
+
+## Fase 6 — Schede disciplina (2026-06-17)
+
+**Fatto:** `/discipline/[slug]` completa, da Sanity, SSG+ISR.
+
+- **Query/getter** aggiunti: `SCHEDULE_BY_DISCIPLINE_QUERY` (slot dove `discipline->slug == $slug`),
+  `getDisciplineBySlug`, `getDisciplineSlugs`, `getScheduleByDiscipline`.
+- **Portable Text** (`components/portable-text.tsx`, `RichText`): renderer del body rich-text con
+  stile editoriale (h2/h3/quote/liste/link), via `PortableText` di next-sanity.
+- **Pagina:** hero(stage) con `Media` (immagine Sanity via `urlFor`, **video-ready**: usa
+  `media.videoUrl` se presente; fallback foto stock) + ChromaticShadow + livelli; corpo(light)
+  con body + "A chi è adatto" + "Cosa imparerai"; "Quando si pratica"(stage) con gli **slot
+  collegati** raggruppati per giorno + CTA. `generateStaticParams`/`generateMetadata` da Sanity,
+  `notFound()` su slug ignoto.
+
+**Collaudo:** build pulita (6 schede SSG+ISR da Sanity); dev: pole-dance/exotic 200, contenuti e
+orari collegati renderizzati. Nessun errore.
+
+**Prossima — Fase 7:** `/orari` — griglia settimanale interattiva (filtri disciplina/giorno/
+livello), da Sanity; click slot → dettaglio + Prenota.

@@ -25,6 +25,10 @@ export const DISCIPLINE_BY_SLUG_QUERY = defineQuery(`*[_type == "discipline" && 
   media, gallery, accent
 }`);
 
+export const SCHEDULE_BY_DISCIPLINE_QUERY = defineQuery(`*[_type == "scheduleSlot" && discipline->slug.current == $slug]|order(day asc, startTime asc){
+  _id, displayTitle, level, day, startTime, durationMin, capacity
+}`);
+
 export const SCHEDULE_QUERY = defineQuery(`*[_type == "scheduleSlot"]|order(day asc, startTime asc){
   _id, displayTitle, level, day, startTime, durationMin, capacity, notes,
   "discipline": discipline->{ title, "slug": slug.current },

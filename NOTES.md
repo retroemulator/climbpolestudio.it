@@ -279,3 +279,59 @@ orari collegati renderizzati. Nessun errore.
 
 **Prossima — Fase 7:** `/orari` — griglia settimanale interattiva (filtri disciplina/giorno/
 livello), da Sanity; click slot → dettaglio + Prenota.
+
+---
+
+## Fasi 7–16 (2026-06-17) — completamento sito
+
+Sessione "fino alla fine": completate tutte le fasi fattibili senza credenziali esterne;
+le parti che richiedono account (Supabase, Resend) sono **scaffoldate e gated** → build verde e
+sito funzionante senza chiavi, attivazione = incollare le env.
+
+**Fase 7 — `/orari`:** `ScheduleExplorer` (client) con filtri disciplina/giorno/livello,
+contatore, click slot → modale dettaglio + CTA Prenota. Dati reali (31 slot).
+
+**Fase 8 — `/prezzi`:** listino completo da Sanity, raggruppato per categoria (ordine fisso),
+badge/note, CTA. SSG+ISR.
+
+**Fase 13 — contenuti:** `/contatti` (info + mappa link + form), `/galleria` e `/news` (da
+Sanity, empty-state se vuoti). `chi-siamo` già fatto come esempio Luce/Stage.
+
+**Fase 14 — integrazioni:** `WhatsappFab` globale; `StructuredData` JSON-LD
+SportsActivityLocation; `opengraph-image` dinamica (next/og); form contatti → `/api/contact`
+(invio via **Resend** se `RESEND_API_KEY`, altrimenti 503 → fallback WhatsApp/email, nessuna dep).
+
+**Fase 15 — SEO/a11y:** `app/sitemap.ts` (statiche + discipline da Sanity), `app/robots.ts`
+(esclude /studio,/api,/styleguide,/area,/admin). Metadata per pagina già presenti; focus-visible
+e reduced-motion già nel design system.
+
+**Fasi 9–12 — Supabase (gated):**
+- `lib/supabase/{config,server,client}.ts` + `middleware.ts` (refresh sessione, no-op se non
+  configurato). Tutto controlla `isSupabaseConfigured`.
+- **`supabase/schema.sql`**: profiles (+trigger profilo), class_session, booking; **RLS**
+  completa; **RPC `book_session`** con lock di riga → capienza atomica anti-overbooking + waitlist.
+- **Auth magic link**: `/accedi` (`AuthForm` + server action `signInWithEmail`), `/auth/callback`
+  (exchange code), redirect a `/area`. `signOut` action.
+- **`/area`**: lista prenotazioni utente + logout. **`/admin`**: gate ruolo admin, conteggio
+  prenotazioni, link Studio. **`/prenota`**: `BookingList` (client) prenota via RPC; fallback
+  WhatsApp se Supabase off.
+- **Generazione sessioni** dallo schedule Sanity: `lib/sessions/generate.ts` condiviso →
+  `npm run generate-sessions` (CLI) + `app/api/cron/generate-sessions` (Vercel cron, protetto da
+  `CRON_SECRET`). Idempotente (upsert slot_ref+starts_at).
+
+**Fase 16 — deploy:** `vercel.json` (cron settimanale generate-sessions). `.env.example`
+aggiornato con tutte le chiavi. Istruzioni deploy: vedi sotto.
+
+### Attivazione servizi (TODO utente)
+1. **Supabase:** crea progetto → metti `NEXT_PUBLIC_SUPABASE_URL` + `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   + `SUPABASE_SERVICE_ROLE_KEY` in `.env.local`; esegui `supabase/schema.sql` nello SQL Editor;
+   in Auth → URL configuration aggiungi `http://localhost:3000/auth/callback` (e il dominio prod).
+   Poi `npm run generate-sessions` per popolare le sessioni. Per fare admin: in `profiles` metti
+   `role='admin'` sul tuo utente.
+2. **Resend:** verifica il dominio, metti `RESEND_API_KEY`; aggiorna il `from` in `/api/contact`.
+3. **Deploy Vercel:** importa il repo, copia tutte le env (incl. `NEXT_PUBLIC_SITE_URL` =
+   dominio prod e `CRON_SECRET`), aggiungi il dominio `climbpolestudio.it`. Il cron parte da
+   `vercel.json`. In Sanity → API → CORS aggiungi il dominio prod.
+
+**Stato:** build pulita (tutte le route), dev 200 su tutte; Supabase/Resend degradano con grazia.
+Restano contenuti/foto reali (hero, team, galleria, bio) e l'inserimento delle chiavi.

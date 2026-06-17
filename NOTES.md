@@ -78,7 +78,6 @@ Stringhe IT centralizzate (`lib/strings.ts`). Asset logo + favicon in `public/`/
   per gli isolotti scuri (es. navbar su hero) e per i componenti shadcn.
 - `next/font/google` (self-hosta a build) invece di `next/font/local`: non avendo Node/rete non
   posso scaricare i `.woff2` ora; Google li self-hosta in build. Stesso risultato.
-- Smooth scroll: provider attivo già ora; integrazione layout completa in Fase 3.
 
 **Cose da sapere / rischi (per la prima esecuzione con Node):**
 
@@ -86,10 +85,42 @@ Stringhe IT centralizzate (`lib/strings.ts`). Asset logo + favicon in `public/`/
 - `lib/fonts.ts`: se la build lamenta l'asse `wdth` di Archivo, rimuovere `axes: ["wdth"]`
   (fallback documentato inline). Il resto non dipende da quell'asse.
 - Versioni in `package.json` con range `^`: possibili patch più recenti alla prima install.
+- **Il tool Write scrive CRLF** su questa macchina Windows: gli edit multilinea vanno fatti come
+  rewrite o a riga singola.
+
+---
+
+## Fase 2 — Design System (2026-06-17)
+
+**Fatto:** la firma e le primitive di motion/layout/media + una pagina styleguide.
+
+- **`ChromaticShadow`** (`components/motion/chromatic-shadow.tsx`) — la firma: reveal in-view
+  (il fantasma "atterra"), split RGB su hover (magenta + traccia cyan) → ricompone, **statico**
+  con reduced-motion. Solo transform/opacity (no filtri). Layer fantasma `aria-hidden`.
+- **Motion primitives** (`components/motion/`): `Reveal` + `RevealText` (parola-per-parola),
+  `Marquee` (reattivo alla **velocità di scroll**), `Magnetic`, `Parallax`, `CustomCursor`
+  (solo puntatore fine, off con reduced-motion). Costanti in `lib/motion.ts`.
+- **`Media`** (`components/media/media.tsx`) — primitiva **video-ready ma non video-dipendente**:
+  renderizza SEMPRE l'immagine (poster/fallback, LCP-safe); mostra il video SOLO se c'è
+  `videoUrl` e non è reduced-motion / data-saver / mobile. Aggiungere un video = incollare l'URL,
+  zero codice.
+- **Layout** (`components/layout/`): `Section` (tone `light`/`stage` per il ritmo luce/stage),
+  `Container`, `Spine` (la "spina"/palo).
+- **`/styleguide`** (noindex) — riferimento vivo: token, tipografia, signature, bottoni, reveal,
+  marquee, parallax, media. Da usare per QA visiva alla prima esecuzione.
+- Home aggiornata a placeholder che **mostra il sistema in uso**.
+
+**Scelte / note:**
+
+- Componenti polimorfici (`as`) senza ref sul Tag (ref interno / `whileInView`) → niente attriti
+  TS con `React.ElementType`.
+- `RevealText`: spaziatura parole via `mr-[0.25em]` (non spazio in-contenuto) così il testo va a
+  capo correttamente.
+- `CustomCursor` **non** è montato globalmente: lo fa la Fase 3 (layout). Per ora è in styleguide.
 
 **TODO aperti (prossime fasi):**
 
 - Variante logo **chiara/mono** per sezioni scure (Fase 3, navbar/footer).
-- `logo.png` è ~360KB: valutare ottimizzazione / vettoriale originale dal cliente.
-- Componente **Chromatic Shadow** vero + primitive di motion → **Fase 2**.
-- Navbar (mega-menu discipline) + footer + page transitions → **Fase 3**.
+- `logo.png` ~360KB: valutare ottimizzazione / vettoriale originale dal cliente.
+- Navbar (mega-menu discipline, stato scrolled) + footer + page transitions + montaggio globale
+  `CustomCursor`/`SmoothScroll` → **Fase 3**.

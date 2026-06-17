@@ -1,64 +1,66 @@
 import { Button } from "@/components/ui/button";
+import { Container } from "@/components/layout/container";
+import { Section, Spine } from "@/components/layout/section";
+import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
+import { RevealText } from "@/components/motion/reveal";
+import { Marquee } from "@/components/motion/marquee";
+import { Magnetic } from "@/components/motion/magnetic";
 import { strings } from "@/lib/strings";
 
-const DISCIPLINE = ["Pole", "Cerchio Aereo", "Flexi", "Functional", "Verticali"];
+const DISCIPLINE = ["Pole Dance", "Cerchio Aereo", "Flexibility", "Functional Training", "Verticali"];
 
 /**
- * Fase 1 — placeholder dimostrativo dello stack (token + tipografia +
- * smooth scroll). NON è la home definitiva: l'hero video + le sezioni
- * kinetic + il componente Chromatic Shadow arrivano in Fase 2/5.
+ * Fase 2 — placeholder che mostra il DESIGN SYSTEM in uso (Chromatic Shadow,
+ * reveal, marquee, magnetic, ritmo luce/stage, la "spina").
+ * L'hero video + tutte le sezioni della home definitiva arrivano in Fase 5.
  */
 export default function Home() {
   return (
-    <main className="dark min-h-screen bg-ink text-paper">
-      <section className="relative flex min-h-screen flex-col justify-between px-6 py-10 md:px-12 md:py-14">
-        {/* eyebrow su "spina" (il filo verticale = il palo) */}
-        <header className="flex items-center justify-between">
+    <main>
+      <Section tone="stage" className="flex min-h-screen flex-col justify-between py-10 md:py-14">
+        <Container className="flex items-center justify-between">
           <span className="eyebrow text-paper/70">
             {strings.brand.city} · {strings.brand.payoff}
           </span>
-          <span className="eyebrow text-paper/40">Fase 1 · scaffold</span>
-        </header>
+          <span className="eyebrow text-paper/40">Fase 2 · design system</span>
+        </Container>
 
-        <div className="relative">
-          {/* la "spina": hairline verticale, ancora visiva del palo */}
-          <span
-            aria-hidden
-            className="absolute -top-6 left-[0.12em] hidden h-[120%] w-px bg-brand/40 md:block"
-          />
-          <h1
-            className="text-display text-paper"
-            style={{
-              fontSize: "clamp(4rem, 20vw, 18rem)",
-              textShadow: "0.04em 0.05em 0 var(--color-brand)",
-            }}
+        <Container className="relative">
+          <Spine className="left-6 bg-brand/30 md:left-10 lg:left-14" />
+          <ChromaticShadow
+            as="h1"
+            className="text-display pl-3 md:pl-6"
+            style={{ fontSize: "clamp(4.5rem, 19vw, 17rem)" }}
           >
             Climb
-          </h1>
-          <p className="mt-4 max-w-xl text-balance text-lg text-paper/80 md:text-xl">
-            Salire, girare, restare sospesi. Pole, cerchio aereo e movimento — a Torino, per ogni
-            livello.
-          </p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Button variant="brand" size="lg">
-              {strings.cta.prenotaProva}
-            </Button>
+          </ChromaticShadow>
+          <RevealText
+            as="p"
+            text="Salire, girare, restare sospesi. La pole è forza che diventa linguaggio."
+            className="mt-5 max-w-2xl pl-3 text-lg text-paper/80 md:pl-6 md:text-2xl"
+          />
+          <div className="mt-8 flex flex-wrap items-center gap-3 pl-3 md:pl-6">
+            <Magnetic>
+              <Button variant="brand" size="lg">
+                {strings.cta.prenotaProva}
+              </Button>
+            </Magnetic>
             <Button variant="outline" size="lg">
               {strings.cta.scopriDiscipline}
             </Button>
           </div>
-        </div>
+        </Container>
 
-        {/* hint del marquee (la versione reattiva alla velocità arriva in Fase 5) */}
-        <footer className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-paper/10 pt-4">
-          {DISCIPLINE.map((d) => (
-            <span key={d} className="eyebrow text-paper/50">
-              {d}
-            </span>
-          ))}
-        </footer>
-      </section>
+        <div className="border-t border-paper/10 pt-5">
+          <Marquee baseVelocity={2.4}>
+            {DISCIPLINE.map((d) => (
+              <span key={d} className="eyebrow mx-5 text-paper/55 md:mx-8">
+                {d} •
+              </span>
+            ))}
+          </Marquee>
+        </div>
+      </Section>
     </main>
   );
 }

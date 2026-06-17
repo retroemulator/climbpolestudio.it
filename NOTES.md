@@ -227,3 +227,33 @@ dev: sito + `/studio` rispondono 200 (Studio compila ~11s al primo accesso, norm
 
 **Prossima — Fase 5 (Home):** hero video + sezioni kinetic, leggendo i contenuti da Sanity
 (le query sono pronte in `lib/queries.ts`).
+
+---
+
+## Fase 5 — Home (2026-06-17)
+
+**Fatto:** home definitiva, **contenuti reali da Sanity**, ritmo Luce/Stage. Server Component
+che fa fetch in parallelo (discipline/orari/listino) e compone 7 sezioni client-aware.
+
+- **Data layer** `sanity/lib/data.ts`: getter tipizzati (`getDisciplines/getSchedule/getPricing`)
+  via `sanityFetch` (ISR **revalidate 300s**). Home avvolge i fetch in `safe()` → se Sanity è
+  irraggiungibile la pagina rende comunque (sezioni vuote → `null`, hero con fallback statico).
+- **Sezioni** (`components/sections/`): `Hero` (Media video-ready + poster stock, ChromaticShadow
+  "Climb", marquee discipline), `Manifesto` (light), `DisciplineShowcase` (indice editoriale
+  kinetic da Sanity), `WhyClimb` (4 pilastri), `SchedulePreview` (griglia 6 giorni dai 31 slot),
+  `PricingTeaser` (mensili + annuale dal listino), `Location` (indirizzo + mappa placeholder +
+  WhatsApp). Footer globale chiude.
+- **Sequenza tono:** stage → light → stage → light → stage → light → stage → footer(stage).
+- `lib/site.ts`: aggiunto `weekdays` (chiavi giorni → etichette), riusato dalla preview orari e
+  dalla futura `/orari`.
+- Poster hero = stock Unsplash provvisorio (verrà sostituito da foto/video reali). Per attivare
+  il video basta passare `videoUrl` al `Media` (zero codice, da Sanity in futuro).
+
+**Collaudo:** `npm run build` pulita; home **SSG+ISR** (164 kB First Load, revalidate 5m); dev:
+home 200, HTML contiene i dati reali (Pole Dance, 13:00, € 120, Corso Dante). Nessun errore.
+
+**Aperti per dopo:** sezioni team/gallery/testimonianze (mancano contenuti+foto reali, schemi già
+pronti); horizontal-scroll pinnato discipline (enhancement); foto/video reali dello studio.
+
+**Prossima — Fase 6:** schede disciplina `/discipline/[slug]` (da Sanity: body, livelli, a chi è
+adatto, cosa imparerai, slot collegati).

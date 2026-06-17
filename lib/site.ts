@@ -69,6 +69,16 @@ export const whatsappUrl = `https://wa.me/${contact.whatsapp}?text=${encodeURICo
   contact.whatsappMessage,
 )}`;
 
+/** Giorni della settimana: chiave stabile (come in Sanity) → etichette. */
+export const weekdays = [
+  { key: "lun", short: "Lun", long: "Lunedì" },
+  { key: "mar", short: "Mar", long: "Martedì" },
+  { key: "mer", short: "Mer", long: "Mercoledì" },
+  { key: "gio", short: "Gio", long: "Giovedì" },
+  { key: "ven", short: "Ven", long: "Venerdì" },
+  { key: "sab", short: "Sab", long: "Sabato" },
+] as const;
+
 /** Profili social (brief §5). `label` per `aria-label`/screen reader. */
 export const socials = [
   { label: "Instagram dello studio", handle: "@climbpolestudio", href: "https://instagram.com/climbpolestudio" },

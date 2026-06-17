@@ -1,65 +1,43 @@
-import { Button } from "@/components/ui/button";
-import { Container } from "@/components/layout/container";
-import { Section, Spine } from "@/components/layout/section";
-import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
-import { RevealText } from "@/components/motion/reveal";
-import { Marquee } from "@/components/motion/marquee";
-import { Magnetic } from "@/components/motion/magnetic";
-import { strings } from "@/lib/strings";
+import { getDisciplines, getSchedule, getPricing } from "@/sanity/lib/data";
+import type { DisciplineCard, ScheduleSlot, PricingPlan } from "@/sanity/types";
+import { Hero } from "@/components/sections/hero";
+import { Manifesto } from "@/components/sections/manifesto";
+import { DisciplineShowcase } from "@/components/sections/discipline-showcase";
+import { WhyClimb } from "@/components/sections/why-climb";
+import { SchedulePreview } from "@/components/sections/schedule-preview";
+import { PricingTeaser } from "@/components/sections/pricing-teaser";
+import { Location } from "@/components/sections/location";
 
-const DISCIPLINE = ["Pole Dance", "Cerchio Aereo", "Flexibility", "Functional Training", "Verticali"];
+/** Se Sanity non è raggiungibile, la home rende comunque (sezioni vuote → null). */
+async function safe<T>(p: Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await p;
+  } catch {
+    return fallback;
+  }
+}
 
 /**
- * Fase 2 — placeholder che mostra il DESIGN SYSTEM in uso (Chromatic Shadow,
- * reveal, marquee, magnetic, ritmo luce/stage, la "spina").
- * L'hero video + tutte le sezioni della home definitiva arrivano in Fase 5.
+ * Home (Fase 5). Ritmo Luce/Stage: hero(stage) → manifesto(light) →
+ * discipline(stage) → perché(light) → orari(stage) → prezzi(light) → dove(stage).
+ * Contenuti reali da Sanity (discipline, orari, listino).
  */
-export default function Home() {
+export default async function Home() {
+  const [disciplines, schedule, pricing] = await Promise.all([
+    safe<DisciplineCard[]>(getDisciplines(), []),
+    safe<ScheduleSlot[]>(getSchedule(), []),
+    safe<PricingPlan[]>(getPricing(), []),
+  ]);
+
   return (
     <main>
-      <Section tone="stage" className="flex min-h-screen flex-col justify-between pb-10 pt-24 md:pb-14 md:pt-28">
-        <Container className="flex items-center justify-between">
-          <span className="eyebrow text-paper/70">
-            {strings.brand.city} · {strings.brand.payoff}
-          </span>
-        </Container>
-
-        <Container className="relative">
-          <Spine className="left-6 bg-brand/30 md:left-10 lg:left-14" />
-          <ChromaticShadow
-            as="h1"
-            className="text-display pl-3 md:pl-6"
-            style={{ fontSize: "clamp(4.5rem, 19vw, 17rem)" }}
-          >
-            Climb
-          </ChromaticShadow>
-          <RevealText
-            as="p"
-            text="Salire, girare, restare sospesi. La pole è forza che diventa linguaggio."
-            className="mt-5 max-w-2xl pl-3 text-lg text-paper/80 md:pl-6 md:text-2xl"
-          />
-          <div className="mt-8 flex flex-wrap items-center gap-3 pl-3 md:pl-6">
-            <Magnetic>
-              <Button variant="brand" size="lg">
-                {strings.cta.prenotaProva}
-              </Button>
-            </Magnetic>
-            <Button variant="outline" size="lg">
-              {strings.cta.scopriDiscipline}
-            </Button>
-          </div>
-        </Container>
-
-        <div className="border-t border-paper/10 pt-5">
-          <Marquee baseVelocity={2.4}>
-            {DISCIPLINE.map((d) => (
-              <span key={d} className="eyebrow mx-5 text-paper/55 md:mx-8">
-                {d} •
-              </span>
-            ))}
-          </Marquee>
-        </div>
-      </Section>
+      <Hero disciplines={disciplines} />
+      <Manifesto />
+      <DisciplineShowcase disciplines={disciplines} />
+      <WhyClimb />
+      <SchedulePreview schedule={schedule} />
+      <PricingTeaser pricing={pricing} />
+      <Location />
     </main>
   );
 }

@@ -1,0 +1,64 @@
+import type { Metadata } from "next";
+import Image from "next/image";
+
+import { getGallery } from "@/sanity/lib/data";
+import { urlFor } from "@/sanity/lib/image";
+import type { GalleryItem } from "@/sanity/types";
+import { Container } from "@/components/layout/container";
+import { Section, Spine } from "@/components/layout/section";
+import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
+import { Reveal } from "@/components/motion/reveal";
+
+export const metadata: Metadata = {
+  title: "Galleria",
+  description: "Foto e video di Climb Pole Studio: lezioni, performance e vita dello studio.",
+};
+
+export default async function GalleriaPage() {
+  const items = await getGallery().catch(() => [] as GalleryItem[]);
+
+  return (
+    <main>
+      <Section tone="stage" className="py-28 pt-32 md:py-32 md:pt-40">
+        <Container>
+          <div className="relative">
+            <Spine className="left-0 bg-brand/40" />
+            <p className="eyebrow pl-4 text-brand md:pl-6">Lo studio in immagini</p>
+            <ChromaticShadow as="h1" className="text-display pl-4 md:pl-6" style={{ fontSize: "clamp(3rem, 12vw, 9rem)" }}>
+              Galleria
+            </ChromaticShadow>
+          </div>
+
+          {items.length ? (
+            <div className="mt-14 columns-2 gap-4 md:columns-3 [&>*]:mb-4">
+              {items.map((it, i) => (
+                <Reveal key={it._id} delay={(i % 6) * 0.04}>
+                  <figure className="overflow-hidden rounded-lg border border-paper/10">
+                    {it.image ? (
+                      <Image
+                        src={urlFor(it.image).width(800).quality(70).url()}
+                        alt={it.caption ?? "Climb Pole Studio"}
+                        width={800}
+                        height={1000}
+                        sizes="(max-width:768px) 50vw, 33vw"
+                        className="h-auto w-full object-cover"
+                      />
+                    ) : null}
+                    {it.caption ? (
+                      <figcaption className="p-3 text-sm text-paper/60">{it.caption}</figcaption>
+                    ) : null}
+                  </figure>
+                </Reveal>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-14 max-w-xl text-paper/60">
+              La galleria sta prendendo forma. Nel frattempo, seguici su Instagram per le ultime
+              dallo studio.
+            </p>
+          )}
+        </Container>
+      </Section>
+    </main>
+  );
+}

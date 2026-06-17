@@ -7,6 +7,8 @@ import {
   SCHEDULE_QUERY,
   SCHEDULE_BY_DISCIPLINE_QUERY,
   PRICING_QUERY,
+  GALLERY_QUERY,
+  NEWS_QUERY,
 } from "./queries";
 import type {
   SiteSettings,
@@ -14,6 +16,8 @@ import type {
   Discipline,
   ScheduleSlot,
   PricingPlan,
+  GalleryItem,
+  NewsPostCard,
 } from "../types";
 
 /** Getter tipizzati usati dai Server Component. ISR ~5 min. */
@@ -52,4 +56,12 @@ export function getSchedule() {
 
 export function getPricing() {
   return sanityFetch<PricingPlan[]>({ query: PRICING_QUERY, revalidate: 300 });
+}
+
+export function getGallery() {
+  return sanityFetch<GalleryItem[]>({ query: GALLERY_QUERY, revalidate: 300 });
+}
+
+export function getNews() {
+  return sanityFetch<NewsPostCard[]>({ query: NEWS_QUERY, revalidate: 300 });
 }

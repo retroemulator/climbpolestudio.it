@@ -59,7 +59,7 @@ export function Location() {
           >
             <div
               aria-hidden
-              className="absolute inset-0 opacity-30 [background-image:linear-gradient(var(--color-brand)_1px,transparent_1px),linear-gradient(90deg,var(--color-brand)_1px,transparent_1px)] [background-size:32px_32px]"
+              className="absolute inset-0 opacity-30 bg-[linear-gradient(var(--color-brand)_1px,transparent_1px),linear-gradient(90deg,var(--color-brand)_1px,transparent_1px)] bg-size-[32px_32px]"
             />
             <span className="relative eyebrow text-paper/70 transition-colors group-hover:text-brand">
               Apri in Google Maps →

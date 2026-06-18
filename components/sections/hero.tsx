@@ -68,7 +68,14 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
               className="text-display"
               style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
             >
-              {strings.brand.name.split(" ")[0]}
+              {/* "I" = il palo: barra verticale brand, come nel logo. */}
+              <span className="sr-only">{strings.brand.name.split(" ")[0]}</span>
+              <span aria-hidden>CL</span>
+              <span
+                aria-hidden
+                className="mx-[0.05em] inline-block h-[0.72em] w-[0.12em] bg-brand align-baseline"
+              />
+              <span aria-hidden>MB</span>
             </ChromaticShadow>
           </Stamp>
           <RevealText

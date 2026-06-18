@@ -1,15 +1,12 @@
-import Link from "next/link";
-
-import { contact, routes, whatsappUrl } from "@/lib/site";
+import { contact } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { Reveal } from "@/components/motion/reveal";
 import { StudioMap } from "@/components/sections/studio-map";
-import { Button } from "@/components/ui/button";
 
 /**
- * Location (stage): lo spazio fisico + come raggiungerlo + CTA. La mappa vera
- * (embed/static) arriva in Fase 14; qui un placeholder coerente col tema.
+ * Location (stage): lo spazio fisico, i contatti diretti e la mappa interattiva.
+ * Niente CTA prenota/WhatsApp qui: sono nel footer subito sotto (no ridondanza).
  */
 export function Location() {
   const { address } = contact;
@@ -29,28 +26,23 @@ export function Location() {
           <p className="mt-4 pl-4 text-paper/70 md:pl-6">
             {address.zip} {address.city} · {address.country}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3 pl-4 md:pl-6">
-            <Button asChild variant="brand" size="lg">
-              <Link href={routes.prenota}>Prenota la prova</Link>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                Scrivici su WhatsApp
-              </a>
-            </Button>
-          </div>
-          <p className="mt-6 pl-4 text-sm text-paper/50 md:pl-6">
-            <a href={`tel:${contact.phoneE164}`} className="transition-colors hover:text-brand">
+          <div className="mt-8 space-y-3 pl-4 md:pl-6">
+            <a
+              href={`tel:${contact.phoneE164}`}
+              className="block text-lg text-paper/85 transition-colors hover:text-brand md:text-2xl"
+            >
               {contact.phoneDisplay}
-            </a>{" "}
-            ·{" "}
-            <a href={`mailto:${contact.email}`} className="transition-colors hover:text-brand">
+            </a>
+            <a
+              href={`mailto:${contact.email}`}
+              className="block text-lg text-paper/85 transition-colors hover:text-brand md:text-2xl"
+            >
               {contact.email}
             </a>
-          </p>
+          </div>
         </div>
 
-        {/* Mappa "locator" on-brand animata (radar + pin). Click → Google Maps. */}
+        {/* Mappa interattiva on-brand (radar + pin); scroll in hover = zoom. */}
         <Reveal delay={0.1}>
           <StudioMap
             href={maps}

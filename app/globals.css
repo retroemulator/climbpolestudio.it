@@ -192,24 +192,46 @@ html.lenis body {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   SINCOPE — entrata "a singhiozzo" del wordmark hero (stile Canva).
+   TIMBRATURA — entrata "a timbro" del wordmark hero.
+   Arriva enorme e sfocato (da "fuori schermo", clippato dall'overflow-hidden
+   della hero), PRECIPITA accelerando e SBATTE a dimensione finale con arresto
+   secco, poi micro-rinculo (squash → overshoot → assestamento).
+   Scaling centrato sul wordmark (wrapper width:max-content + origin center).
    Solo sotto no-preference → con reduced-motion resta statico/visibile.
    ────────────────────────────────────────────────────────────── */
-@keyframes cps-sincope {
-  0% { opacity: 0; transform: translateX(-26px) skewX(-10deg); }
-  10% { opacity: 1; transform: translateX(0) skewX(0deg); }
-  17% { opacity: 0.06; transform: translateX(24px) skewX(9deg); }
-  31% { opacity: 1; transform: translateX(-17px) skewX(-6deg); }
-  40% { opacity: 0.28; transform: translateX(11px) skewX(4deg); }
-  56% { opacity: 1; transform: translateX(-5px) skewX(-2deg); }
-  68% { opacity: 0.65; transform: translateX(2px) skewX(1deg); }
-  100% { opacity: 1; transform: translateX(0) skewX(0deg); }
+@keyframes cps-stamp {
+  /* Fuori fuoco e gigante, in arrivo verso lo spettatore */
+  0% { opacity: 0; transform: scale(2.6); filter: blur(6px); }
+  /* Compare e inizia a precipitare (il blocco accelera la caduta) */
+  14% {
+    opacity: 1;
+    transform: scale(2.3);
+    filter: blur(4px);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.05);
+  }
+  /* Messa a fuoco completata PRIMA del contatto → lo slam legge nitido */
+  40% { filter: blur(0); }
+  /* IMPATTO: arresto netto a dimensione finale */
+  48% {
+    transform: scale(1);
+    filter: blur(0);
+    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  }
+  /* Squash: il timbro preme e schiaccia appena */
+  60% { transform: scale(0.955); animation-timing-function: ease-in-out; }
+  /* Micro-rinculo elastico */
+  74% { transform: scale(1.015); animation-timing-function: ease-in-out; }
+  /* Assestamento secco */
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .sincope {
-    transform-origin: left center;
-    will-change: transform, opacity;
-    animation: cps-sincope 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+  .stamp {
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    transform-origin: center;
+    will-change: transform, opacity, filter;
+    animation: cps-stamp 1.4s linear 0.4s both;
   }
 }
 

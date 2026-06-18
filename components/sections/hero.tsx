@@ -8,7 +8,7 @@ import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { Media } from "@/components/media/media";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
-import { Sincope } from "@/components/motion/sincope";
+import { Stamp } from "@/components/motion/stamp";
 import { RevealText } from "@/components/motion/reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -61,16 +61,16 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
           <p className="eyebrow pl-4 text-paper/80 md:pl-6">
             {strings.brand.city} · {strings.brand.payoff}
           </p>
-          <Sincope>
+          <Stamp className="pl-4 md:pl-6">
             <ChromaticShadow
               as="h1"
               entrance={false}
-              className="text-display pl-4 md:pl-6"
+              className="text-display"
               style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
             >
               {strings.brand.name.split(" ")[0]}
             </ChromaticShadow>
-          </Sincope>
+          </Stamp>
           <RevealText
             as="p"
             text="Salire, girare, restare sospesi. La pole è forza che diventa linguaggio."

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -50,6 +50,7 @@ export function Media({
   morphMs = 700,
 }: MediaProps) {
   const reduced = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [showVideo, setShowVideo] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
 
@@ -60,6 +61,21 @@ export function Media({
     if (!allowMobile && window.matchMedia("(max-width: 768px)").matches) return;
     setShowVideo(true);
   }, [videoUrl, reduced, allowMobile]);
+
+  // In modalità morph il video NON parte in autoplay: durante la dissolvenza
+  // resta in pausa sul primo frame, e la riproduzione parte DALL'INIZIO solo a
+  // morph concluso (così non si perdono i primi secondi). Negli altri casi
+  // l'autoplay gestisce tutto e questo effetto è un no-op.
+  useEffect(() => {
+    if (!morph || !videoReady) return;
+    const id = window.setTimeout(() => {
+      const v = videoRef.current;
+      if (!v) return;
+      v.currentTime = 0;
+      void v.play().catch(() => {});
+    }, morphMs);
+    return () => window.clearTimeout(id);
+  }, [morph, videoReady, morphMs]);
 
   const animateKenBurns = kenBurns && !reduced && !showVideo;
 
@@ -83,6 +99,7 @@ export function Media({
 
       {showVideo && videoUrl ? (
         <video
+          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover will-change-[opacity,transform,filter]"
           style={{
             opacity: videoReady ? 1 : 0,
@@ -93,11 +110,14 @@ export function Media({
                 `opacity ${morphMs}ms cubic-bezier(0.45,0,0.55,1), transform ${morphMs}ms cubic-bezier(0.45,0,0.55,1), filter ${morphMs}ms cubic-bezier(0.45,0,0.55,1)`
               : `opacity ${morphMs}ms ease`,
           }}
-          autoPlay
+          // morph: niente autoplay → la dissolvenza va dal poster al primo frame,
+          // poi l'effetto sopra avvia play() dall'inizio. Altrimenti autoplay.
+          autoPlay={!morph}
+          preload="auto"
           muted
           loop
           playsInline
-          poster={poster ?? image.src}
+          poster={morph ? undefined : poster ?? image.src}
           onCanPlay={() => setVideoReady(true)}
           onPlaying={() => setVideoReady(true)}
         >

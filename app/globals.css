@@ -283,8 +283,17 @@ html.lenis body {
   --cps-edge: var(--color-paper);
 }
 
-/* Base mappa reale: il filtro la porta on-brand per il tono */
+/* Mappa Leaflet: container trasparente e isolato; il filtro on-brand va SOLO
+   sulle tile (non su attribuzione/overlay). */
 .studio-map__embed {
+  isolation: isolate;
+}
+.studio-map__embed .leaflet-container {
+  background: transparent;
+  outline: none;
+  font: inherit;
+}
+.studio-map__embed .leaflet-tile-pane {
   filter: var(--cps-map-filter);
 }
 /* Tinta brand sopra la mappa (mix-blend) */

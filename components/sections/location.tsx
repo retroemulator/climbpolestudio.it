@@ -23,7 +23,7 @@ export function Location() {
         <div className="relative">
           <Spine className="left-0 bg-brand/40" />
           <p className="eyebrow pl-4 text-brand md:pl-6">Dove</p>
-          <h2 className="text-display mt-3 pl-4 md:pl-6" style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}>
+          <h2 className="text-display mt-3 pl-4 md:pl-6" style={{ fontSize: "clamp(1.5rem, 4vw, 2.75rem)" }}>
             {address.street}
           </h2>
           <p className="mt-4 pl-4 text-paper/70 md:pl-6">
@@ -55,6 +55,7 @@ export function Location() {
           <StudioMap
             href={maps}
             tone="stage"
+            geo={{ lat: address.lat, lon: address.lon }}
             address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}
           />
         </Reveal>

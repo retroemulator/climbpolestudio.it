@@ -68,6 +68,7 @@ export default function ContattiPage() {
               href={maps}
               tone="light"
               className="mt-8"
+              geo={{ lat: address.lat, lon: address.lon }}
               address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}
             />
           </div>

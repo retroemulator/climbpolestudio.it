@@ -19,6 +19,9 @@ type ChromaticShadowProps = {
   offset?: number;
   /** abilita lo split RGB su hover */
   interactive?: boolean;
+  /** reveal "fantasma che rincorre" in entrata. Spegnilo se l'entrata è gestita
+   *  da un wrapper esterno (es. Sincope) → i layer partono già a riposo. */
+  entrance?: boolean;
 };
 
 /**
@@ -40,6 +43,7 @@ export function ChromaticShadow({
   splitColor = "var(--color-cyan)",
   offset = 6,
   interactive = true,
+  entrance = true,
 }: ChromaticShadowProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-12%" });
@@ -61,7 +65,7 @@ export function ChromaticShadow({
     );
   }
 
-  const state = hovered ? "split" : inView ? "rest" : "enter";
+  const state = hovered ? "split" : inView || !entrance ? "rest" : "enter";
 
   const magenta: Variants = {
     enter: { x: offset * 3, y: offset * 3, opacity: 0 },
@@ -86,7 +90,7 @@ export function ChromaticShadow({
         className="absolute inset-0 will-change-transform"
         style={{ color: ghostColor }}
         variants={magenta}
-        initial="enter"
+        initial={entrance ? "enter" : "rest"}
         animate={state}
         transition={hovered ? SPRING_SNAP : { duration: 0.7, ease: EASE_OUT }}
       >
@@ -97,7 +101,7 @@ export function ChromaticShadow({
         className="absolute inset-0 will-change-transform"
         style={{ color: splitColor }}
         variants={cyan}
-        initial="enter"
+        initial={entrance ? "enter" : "rest"}
         animate={state}
         transition={SPRING_SNAP}
       >

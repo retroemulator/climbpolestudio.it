@@ -8,6 +8,7 @@ import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { Media } from "@/components/media/media";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
+import { Sincope } from "@/components/motion/sincope";
 import { RevealText } from "@/components/motion/reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -47,7 +48,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
           priority
           sizes="100vw"
           morph
-          morphMs={4500}
+          morphMs={3500}
         />
         {/* Scrim uniforme: garantisce leggibilità del wordmark anche su frame
             video chiari (l'overlay gradiente da solo non basta in alto). */}
@@ -60,13 +61,16 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
           <p className="eyebrow pl-4 text-paper/80 md:pl-6">
             {strings.brand.city} · {strings.brand.payoff}
           </p>
-          <ChromaticShadow
-            as="h1"
-            className="text-display pl-4 md:pl-6"
-            style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
-          >
-            {strings.brand.name.split(" ")[0]}
-          </ChromaticShadow>
+          <Sincope>
+            <ChromaticShadow
+              as="h1"
+              entrance={false}
+              className="text-display pl-4 md:pl-6"
+              style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
+            >
+              {strings.brand.name.split(" ")[0]}
+            </ChromaticShadow>
+          </Sincope>
           <RevealText
             as="p"
             text="Salire, girare, restare sospesi. La pole è forza che diventa linguaggio."

@@ -199,30 +199,26 @@ html.lenis body {
    Scaling centrato sul wordmark (wrapper width:max-content + origin center).
    Solo sotto no-preference → con reduced-motion resta statico/visibile.
    ────────────────────────────────────────────────────────────── */
+/* Solo scale + opacity (composited) → fluido, niente blur che fa jank. */
 @keyframes cps-stamp {
-  /* Fuori fuoco e gigante, in arrivo verso lo spettatore */
-  0% { opacity: 0; transform: scale(2.6); filter: blur(6px); }
-  /* Compare e inizia a precipitare (il blocco accelera la caduta) */
-  14% {
-    opacity: 1;
+  /* Gigante, in arrivo verso lo spettatore; accelera la caduta */
+  0% {
+    opacity: 0;
     transform: scale(2.3);
-    filter: blur(4px);
-    animation-timing-function: cubic-bezier(0.7, 0, 0.9, 0.05);
+    animation-timing-function: cubic-bezier(0.55, 0, 0.85, 0.3);
   }
-  /* Messa a fuoco completata PRIMA del contatto → lo slam legge nitido */
-  40% { filter: blur(0); }
-  /* IMPATTO: arresto netto a dimensione finale */
-  48% {
+  /* IMPATTO: precipita a dimensione finale */
+  50% {
+    opacity: 1;
     transform: scale(1);
-    filter: blur(0);
-    animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+    animation-timing-function: ease-out;
   }
   /* Squash: il timbro preme e schiaccia appena */
-  60% { transform: scale(0.955); animation-timing-function: ease-in-out; }
+  63% { transform: scale(0.96); animation-timing-function: ease-in-out; }
   /* Micro-rinculo elastico */
-  74% { transform: scale(1.015); animation-timing-function: ease-in-out; }
-  /* Assestamento secco */
-  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+  80% { transform: scale(1.012); animation-timing-function: ease-in-out; }
+  /* Assestamento */
+  100% { opacity: 1; transform: scale(1); }
 }
 @media (prefers-reduced-motion: no-preference) {
   .stamp {
@@ -230,8 +226,8 @@ html.lenis body {
     width: max-content;
     max-width: 100%;
     transform-origin: center;
-    will-change: transform, opacity, filter;
-    animation: cps-stamp 1.4s linear 0.4s both;
+    will-change: transform, opacity;
+    animation: cps-stamp 1.3s linear 0.4s both;
   }
 }
 

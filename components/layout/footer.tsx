@@ -37,7 +37,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Scrivici su WhatsApp"
-              className="inline-flex size-12 items-center justify-center rounded-md border border-input transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="inline-flex size-12 items-center justify-center rounded-md border border-input text-paper/80 transition-colors hover:border-brand hover:bg-paper/5 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <WhatsappIcon className="size-5" />
             </a>

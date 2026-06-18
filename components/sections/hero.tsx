@@ -22,6 +22,10 @@ import { Magnetic } from "@/components/motion/magnetic";
 const HERO_POSTER =
   "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=2000&q=70";
 
+// Video hero (in `public/`). Verticale provvisorio → zoom a riempire l'hero
+// (object-cover, centrato: ritaglia sopra/sotto, niente bande laterali).
+const HERO_VIDEO = "/hero.mp4";
+
 export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
   const names = disciplines.length
     ? disciplines.map((d) => d.title)
@@ -33,14 +37,19 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
       id="hero"
       className="relative flex min-h-[100svh] flex-col overflow-hidden"
     >
-      {/* Sfondo media + overlay per leggibilità */}
+      {/* Sfondo media (video full-bleed) + overlay per leggibilità */}
       <div className="absolute inset-0">
         <Media
           image={{ src: HERO_POSTER, alt: "Allenamento di arti aeree a Climb Pole Studio" }}
+          videoUrl={HERO_VIDEO}
+          allowMobile
           overlay
           priority
           sizes="100vw"
         />
+        {/* Scrim uniforme: garantisce leggibilità del wordmark anche su frame
+            video chiari (l'overlay gradiente da solo non basta in alto). */}
+        <div aria-hidden className="absolute inset-0 bg-ink/35" />
       </div>
 
       <Container className="relative z-10 flex flex-1 flex-col justify-end pb-10 pt-28 md:pb-14">

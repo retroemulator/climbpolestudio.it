@@ -19,13 +19,16 @@ type MediaProps = {
   overlay?: boolean;
   className?: string;
   sizes?: string;
+  /** Consente il video anche su mobile (default: no, per LCP). Utile per video
+   *  verticali pensati per il portrait, es. l'hero. */
+  allowMobile?: boolean;
 };
 
 /**
  * Primitiva media "video-ready ma non video-dipendente" (richiesta chiave).
  * - Renderizza SEMPRE <Image> (poster/fallback, buono per LCP).
  * - Mostra <video> sopra SOLO se: c'è videoUrl, non è reduced-motion, non è
- *   data-saver, non è schermo piccolo. Il video sfuma all'avvio.
+ *   data-saver, e non è schermo piccolo (salvo `allowMobile`). Sfuma all'avvio.
  * Aggiungere un video in futuro = incollare l'URL in Sanity: zero codice.
  */
 export function Media({
@@ -37,6 +40,7 @@ export function Media({
   overlay = false,
   className,
   sizes = "100vw",
+  allowMobile = false,
 }: MediaProps) {
   const reduced = useReducedMotion();
   const [showVideo, setShowVideo] = useState(false);
@@ -45,9 +49,9 @@ export function Media({
     if (!videoUrl || reduced) return;
     const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     if (conn?.saveData) return;
-    if (window.matchMedia("(max-width: 768px)").matches) return;
+    if (!allowMobile && window.matchMedia("(max-width: 768px)").matches) return;
     setShowVideo(true);
-  }, [videoUrl, reduced]);
+  }, [videoUrl, reduced, allowMobile]);
 
   const animateKenBurns = kenBurns && !reduced && !showVideo;
 

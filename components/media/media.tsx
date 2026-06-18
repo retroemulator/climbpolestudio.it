@@ -89,7 +89,8 @@ export function Media({
             transform: morph ? (videoReady ? "scale(1)" : "scale(1.06)") : undefined,
             filter: morph ? (videoReady ? "blur(0px)" : "blur(12px)") : undefined,
             transition: morph
-              ? `opacity ${morphMs}ms cubic-bezier(0.16,1,0.3,1), transform ${morphMs}ms cubic-bezier(0.16,1,0.3,1), filter ${morphMs}ms cubic-bezier(0.16,1,0.3,1)`
+              ? // ease-in-out: il blend è distribuito in modo uniforme → morph lento e graduale
+                `opacity ${morphMs}ms cubic-bezier(0.45,0,0.55,1), transform ${morphMs}ms cubic-bezier(0.45,0,0.55,1), filter ${morphMs}ms cubic-bezier(0.45,0,0.55,1)`
               : `opacity ${morphMs}ms ease`,
           }}
           autoPlay

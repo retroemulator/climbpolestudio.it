@@ -190,3 +190,74 @@ html.lenis body {
 .lenis.lenis-smooth iframe {
   pointer-events: none;
 }
+
+/* ──────────────────────────────────────────────────────────────
+   STUDIO MAP — "locator" on-brand animato (home §Dove + Contatti).
+   Animazioni 100% CSS → il componente resta server (zero JS bundle).
+   Il blocco prefers-reduced-motion qui sopra le neutralizza da solo.
+   Due toni via custom properties: --stage (su scuro) e --light.
+   ────────────────────────────────────────────────────────────── */
+@keyframes cps-radar {
+  0% { transform: scale(0.18); opacity: 0; }
+  18% { opacity: 0.6; }
+  100% { transform: scale(1); opacity: 0; }
+}
+@keyframes cps-sweep {
+  to { transform: rotate(360deg); }
+}
+@keyframes cps-pin {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.16); }
+}
+@keyframes cps-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.studio-map--stage {
+  --cps-grid: color-mix(in oklab, var(--color-brand) 26%, transparent);
+  --cps-road: color-mix(in oklab, var(--color-brand) 60%, transparent);
+  --cps-ring: var(--color-electric);
+  --cps-sweep: color-mix(in oklab, var(--color-electric) 22%, transparent);
+  --cps-pin: var(--color-electric);
+  --cps-pin-core: var(--color-paper);
+}
+.studio-map--light {
+  --cps-grid: color-mix(in oklab, var(--color-brand-strong) 20%, transparent);
+  --cps-road: color-mix(in oklab, var(--color-brand-strong) 42%, transparent);
+  --cps-ring: var(--color-brand-strong);
+  --cps-sweep: color-mix(in oklab, var(--color-brand-strong) 16%, transparent);
+  --cps-pin: var(--color-brand-strong);
+  --cps-pin-core: var(--color-paper-pure);
+}
+
+/* Griglia "strade" sfumata ai bordi (mask radiale → profondità, non un riquadro piatto) */
+.studio-map__grid {
+  background-image:
+    linear-gradient(var(--cps-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--cps-grid) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(ellipse 78% 82% at 50% 48%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 78% 82% at 50% 48%, #000 30%, transparent 80%);
+}
+/* Raggio "radar" che ruota lentamente attorno al pin */
+.studio-map__sweep {
+  background: conic-gradient(from 0deg, transparent 0deg, var(--cps-sweep) 38deg, transparent 76deg);
+  animation: cps-sweep 8s linear infinite;
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 68%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0%, transparent 68%);
+}
+/* Anelli concentrici che si propagano dal pin (lo "wow") */
+.studio-map__ring {
+  border: 1px solid var(--cps-ring);
+  animation: cps-radar 3.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.studio-map__pin {
+  animation: cps-pin 2.6s ease-in-out infinite;
+  box-shadow:
+    0 0 10px 1px var(--cps-pin),
+    0 0 26px 6px color-mix(in oklab, var(--cps-pin) 55%, transparent);
+}
+.studio-map__tag {
+  animation: cps-float 5s ease-in-out infinite;
+}

@@ -7,6 +7,7 @@ import { WhyClimb } from "@/components/sections/why-climb";
 import { SchedulePreview } from "@/components/sections/schedule-preview";
 import { PricingTeaser } from "@/components/sections/pricing-teaser";
 import { Location } from "@/components/sections/location";
+import { RevealSection } from "@/components/motion/reveal-section";
 
 /** Se Sanity non è raggiungibile, la home rende comunque (sezioni vuote → null). */
 async function safe<T>(p: Promise<T>, fallback: T): Promise<T> {
@@ -32,12 +33,24 @@ export default async function Home() {
   return (
     <main>
       <Hero disciplines={disciplines} />
-      <Manifesto />
-      <DisciplineShowcase disciplines={disciplines} />
-      <WhyClimb />
-      <SchedulePreview schedule={schedule} />
-      <PricingTeaser pricing={pricing} />
-      <Location />
+      <RevealSection>
+        <Manifesto />
+      </RevealSection>
+      <RevealSection>
+        <DisciplineShowcase disciplines={disciplines} />
+      </RevealSection>
+      <RevealSection>
+        <WhyClimb />
+      </RevealSection>
+      <RevealSection>
+        <SchedulePreview schedule={schedule} />
+      </RevealSection>
+      <RevealSection>
+        <PricingTeaser pricing={pricing} />
+      </RevealSection>
+      <RevealSection>
+        <Location />
+      </RevealSection>
     </main>
   );
 }

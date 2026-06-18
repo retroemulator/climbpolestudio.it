@@ -1,4 +1,5 @@
 import { SmoothScroll } from "@/components/providers/smooth-scroll";
+import { ScrollProgress } from "@/components/motion/scroll-progress";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { WhatsappFab } from "@/components/whatsapp-fab";
@@ -13,6 +14,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
   return (
     <SmoothScroll>
       <StructuredData />
+      <ScrollProgress />
       <Navbar />
       {children}
       <Footer />

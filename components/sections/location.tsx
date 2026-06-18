@@ -4,6 +4,7 @@ import { contact, routes, whatsappUrl } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { Reveal } from "@/components/motion/reveal";
+import { StudioMap } from "@/components/sections/studio-map";
 import { Button } from "@/components/ui/button";
 
 /**
@@ -49,22 +50,13 @@ export function Location() {
           </p>
         </div>
 
-        {/* Mappa: placeholder (Fase 14 → embed reale). Click → Google Maps. */}
+        {/* Mappa "locator" on-brand animata (radar + pin). Click → Google Maps. */}
         <Reveal delay={0.1}>
-          <a
+          <StudioMap
             href={maps}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative flex aspect-4/3 w-full items-center justify-center overflow-hidden rounded-lg border border-paper/10 bg-linear-to-br from-ink-soft to-ink"
-          >
-            <div
-              aria-hidden
-              className="absolute inset-0 opacity-30 bg-[linear-gradient(var(--color-brand)_1px,transparent_1px),linear-gradient(90deg,var(--color-brand)_1px,transparent_1px)] bg-size-[32px_32px]"
-            />
-            <span className="relative eyebrow text-paper/70 transition-colors group-hover:text-brand">
-              Apri in Google Maps →
-            </span>
-          </a>
+            tone="stage"
+            address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}
+          />
         </Reveal>
       </Container>
     </Section>

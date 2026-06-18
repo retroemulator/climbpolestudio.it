@@ -4,6 +4,7 @@ import { contact, socials, whatsappUrl } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
+import { StudioMap } from "@/components/sections/studio-map";
 import { ContactForm } from "@/components/contact-form";
 
 export const metadata: Metadata = {
@@ -75,18 +76,12 @@ export default function ContattiPage() {
               ))}
             </div>
 
-            <a
+            <StudioMap
               href={maps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group relative mt-8 flex aspect-video w-full items-center justify-center overflow-hidden rounded-lg border border-line bg-secondary"
-            >
-              <div
-                aria-hidden
-                className="absolute inset-0 opacity-40 bg-[linear-gradient(var(--color-brand)_1px,transparent_1px),linear-gradient(90deg,var(--color-brand)_1px,transparent_1px)] bg-size-[28px_28px]"
-              />
-              <span className="relative eyebrow text-brand-strong">Apri in Google Maps →</span>
-            </a>
+              tone="light"
+              className="mt-8"
+              address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}
+            />
           </div>
 
           {/* Form */}

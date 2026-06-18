@@ -23,6 +23,11 @@ export function StructuredData() {
       addressLocality: contact.address.city,
       addressCountry: "IT",
     },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: contact.address.lat,
+      longitude: contact.address.lon,
+    },
     sameAs: socials.map((s) => s.href),
     image: `${SITE_URL}/logo.png`,
   };

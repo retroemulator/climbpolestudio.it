@@ -61,6 +61,9 @@ export const contact = {
     zip: "10126",
     city: "Torino",
     country: "Italia",
+    /** Coordinate reali (geocoding OSM/Nominatim) per l'embed mappa. */
+    lat: 45.0460915,
+    lon: 7.6806417,
   },
 } as const;
 

@@ -215,30 +215,51 @@ html.lenis body {
 }
 
 .studio-map--stage {
-  --cps-grid: color-mix(in oklab, var(--color-brand) 26%, transparent);
-  --cps-road: color-mix(in oklab, var(--color-brand) 60%, transparent);
   --cps-ring: var(--color-electric);
   --cps-sweep: color-mix(in oklab, var(--color-electric) 22%, transparent);
   --cps-pin: var(--color-electric);
   --cps-pin-core: var(--color-paper);
+  /* Mappa scura: inverte + ruota la tinta (il blu acqua resta blu), desatura. */
+  --cps-map-filter: invert(0.92) hue-rotate(180deg) saturate(0.72) contrast(0.9) brightness(0.95);
+  --cps-tint: var(--color-electric);
+  --cps-tint-blend: screen;
+  --cps-tint-opacity: 0.1;
+  --cps-edge: var(--color-ink);
 }
 .studio-map--light {
-  --cps-grid: color-mix(in oklab, var(--color-brand-strong) 20%, transparent);
-  --cps-road: color-mix(in oklab, var(--color-brand-strong) 42%, transparent);
   --cps-ring: var(--color-brand-strong);
   --cps-sweep: color-mix(in oklab, var(--color-brand-strong) 16%, transparent);
   --cps-pin: var(--color-brand-strong);
   --cps-pin-core: var(--color-paper-pure);
+  /* Mappa chiara: leggermente desaturata e schiarita, tinta magenta in multiply. */
+  --cps-map-filter: grayscale(0.3) contrast(1.03) brightness(1.02) saturate(0.95);
+  --cps-tint: var(--color-brand-strong);
+  --cps-tint-blend: multiply;
+  --cps-tint-opacity: 0.06;
+  --cps-edge: var(--color-paper);
 }
 
-/* Griglia "strade" sfumata ai bordi (mask radiale → profondità, non un riquadro piatto) */
-.studio-map__grid {
-  background-image:
-    linear-gradient(var(--cps-grid) 1px, transparent 1px),
-    linear-gradient(90deg, var(--cps-grid) 1px, transparent 1px);
-  background-size: 34px 34px;
-  -webkit-mask-image: radial-gradient(ellipse 78% 82% at 50% 48%, #000 30%, transparent 80%);
-  mask-image: radial-gradient(ellipse 78% 82% at 50% 48%, #000 30%, transparent 80%);
+/* Base mappa reale: il filtro la porta on-brand per il tono */
+.studio-map__embed {
+  filter: var(--cps-map-filter);
+}
+/* Tinta brand sopra la mappa (mix-blend) */
+.studio-map__tint {
+  background: var(--cps-tint);
+  mix-blend-mode: var(--cps-tint-blend);
+  opacity: var(--cps-tint-opacity);
+}
+/* Vignettatura: sfuma SOLO i bordi estremi della mappa nel colore della sezione */
+.studio-map__vignette {
+  background: radial-gradient(ellipse 80% 82% at 50% 50%, transparent 52%, var(--cps-edge) 99%);
+}
+/* Alone brand stretto attorno al pin (non copre le strade) */
+.studio-map__glow {
+  background: radial-gradient(
+    circle at 50% 50%,
+    color-mix(in oklab, var(--cps-pin) 40%, transparent) 0%,
+    transparent 11%
+  );
 }
 /* Raggio "radar" che ruota lentamente attorno al pin */
 .studio-map__sweep {

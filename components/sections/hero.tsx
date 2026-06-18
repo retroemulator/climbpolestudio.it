@@ -46,6 +46,8 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
           overlay
           priority
           sizes="100vw"
+          morph
+          morphMs={2000}
         />
         {/* Scrim uniforme: garantisce leggibilità del wordmark anche su frame
             video chiari (l'overlay gradiente da solo non basta in alto). */}

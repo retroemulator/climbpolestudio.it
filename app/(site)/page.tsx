@@ -1,5 +1,5 @@
-import { getDisciplines, getSchedule, getPricing } from "@/sanity/lib/data";
-import type { DisciplineCard, ScheduleSlot, PricingPlan } from "@/sanity/types";
+import { getDisciplines, getSchedule } from "@/sanity/lib/data";
+import type { DisciplineCard, ScheduleSlot } from "@/sanity/types";
 import { Hero } from "@/components/sections/hero";
 import { Manifesto } from "@/components/sections/manifesto";
 import { DisciplineShowcase } from "@/components/sections/discipline-showcase";
@@ -24,10 +24,9 @@ async function safe<T>(p: Promise<T>, fallback: T): Promise<T> {
  * Contenuti reali da Sanity (discipline, orari, listino).
  */
 export default async function Home() {
-  const [disciplines, schedule, pricing] = await Promise.all([
+  const [disciplines, schedule] = await Promise.all([
     safe<DisciplineCard[]>(getDisciplines(), []),
     safe<ScheduleSlot[]>(getSchedule(), []),
-    safe<PricingPlan[]>(getPricing(), []),
   ]);
 
   return (
@@ -46,7 +45,7 @@ export default async function Home() {
         <SchedulePreview schedule={schedule} />
       </RevealSection>
       <RevealSection>
-        <PricingTeaser pricing={pricing} />
+        <PricingTeaser />
       </RevealSection>
       <RevealSection>
         <Location />

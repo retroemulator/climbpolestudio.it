@@ -22,6 +22,11 @@ type MediaProps = {
   /** Consente il video anche su mobile (default: no, per LCP). Utile per video
    *  verticali pensati per il portrait, es. l'hero. */
   allowMobile?: boolean;
+  /** Morphing foto→video: il video entra con scale+blur che si risolvono (non
+   *  un semplice fade). Pensato per l'hero. Default: crossfade semplice. */
+  morph?: boolean;
+  /** Durata (ms) della transizione foto→video. Default 700; hero ~2000. */
+  morphMs?: number;
 };
 
 /**
@@ -41,9 +46,12 @@ export function Media({
   className,
   sizes = "100vw",
   allowMobile = false,
+  morph = false,
+  morphMs = 700,
 }: MediaProps) {
   const reduced = useReducedMotion();
   const [showVideo, setShowVideo] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     if (!videoUrl || reduced) return;
@@ -75,15 +83,22 @@ export function Media({
 
       {showVideo && videoUrl ? (
         <video
-          className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-700"
+          className="absolute inset-0 h-full w-full object-cover will-change-[opacity,transform,filter]"
+          style={{
+            opacity: videoReady ? 1 : 0,
+            transform: morph ? (videoReady ? "scale(1)" : "scale(1.06)") : undefined,
+            filter: morph ? (videoReady ? "blur(0px)" : "blur(12px)") : undefined,
+            transition: morph
+              ? `opacity ${morphMs}ms cubic-bezier(0.16,1,0.3,1), transform ${morphMs}ms cubic-bezier(0.16,1,0.3,1), filter ${morphMs}ms cubic-bezier(0.16,1,0.3,1)`
+              : `opacity ${morphMs}ms ease`,
+          }}
           autoPlay
           muted
           loop
           playsInline
           poster={poster ?? image.src}
-          onCanPlay={(e) => {
-            e.currentTarget.style.opacity = "1";
-          }}
+          onCanPlay={() => setVideoReady(true)}
+          onPlaying={() => setVideoReady(true)}
         >
           <source src={videoUrl} />
         </video>
@@ -92,7 +107,7 @@ export function Media({
       {overlay ? (
         <div
           aria-hidden
-          className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/50"
+          className="absolute inset-0 bg-linear-to-t from-ink/85 via-ink/25 to-ink/50"
         />
       ) : null}
     </div>

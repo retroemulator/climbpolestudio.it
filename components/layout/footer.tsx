@@ -25,7 +25,7 @@ export function Footer() {
             className="text-display max-w-3xl"
             style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
           >
-            Inizia dalla prova.
+            Mettiti alla prova.
           </h2>
           <div className="flex flex-wrap gap-3">
             <Button asChild variant="brand" size="lg">

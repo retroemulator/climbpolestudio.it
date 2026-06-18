@@ -192,6 +192,28 @@ html.lenis body {
 }
 
 /* ──────────────────────────────────────────────────────────────
+   SINCOPE — entrata "a singhiozzo" del wordmark hero (stile Canva).
+   Solo sotto no-preference → con reduced-motion resta statico/visibile.
+   ────────────────────────────────────────────────────────────── */
+@keyframes cps-sincope {
+  0% { opacity: 0; transform: translateX(-26px) skewX(-10deg); }
+  10% { opacity: 1; transform: translateX(0) skewX(0deg); }
+  17% { opacity: 0.06; transform: translateX(24px) skewX(9deg); }
+  31% { opacity: 1; transform: translateX(-17px) skewX(-6deg); }
+  40% { opacity: 0.28; transform: translateX(11px) skewX(4deg); }
+  56% { opacity: 1; transform: translateX(-5px) skewX(-2deg); }
+  68% { opacity: 0.65; transform: translateX(2px) skewX(1deg); }
+  100% { opacity: 1; transform: translateX(0) skewX(0deg); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sincope {
+    transform-origin: left center;
+    will-change: transform, opacity;
+    animation: cps-sincope 1.6s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────────
    STUDIO MAP — "locator" on-brand animato (home §Dove + Contatti).
    Animazioni 100% CSS → il componente resta server (zero JS bundle).
    Il blocco prefers-reduced-motion qui sopra le neutralizza da solo.

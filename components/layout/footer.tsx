@@ -1,10 +1,11 @@
 import Link from "next/link";
 
 import { strings } from "@/lib/strings";
-import { contact, navItems, routes, socials, whatsappUrl } from "@/lib/site";
+import { contact, navItems, routes, whatsappUrl } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
+import { SocialIcons } from "@/components/brand/social-icons";
 
 /**
  * Footer globale (brief §4): CTA di chiusura + contatti, social, orari teaser,
@@ -118,21 +119,7 @@ export function Footer() {
         {/* Social */}
         <div>
           <p className="eyebrow text-paper/40">Seguici</p>
-          <ul className="mt-4 space-y-2 text-sm">
-            {socials.map((s) => (
-              <li key={s.href}>
-                <a
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="text-paper/75 transition-colors hover:text-brand"
-                >
-                  {s.handle}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <SocialIcons tone="dark" className="mt-4 -ml-2" />
         </div>
       </Container>
 

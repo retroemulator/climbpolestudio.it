@@ -82,13 +82,18 @@ export const weekdays = [
   { key: "sab", short: "Sab", long: "Sabato" },
 ] as const;
 
-/** Profili social (brief §5). `label` per `aria-label`/screen reader. */
+/** Profili social (brief §5). `platform` → icona, `label` per aria-label/SR. */
 export const socials = [
-  { label: "Instagram dello studio", handle: "@climbpolestudio", href: "https://instagram.com/climbpolestudio" },
-  { label: "Facebook dello studio", handle: "Climb Pole Studio", href: "https://facebook.com/climbpolestudio" },
   {
-    label: "Instagram di Nadia",
-    handle: "@_nadia.senatore_",
-    href: "https://instagram.com/_nadia.senatore_",
+    platform: "instagram",
+    label: "Instagram dello studio",
+    handle: "@climbpolestudio",
+    href: "https://instagram.com/climbpolestudio",
+  },
+  {
+    platform: "facebook",
+    label: "Facebook dello studio",
+    handle: "Climb Pole Studio",
+    href: "https://facebook.com/climbpolestudio",
   },
 ] as const;

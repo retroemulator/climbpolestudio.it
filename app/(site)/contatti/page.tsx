@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 
-import { contact, socials, whatsappUrl } from "@/lib/site";
+import { contact, whatsappUrl } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { StudioMap } from "@/components/sections/studio-map";
+import { SocialIcons } from "@/components/brand/social-icons";
 import { ContactForm } from "@/components/contact-form";
 
 export const metadata: Metadata = {
@@ -61,20 +62,7 @@ export default function ContattiPage() {
               </p>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-sm">
-              {socials.map((s) => (
-                <a
-                  key={s.href}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                  className="text-muted-foreground hover:text-brand-strong"
-                >
-                  {s.handle}
-                </a>
-              ))}
-            </div>
+            <SocialIcons tone="light" className="mt-6 -ml-2" />
 
             <StudioMap
               href={maps}

@@ -10,6 +10,7 @@ import { strings } from "@/lib/strings";
 import { disciplines, navItems, routes } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
+import { SocialIcons } from "@/components/brand/social-icons";
 import { Container } from "@/components/layout/container";
 
 /**
@@ -125,6 +126,8 @@ export function Navbar() {
 
         {/* CTA desktop */}
         <div className="hidden items-center gap-2 lg:flex">
+          <SocialIcons tone="dark" />
+          <span aria-hidden className="mx-1 h-5 w-px bg-paper/15" />
           <Link href={routes.accedi} className="navlink">
             {strings.nav.accedi}
           </Link>
@@ -201,6 +204,9 @@ export function Navbar() {
                   {strings.nav.accedi}
                 </Link>
               </div>
+
+              {/* Social nel drawer */}
+              <SocialIcons tone="dark" className="mt-6 justify-center" />
             </Container>
           </motion.div>
         )}

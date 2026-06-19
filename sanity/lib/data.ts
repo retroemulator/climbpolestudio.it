@@ -1,3 +1,5 @@
+import { dayCode } from "@/lib/site";
+
 import { sanityFetch } from "./fetch";
 import {
   SETTINGS_QUERY,
@@ -48,16 +50,18 @@ export function getDisciplineBySlug(slug: string) {
   });
 }
 
-export function getScheduleByDiscipline(slug: string) {
-  return sanityFetch<ScheduleSlot[]>({
+export async function getScheduleByDiscipline(slug: string) {
+  const slots = await sanityFetch<ScheduleSlot[]>({
     query: SCHEDULE_BY_DISCIPLINE_QUERY,
     params: { slug },
     revalidate: 300,
   });
+  return slots.map((s) => ({ ...s, day: dayCode(s.day) }));
 }
 
-export function getSchedule() {
-  return sanityFetch<ScheduleSlot[]>({ query: SCHEDULE_QUERY, revalidate: 300 });
+export async function getSchedule() {
+  const slots = await sanityFetch<ScheduleSlot[]>({ query: SCHEDULE_QUERY, revalidate: 300 });
+  return slots.map((s) => ({ ...s, day: dayCode(s.day) }));
 }
 
 export function getPricing() {

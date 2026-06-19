@@ -89,6 +89,15 @@ export const weekdays = [
   { key: "sab", short: "Sab", long: "Sabato" },
 ] as const;
 
+/**
+ * Normalizza il valore "giorno" salvato in Sanity al codice stabile usato da UI
+ * e generazione sessioni. Lo schema salva un valore ordinabile con prefisso
+ * ("1-lun"); qui togliamo il prefisso → "lun". Retro-compatibile: i valori
+ * vecchi senza prefisso passano inalterati.
+ */
+export const dayCode = (day: string): string =>
+  day.includes("-") ? day.slice(day.indexOf("-") + 1) : day;
+
 /** Profili social (brief §5). `platform` → icona, `label` per aria-label/SR. */
 export const socials = [
   {

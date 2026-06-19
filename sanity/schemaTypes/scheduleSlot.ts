@@ -1,13 +1,19 @@
 import { defineField, defineType } from "sanity";
 
-/** Giorni della settimana (chiave stabile + etichetta + ordine). */
+/**
+ * Giorni della settimana. Il `value` ha un prefisso numerico ("1-lun"…"6-sab")
+ * così l'ordinamento dello Studio (che ordina per stringa) li mette in sequenza
+ * lun→sab invece che alfabeticamente. Il prefisso viene tolto in lettura da
+ * `dayCode()` (lib/site.ts), quindi sito e generazione sessioni vedono sempre
+ * il codice stabile "lun"…"sab".
+ */
 export const WEEKDAYS = [
-  { value: "lun", title: "Lunedì" },
-  { value: "mar", title: "Martedì" },
-  { value: "mer", title: "Mercoledì" },
-  { value: "gio", title: "Giovedì" },
-  { value: "ven", title: "Venerdì" },
-  { value: "sab", title: "Sabato" },
+  { value: "1-lun", title: "Lunedì" },
+  { value: "2-mar", title: "Martedì" },
+  { value: "3-mer", title: "Mercoledì" },
+  { value: "4-gio", title: "Giovedì" },
+  { value: "5-ven", title: "Venerdì" },
+  { value: "6-sab", title: "Sabato" },
 ] as const;
 
 /**

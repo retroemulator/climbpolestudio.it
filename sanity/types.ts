@@ -49,7 +49,8 @@ export type ScheduleSlot = {
   _id: string;
   displayTitle: string;
   level?: string;
-  day: "lun" | "mar" | "mer" | "gio" | "ven" | "sab";
+  /** Codice giorno normalizzato ("lun"…"sab") — vedi dayCode() in lib/site. */
+  day: string;
   startTime: string;
   durationMin?: number;
   capacity?: number;

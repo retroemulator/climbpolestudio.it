@@ -293,14 +293,18 @@ async function main() {
     });
   });
 
-  // scheduleSlot
+  // scheduleSlot. `day` salvato col prefisso d'ordine ("1-lun") per l'ordinamento
+  // dello Studio; il sito lo normalizza in lettura via dayCode().
+  const dayValue: Record<string, string> = {
+    lun: "1-lun", mar: "2-mar", mer: "3-mer", gio: "4-gio", ven: "5-ven", sab: "6-sab",
+  };
   slots.forEach((s, i) => {
     const id = `slot-${s.d}-${s.t.replace(":", "")}-${i}`;
     tx.createOrReplace({
       _id: id,
       _type: "scheduleSlot",
       displayTitle: s.title,
-      day: s.d,
+      day: dayValue[s.d] ?? s.d,
       startTime: s.t,
       durationMin: s.dur,
       capacity: 10,

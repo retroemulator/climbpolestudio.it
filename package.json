@@ -15,6 +15,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "seed": "tsx scripts/seed.ts",
+    "migrate:days": "tsx scripts/migrate-schedule-days.ts",
     "generate-sessions": "tsx scripts/generate-sessions.ts"
   },
   "dependencies": {

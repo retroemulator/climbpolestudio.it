@@ -49,7 +49,9 @@ export async function generateSessions(weeksAhead = 4): Promise<{ count: number 
 
   const rows: Record<string, unknown>[] = [];
   for (const s of slots) {
-    const dow = DAY_TO_DOW[s.day];
+    // Lo schema può salvare il giorno col prefisso d'ordine ("1-lun"): togliamolo.
+    const code = s.day.includes("-") ? s.day.slice(s.day.indexOf("-") + 1) : s.day;
+    const dow = DAY_TO_DOW[code];
     if (dow === undefined) continue;
     const [hh, mm] = s.startTime.split(":").map(Number);
     for (let w = 0; w < weeksAhead * 7; w++) {

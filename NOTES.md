@@ -338,6 +338,17 @@ Restano contenuti/foto reali (hero, team, galleria, bio) e l'inserimento delle c
 
 ---
 
+## Milestone aperte — accessi cliente
+
+- **Cambio dominio `climbpolestudio.it` → Vercel (RIMANDATO, 2026-06-19).** L'app è già online
+  su **`climbpolestudio-it.vercel.app`** (Studio su `/studio`). Il dominio `climbpolestudio.it`
+  punta ancora al **vecchio sito WordPress**. Il cutover DNS è bloccato perché non abbiamo
+  ancora accesso al dominio del cliente → si farà più avanti. Quando si fa: aggiungere il
+  dominio in Vercel → impostare i record DNS → aggiornare `NEXT_PUBLIC_SITE_URL` e i CORS Sanity
+  → verificare auth callback Supabase sul dominio prod. Vedi anche memoria `domain-vs-staging`.
+
+---
+
 ## Fase 17 — "Riempi + wow" (2026-06-19)
 
 Feedback utente: *pagine un po' vuote, pochi effetti wow nello scrolling*. Audit (7 agenti)

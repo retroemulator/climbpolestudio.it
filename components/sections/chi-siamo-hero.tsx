@@ -9,8 +9,8 @@ import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { RevealText } from "@/components/motion/reveal";
 
-/** Foto del team/community. `object-contain` → mai tagliate, centrate e ridimensionate
- *  dinamicamente in base alla finestra (desktop e mobile). */
+/** Foto del team/community. `object-cover object-top` → riempiono la hero (zoom)
+ *  ancorate in alto: l'eventuale ritaglio toglie la parte BASSA, mai le teste. */
 const IMAGES = ["/chi-siamo-team.jpg", "/chi-siamo-team-2.jpg"];
 const INTERVAL = 4500;
 
@@ -55,7 +55,7 @@ export function ChiSiamoHero() {
               fill
               priority={i === 0}
               sizes="100vw"
-              className="object-contain"
+              className="object-cover object-top"
             />
           </div>
         ))}

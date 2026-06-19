@@ -66,11 +66,6 @@ export function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/news" className="text-paper/75 transition-colors hover:text-brand">
-                News
-              </Link>
-            </li>
-            <li>
               <Link href={routes.prenota} className="text-paper/75 transition-colors hover:text-brand">
                 {strings.nav.prenota}
               </Link>

@@ -36,6 +36,7 @@ export const navItems: NavItem[] = [
   { label: "Orari", href: "/orari" },
   { label: "Prezzi", href: "/prezzi" },
   { label: "Chi siamo", href: "/chi-siamo" },
+  { label: "News", href: "/news" },
   { label: "Contatti", href: "/contatti" },
 ];
 

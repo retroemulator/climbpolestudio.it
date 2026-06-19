@@ -74,12 +74,14 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
               className="text-display"
               style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
             >
-              {/* "I" = il palo: barra verticale brand, come nel logo. */}
+              {/* "I" = il palo: barra verticale brand, come nel logo. Ombra BIANCA
+                  inversa (vedi .cps-pole in globals.css): opposta all'ombra cromatica
+                  che la firma dà alle lettere C L M B. */}
               <span className="sr-only">{strings.brand.name.split(" ")[0]}</span>
               <span aria-hidden>CL</span>
               <span
                 aria-hidden
-                className="mx-[0.06em] inline-block h-[0.95em] w-[0.12em] translate-y-[0.04em] bg-brand align-baseline"
+                className="cps-pole mx-[0.06em] inline-block h-[0.95em] w-[0.12em] translate-y-[0.04em] bg-brand align-baseline"
               />
               <span aria-hidden>MB</span>
             </ChromaticShadow>

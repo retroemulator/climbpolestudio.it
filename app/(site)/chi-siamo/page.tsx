@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { routes, whatsappUrl } from "@/lib/site";
+import { routes } from "@/lib/site";
 import { strings } from "@/lib/strings";
 import { getInstructors, getTestimonials } from "@/sanity/lib/data";
 import type { Instructor, Testimonial } from "@/sanity/types";
@@ -161,13 +161,9 @@ export default async function ChiSiamoPage() {
                 <Link href={routes.prenota}>{strings.cta.prenotaProva}</Link>
               </Button>
             </Magnetic>
-            <Magnetic>
-              <Button asChild variant="outline" size="lg">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                  Scrivici su WhatsApp
-                </a>
-              </Button>
-            </Magnetic>
+            <Button asChild variant="outline" size="lg">
+              <Link href={routes.orari}>Guarda gli orari</Link>
+            </Button>
           </div>
         </Container>
       </Section>

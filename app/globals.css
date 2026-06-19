@@ -232,6 +232,38 @@ html.lenis body {
 }
 
 /* ──────────────────────────────────────────────────────────────
+   "I" di CLIMB (il palo) — ombra BIANCA inversa.
+   Opposta (su/sinistra) e di colore inverso rispetto all'ombra cromatica
+   magenta che la firma proietta sulle lettere C L M B. La nullifichiamo nei
+   layer fantasma (aria-hidden) di ChromaticShadow → resta solo sul palo reale.
+   ────────────────────────────────────────────────────────────── */
+.cps-pole {
+  box-shadow: -0.05em -0.05em 0 0 var(--color-paper);
+}
+[aria-hidden] .cps-pole {
+  box-shadow: none;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   WhatsApp FAB — "sonar" + glow per evidenziarlo sulla pagina.
+   Gli anelli pulsano e svaniscono; il bottone ha un alone electric.
+   Con reduced-motion il blocco globale ferma il pulse (resta solo il glow).
+   ────────────────────────────────────────────────────────────── */
+@keyframes cps-fab-ring {
+  0% { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(2); opacity: 0; }
+  100% { transform: scale(2); opacity: 0; }
+}
+.cps-fab-ring {
+  animation: cps-fab-ring 2.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+.cps-fab {
+  box-shadow:
+    0 6px 20px -4px color-mix(in oklab, var(--color-ink) 50%, transparent),
+    0 0 22px -1px color-mix(in oklab, var(--color-electric) 75%, transparent);
+}
+
+/* ──────────────────────────────────────────────────────────────
    STUDIO MAP — "locator" on-brand animato (home §Dove + Contatti).
    Animazioni 100% CSS → il componente resta server (zero JS bundle).
    Il blocco prefers-reduced-motion qui sopra le neutralizza da solo.

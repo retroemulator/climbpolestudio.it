@@ -3,7 +3,6 @@
 import { useActionState } from "react";
 
 import { signInWithEmail, type AuthState } from "@/app/(site)/accedi/actions";
-import { whatsappUrl } from "@/lib/site";
 import { Button } from "@/components/ui/button";
 
 const initial: AuthState = { status: "idle" };
@@ -26,14 +25,9 @@ export function AuthForm() {
       <div className="rounded-lg border border-paper/15 p-6">
         <p className="text-display text-2xl">Accesso in arrivo</p>
         <p className="mt-2 text-paper/70">
-          L&apos;area personale e le prenotazioni online stanno per essere attivate. Per ora
-          prenota la prova su WhatsApp.
+          L&apos;area personale e le prenotazioni online stanno per essere attivate. Nel frattempo
+          scrivici dal pulsante WhatsApp in basso a destra.
         </p>
-        <Button asChild variant="brand" size="lg" className="mt-4">
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            Scrivici su WhatsApp
-          </a>
-        </Button>
       </div>
     );
   }

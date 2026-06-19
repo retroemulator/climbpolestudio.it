@@ -6,7 +6,6 @@ import { Container } from "@/components/layout/container";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/brand/logo";
 import { SocialIcons } from "@/components/brand/social-icons";
-import { WhatsappIcon } from "@/components/brand/whatsapp-icon";
 
 /**
  * Footer globale (brief §4): CTA di chiusura + contatti, social, orari teaser,
@@ -26,21 +25,12 @@ export function Footer() {
             className="text-display max-w-3xl"
             style={{ fontSize: "clamp(2.5rem, 7vw, 5.5rem)" }}
           >
-            Mettiti alla prova.
+            Ci vediamo in sala.
           </h2>
           <div className="flex flex-wrap items-center gap-3">
             <Button asChild variant="brand" size="lg">
-              <Link href={routes.prenota}>Prenota ora</Link>
+              <Link href={routes.discipline}>Scopri le discipline</Link>
             </Button>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Scrivici su WhatsApp"
-              className="inline-flex size-12 items-center justify-center rounded-md border border-input text-paper/80 transition-colors hover:border-brand hover:bg-paper/5 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-            >
-              <WhatsappIcon className="size-5" />
-            </a>
           </div>
         </div>
       </Container>

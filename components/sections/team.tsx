@@ -57,7 +57,7 @@ export function Team({ items }: { items: Instructor[] }) {
                         className="grid h-full w-full place-items-center bg-ink"
                         style={{ backgroundImage: AVATAR_GRADIENT }}
                       >
-                        <span className="text-display text-xl text-ink">{initials(p.name)}</span>
+                        <span className="text-display text-xl text-paper">{initials(p.name)}</span>
                       </div>
                     )}
                   </div>

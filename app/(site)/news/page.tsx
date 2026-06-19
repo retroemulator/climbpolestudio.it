@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import { getNews } from "@/sanity/lib/data";
 import type { NewsPostCard } from "@/sanity/types";
@@ -38,12 +39,19 @@ export default async function NewsPage() {
             <ul className="mt-14 border-t border-paper/10">
               {posts.map((p, i) => (
                 <Reveal key={p._id} delay={i * 0.05}>
-                  <li className="flex flex-col gap-1 border-b border-paper/10 py-6 md:flex-row md:items-baseline md:gap-8">
-                    <span className="font-mono text-sm text-paper/40">{formatDate(p.date)}</span>
-                    <div>
-                      <span className="text-display block text-2xl md:text-3xl">{p.title}</span>
-                      {p.excerpt ? <span className="mt-1 block text-paper/60">{p.excerpt}</span> : null}
-                    </div>
+                  <li className="border-b border-paper/10">
+                    <Link
+                      href={`/news/${p.slug}`}
+                      className="group flex flex-col gap-1 py-6 md:flex-row md:items-baseline md:gap-8"
+                    >
+                      <span className="font-mono text-sm text-paper/40">{formatDate(p.date)}</span>
+                      <div>
+                        <span className="text-display block text-2xl text-paper transition-colors group-hover:text-brand md:text-3xl">
+                          {p.title}
+                        </span>
+                        {p.excerpt ? <span className="mt-1 block text-paper/60">{p.excerpt}</span> : null}
+                      </div>
+                    </Link>
                   </li>
                 </Reveal>
               ))}

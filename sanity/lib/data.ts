@@ -11,6 +11,8 @@ import {
   PRICING_QUERY,
   GALLERY_QUERY,
   NEWS_QUERY,
+  NEWS_SLUGS_QUERY,
+  NEWS_BY_SLUG_QUERY,
   TESTIMONIALS_QUERY,
   INSTRUCTORS_QUERY,
   FAQ_QUERY,
@@ -23,6 +25,7 @@ import type {
   PricingPlan,
   GalleryItem,
   NewsPostCard,
+  NewsPost,
   Testimonial,
   Instructor,
   Faq,
@@ -74,6 +77,18 @@ export function getGallery() {
 
 export function getNews() {
   return sanityFetch<NewsPostCard[]>({ query: NEWS_QUERY, revalidate: 300 });
+}
+
+export function getNewsSlugs() {
+  return sanityFetch<{ slug: string }[]>({ query: NEWS_SLUGS_QUERY, revalidate: 3600 });
+}
+
+export function getNewsBySlug(slug: string) {
+  return sanityFetch<NewsPost | null>({
+    query: NEWS_BY_SLUG_QUERY,
+    params: { slug },
+    revalidate: 300,
+  });
 }
 
 export function getTestimonials() {

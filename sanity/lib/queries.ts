@@ -58,6 +58,14 @@ export const NEWS_QUERY = defineQuery(`*[_type == "newsPost" && published == tru
   _id, title, "slug": slug.current, date, cover, excerpt
 }`);
 
+export const NEWS_SLUGS_QUERY = defineQuery(`*[_type == "newsPost" && published == true && defined(slug.current)]{
+  "slug": slug.current
+}`);
+
+export const NEWS_BY_SLUG_QUERY = defineQuery(`*[_type == "newsPost" && slug.current == $slug && published == true][0]{
+  _id, title, "slug": slug.current, date, cover, excerpt, body
+}`);
+
 export const FAQ_QUERY = defineQuery(`*[_type == "faq"]|order(order asc){
   _id, question, answer
 }`);

@@ -114,3 +114,7 @@ export type NewsPostCard = {
   cover?: SanityImageSource;
   excerpt?: string;
 };
+
+export type NewsPost = NewsPostCard & {
+  body?: PortableTextBlock[];
+};

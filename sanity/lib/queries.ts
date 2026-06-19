@@ -39,8 +39,8 @@ export const PRICING_QUERY = defineQuery(`*[_type == "pricingPlan"]|order(order 
   _id, category, title, detail, price, priceFrom, note, badge, order
 }`);
 
-export const INSTRUCTORS_QUERY = defineQuery(`*[_type == "instructor"]{
-  _id, name, role, bio, photo,
+export const INSTRUCTORS_QUERY = defineQuery(`*[_type == "instructor"]|order(order asc){
+  _id, name, role, bio, photo, order,
   "disciplines": disciplines[]->{ title, "slug": slug.current },
   socials[]{ label, url }
 }`);

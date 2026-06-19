@@ -74,6 +74,7 @@ export type Instructor = {
   _id: string;
   name: string;
   role?: string;
+  order?: number;
   bio?: string;
   photo?: SanityImageSource;
   disciplines?: { title: string; slug: string }[];

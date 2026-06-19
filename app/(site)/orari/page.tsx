@@ -17,7 +17,8 @@ export default async function OrariPage() {
 
   return (
     <main>
-      <Section tone="stage" className="py-28 pt-32 md:py-32 md:pt-40">
+      {/* HERO (stage) — navbar leggibile su scuro */}
+      <Section tone="stage" className="py-24 pt-32 md:py-28 md:pt-40">
         <Container>
           <div className="relative">
             <Spine className="left-0 bg-brand/40" />
@@ -30,14 +31,17 @@ export default async function OrariPage() {
               il tuo posto.
             </p>
           </div>
+        </Container>
+      </Section>
 
-          <div className="mt-12">
-            {schedule.length ? (
-              <ScheduleExplorer slots={schedule} />
-            ) : (
-              <p className="text-paper/50">Orari in aggiornamento. Torna a trovarci a breve.</p>
-            )}
-          </div>
+      {/* GRIGLIA (light) — più leggibile dello sfondo scuro */}
+      <Section tone="light" className="py-16 md:py-24">
+        <Container>
+          {schedule.length ? (
+            <ScheduleExplorer slots={schedule} />
+          ) : (
+            <p className="text-muted-foreground">Orari in aggiornamento. Torna a trovarci a breve.</p>
+          )}
         </Container>
       </Section>
     </main>

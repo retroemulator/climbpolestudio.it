@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { routes, weekdays } from "@/lib/site";
 import { getDisciplineSlugs, getDisciplineBySlug, getScheduleByDiscipline } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
+import { disciplineImageFor } from "@/lib/discipline-images";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
@@ -43,7 +44,9 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
   if (!d) notFound();
 
   const accent = d.accent || "var(--color-brand)";
-  const heroImg = d.media?.image ? urlFor(d.media.image).width(2000).quality(70).url() : null;
+  const heroImg = d.media?.image
+    ? urlFor(d.media.image).width(2000).quality(70).url()
+    : (disciplineImageFor(slug) ?? null);
   const heroGradient = `radial-gradient(130% 120% at 18% 8%, color-mix(in oklab, ${accent} 60%, transparent) 0%, transparent 50%), radial-gradient(130% 120% at 86% 96%, color-mix(in oklab, var(--color-electric) 42%, transparent) 0%, transparent 52%)`;
 
   const gallery = (d.gallery ?? []).filter(Boolean);

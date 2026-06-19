@@ -5,6 +5,7 @@ import Image from "next/image";
 import { getDisciplines } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
 import { disciplines as staticDisciplines } from "@/lib/site";
+import { disciplineImageFor } from "@/lib/discipline-images";
 import type { DisciplineCard } from "@/sanity/types";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
@@ -62,7 +63,7 @@ export default async function DisciplinePage() {
             {items.map((d, i) => {
               const img = d.media?.image
                 ? urlFor(d.media.image).width(900).height(1100).fit("crop").quality(70).url()
-                : null;
+                : (disciplineImageFor(d.slug) ?? null);
               return (
                 <Reveal key={d._id} delay={(i % 3) * 0.06}>
                   <Tilt className="h-full">

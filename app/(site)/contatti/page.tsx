@@ -81,14 +81,6 @@ export default function ContattiPage() {
                 ))}
               </dl>
             </div>
-
-            <StudioMap
-              href={maps}
-              tone="light"
-              className="mt-8"
-              geo={{ lat: address.lat, lon: address.lon }}
-              address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}
-            />
           </div>
 
           {/* Form */}
@@ -99,6 +91,18 @@ export default function ContattiPage() {
             </div>
           </div>
         </Container>
+      </Section>
+
+      {/* MAPPA full-bleed (larghezza intera dinamica) */}
+      <Section tone="light" className="pb-24 md:pb-32">
+        <StudioMap
+          href={maps}
+          tone="light"
+          className="aspect-auto h-[58vh] min-h-90 rounded-none border-x-0"
+          zoom={16}
+          geo={{ lat: address.lat, lon: address.lon }}
+          address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}
+        />
       </Section>
     </main>
   );

@@ -48,7 +48,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
   };
 
   const selectClass =
-    "h-11 rounded-md border border-paper/20 bg-ink px-3 text-sm text-paper focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand";
+    "h-11 rounded-md border border-line bg-paper-pure px-3 text-sm text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-strong";
 
   return (
     <div>
@@ -91,46 +91,48 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
         </select>
 
         {(discipline !== "all" || day !== "all" || level !== "all") && (
-          <button onClick={reset} className="navlink text-paper/60">
+          <button onClick={reset} className="navlink text-muted-foreground">
             Azzera filtri
           </button>
         )}
-        <span className="ml-auto font-mono text-sm text-paper/40">{filtered.length} lezioni</span>
+        <span className="ml-auto font-mono text-sm text-muted-foreground">
+          {filtered.length} lezioni
+        </span>
       </div>
 
       {/* Griglia */}
       {filtered.length ? (
         <div
           className={cn(
-            "mt-8 grid gap-px overflow-hidden rounded-lg border border-paper/10 bg-paper/10",
+            "mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line",
             day === "all" ? "sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
           )}
         >
           {byDay.map((d) => (
-            <div key={d.key} className="bg-ink p-4">
-              <p className="eyebrow text-paper/40">{d.long}</p>
+            <div key={d.key} className="bg-paper-pure p-4">
+              <p className="eyebrow text-muted-foreground">{d.long}</p>
               <ul className="mt-3 space-y-2">
                 {d.items.map((s) => (
                   <li key={s._id}>
                     <button
                       onClick={() => setSelected(s)}
-                      className="group flex w-full items-baseline gap-3 rounded-md py-1.5 text-left transition-colors hover:bg-paper/5"
+                      className="group flex w-full items-baseline gap-3 rounded-md py-1.5 text-left transition-colors hover:bg-ink/5"
                     >
-                      <span className="font-mono text-xs text-brand">{s.startTime}</span>
-                      <span className="text-sm text-paper/80 group-hover:text-paper">
+                      <span className="font-mono text-xs text-brand-strong">{s.startTime}</span>
+                      <span className="text-sm text-ink/80 group-hover:text-ink">
                         {s.displayTitle}
-                        {s.level ? <span className="text-paper/40"> · {s.level}</span> : null}
+                        {s.level ? <span className="text-ink/40"> · {s.level}</span> : null}
                       </span>
                     </button>
                   </li>
                 ))}
-                {!d.items.length && <li className="text-sm text-paper/30">—</li>}
+                {!d.items.length && <li className="text-sm text-ink/30">—</li>}
               </ul>
             </div>
           ))}
         </div>
       ) : (
-        <p className="mt-10 text-paper/50">Nessuna lezione con questi filtri.</p>
+        <p className="mt-10 text-muted-foreground">Nessuna lezione con questi filtri.</p>
       )}
 
       {/* Dettaglio slot */}

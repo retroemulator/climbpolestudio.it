@@ -232,13 +232,14 @@ html.lenis body {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   "I" di CLIMB (il palo) — ombra BIANCA inversa.
-   Opposta (su/sinistra) e di colore inverso rispetto all'ombra cromatica
-   magenta che la firma proietta sulle lettere C L M B. La nullifichiamo nei
-   layer fantasma (aria-hidden) di ChromaticShadow → resta solo sul palo reale.
+   "I" di CLIMB (il palo) — ombra BIANCA.
+   Stessa direzione e dimensione dell'ombra cromatica magenta delle lettere
+   C L M B (in basso a destra, offset 6px della firma), ma di colore INVERSO
+   (bianco invece del magenta). La nullifichiamo nei layer fantasma
+   (aria-hidden) di ChromaticShadow → resta solo sul palo reale.
    ────────────────────────────────────────────────────────────── */
 .cps-pole {
-  box-shadow: -0.05em -0.05em 0 0 var(--color-paper);
+  box-shadow: 6px 6px 0 0 var(--color-paper);
 }
 [aria-hidden] .cps-pole {
   box-shadow: none;
@@ -261,6 +262,31 @@ html.lenis body {
   box-shadow:
     0 6px 20px -4px color-mix(in oklab, var(--color-ink) 50%, transparent),
     0 0 22px -1px color-mix(in oklab, var(--color-electric) 75%, transparent);
+}
+
+/* ──────────────────────────────────────────────────────────────
+   Rail discipline — barra di scorrimento orizzontale visibile e on-brand
+   (su fondo "stage" scuro). Permette di trascinarla per vedere tutti i box.
+   ────────────────────────────────────────────────────────────── */
+.disc-rail-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-strong) rgba(250, 243, 244, 0.12);
+}
+.disc-rail-scroll::-webkit-scrollbar {
+  height: 10px;
+}
+.disc-rail-scroll::-webkit-scrollbar-track {
+  background: rgba(250, 243, 244, 0.1);
+  border-radius: 9999px;
+}
+.disc-rail-scroll::-webkit-scrollbar-thumb {
+  background: var(--color-brand-strong);
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.disc-rail-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand);
 }
 
 /* ──────────────────────────────────────────────────────────────

@@ -2,6 +2,7 @@ import { getDisciplines, getSchedule, getTestimonials, getFaqs } from "@/sanity/
 import type { DisciplineCard, ScheduleSlot, Testimonial, Faq as FaqDoc } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 import { disciplines as staticDisciplines } from "@/lib/site";
+import { disciplineImageFor } from "@/lib/discipline-images";
 import { Hero } from "@/components/sections/hero";
 import { Manifesto } from "@/components/sections/manifesto";
 import { DisciplineRail, type RailItem } from "@/components/sections/discipline-rail";
@@ -45,9 +46,14 @@ export default async function Home() {
         levels: d.levels,
         imageUrl: d.media?.image
           ? urlFor(d.media.image).width(1100).height(1300).fit("crop").quality(70).url()
-          : undefined,
+          : disciplineImageFor(d.slug),
       }))
-    : staticDisciplines.map((d) => ({ slug: d.slug, title: d.name, summary: d.blurb }));
+    : staticDisciplines.map((d) => ({
+        slug: d.slug,
+        title: d.name,
+        summary: d.blurb,
+        imageUrl: disciplineImageFor(d.slug),
+      }));
 
   return (
     <main>

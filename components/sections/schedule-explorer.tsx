@@ -118,8 +118,8 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
                       onClick={() => setSelected(s)}
                       className="group flex w-full items-baseline gap-3 rounded-md py-1.5 text-left transition-colors hover:bg-ink/5"
                     >
-                      <span className="font-mono text-xs text-brand-strong">{s.startTime}</span>
-                      <span className="text-sm text-ink/80 group-hover:text-ink">
+                      <span className="font-mono text-sm text-brand-strong">{s.startTime}</span>
+                      <span className="text-base text-ink/80 group-hover:text-ink">
                         {s.displayTitle}
                         {s.level ? <span className="text-ink/40"> · {s.level}</span> : null}
                       </span>

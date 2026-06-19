@@ -53,14 +53,18 @@ export function ChromaticShadow({
   if (reduced) {
     return (
       <Tag className={cn("relative inline-block", className)} style={style}>
-        <span
-          aria-hidden
-          className="absolute inset-0"
-          style={{ color: ghostColor, transform: `translate(${offset}px, ${offset}px)` }}
-        >
-          {children}
+        {/* Wrapper interno: i layer fantasma si allineano al TESTO, non al box
+            con eventuale padding (es. pl-*) della firma. */}
+        <span className="relative inline-block">
+          <span
+            aria-hidden
+            className="absolute inset-0"
+            style={{ color: ghostColor, transform: `translate(${offset}px, ${offset}px)` }}
+          >
+            {children}
+          </span>
+          <span className="relative">{children}</span>
         </span>
-        <span className="relative">{children}</span>
       </Tag>
     );
   }
@@ -85,30 +89,34 @@ export function ChromaticShadow({
       onPointerEnter={interactive ? () => setHovered(true) : undefined}
       onPointerLeave={interactive ? () => setHovered(false) : undefined}
     >
-      <motion.span
-        aria-hidden
-        className="absolute inset-0 will-change-transform"
-        style={{ color: ghostColor }}
-        variants={magenta}
-        initial={entrance ? "enter" : "rest"}
-        animate={state}
-        transition={hovered ? SPRING_SNAP : { duration: 0.7, ease: EASE_OUT }}
-      >
-        {children}
-      </motion.span>
-      <motion.span
-        aria-hidden
-        className="absolute inset-0 will-change-transform"
-        style={{ color: splitColor }}
-        variants={cyan}
-        initial={entrance ? "enter" : "rest"}
-        animate={state}
-        transition={SPRING_SNAP}
-      >
-        {children}
-      </motion.span>
-      <span ref={ref} className="relative">
-        {children}
+      {/* Wrapper interno: i layer fantasma si allineano al TESTO, non al box
+          con eventuale padding (es. pl-*) della firma → niente ombra "lontana". */}
+      <span className="relative inline-block">
+        <motion.span
+          aria-hidden
+          className="absolute inset-0 will-change-transform"
+          style={{ color: ghostColor }}
+          variants={magenta}
+          initial={entrance ? "enter" : "rest"}
+          animate={state}
+          transition={hovered ? SPRING_SNAP : { duration: 0.7, ease: EASE_OUT }}
+        >
+          {children}
+        </motion.span>
+        <motion.span
+          aria-hidden
+          className="absolute inset-0 will-change-transform"
+          style={{ color: splitColor }}
+          variants={cyan}
+          initial={entrance ? "enter" : "rest"}
+          animate={state}
+          transition={SPRING_SNAP}
+        >
+          {children}
+        </motion.span>
+        <span ref={ref} className="relative">
+          {children}
+        </span>
       </span>
     </Tag>
   );

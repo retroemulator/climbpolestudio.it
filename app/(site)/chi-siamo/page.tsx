@@ -6,12 +6,13 @@ import { strings } from "@/lib/strings";
 import { getInstructors, getTestimonials } from "@/sanity/lib/data";
 import type { Instructor, Testimonial } from "@/sanity/types";
 import { Container } from "@/components/layout/container";
-import { Section, Spine } from "@/components/layout/section";
+import { Section } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal, RevealText } from "@/components/motion/reveal";
 import { Tilt } from "@/components/motion/tilt";
 import { Magnetic } from "@/components/motion/magnetic";
 import { Button } from "@/components/ui/button";
+import { ChiSiamoHero } from "@/components/sections/chi-siamo-hero";
 import { Team } from "@/components/sections/team";
 import { Testimonials } from "@/components/sections/testimonials";
 
@@ -51,25 +52,8 @@ export default async function ChiSiamoPage() {
 
   return (
     <main>
-      {/* 1 — HERO (stage) */}
-      <Section tone="stage" className="flex min-h-[80vh] flex-col justify-center py-32">
-        <Container className="relative">
-          <Spine className="left-6 bg-brand/30 md:left-10 lg:left-14" />
-          <p className="eyebrow pl-3 text-brand md:pl-6">Lo studio</p>
-          <ChromaticShadow
-            as="h1"
-            className="text-display mt-4 pl-3 md:pl-6"
-            style={{ fontSize: "clamp(3rem, 12vw, 10rem)" }}
-          >
-            Chi siamo
-          </ChromaticShadow>
-          <RevealText
-            as="p"
-            text="Uno spazio a Torino dove la pole è forza che diventa linguaggio."
-            className="mt-6 max-w-2xl pl-3 text-lg text-paper/70 md:pl-6 md:text-2xl"
-          />
-        </Container>
-      </Section>
+      {/* 1 — HERO full-screen con crossfade delle due foto del team */}
+      <ChiSiamoHero />
 
       {/* 2 — MANIFESTO (light) */}
       <Section tone="light" className="py-24 md:py-32">

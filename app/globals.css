@@ -246,6 +246,19 @@ html.lenis body {
 }
 
 /* ──────────────────────────────────────────────────────────────
+   "chiaro" (teaser prezzi) — gioco su "light": parola BIANCA con contorno
+   nero (leggibile su paper) e l'ombra ROSA della firma. Il contorno va solo
+   sul testo in primo piano, non sui layer fantasma (ombra pulita).
+   ────────────────────────────────────────────────────────────── */
+.cps-chiaro {
+  color: var(--color-paper-pure);
+  -webkit-text-stroke: 2px var(--color-ink);
+}
+.cps-chiaro [aria-hidden] {
+  -webkit-text-stroke: 0;
+}
+
+/* ──────────────────────────────────────────────────────────────
    WhatsApp FAB — "sonar" + glow per evidenziarlo sulla pagina.
    Gli anelli pulsano e svaniscono; il bottone ha un alone electric.
    Con reduced-motion il blocco globale ferma il pulse (resta solo il glow).

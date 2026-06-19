@@ -55,7 +55,12 @@ export function PricingTeaser() {
           <p className="eyebrow pl-4 text-brand-strong md:pl-6">Trasparenza</p>
           <h2 className="text-display mt-3 pl-4 md:pl-6" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
             Tutto in{" "}
-            <ChromaticShadow as="span" ghostColor="var(--color-brand)" splitColor="var(--color-cyan)">
+            <ChromaticShadow
+              as="span"
+              className="cps-chiaro"
+              ghostColor="var(--color-brand)"
+              splitColor="var(--color-cyan)"
+            >
               chiaro
             </ChromaticShadow>
             .

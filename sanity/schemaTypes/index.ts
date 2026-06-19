@@ -8,6 +8,7 @@ import { pricingPlan } from "./pricingPlan";
 import { galleryItem } from "./galleryItem";
 import { newsPost } from "./newsPost";
 import { testimonial } from "./testimonial";
+import { faq } from "./faq";
 
 export const schemaTypes: SchemaTypeDefinition[] = [
   siteSettings,
@@ -18,4 +19,5 @@ export const schemaTypes: SchemaTypeDefinition[] = [
   galleryItem,
   newsPost,
   testimonial,
+  faq,
 ];

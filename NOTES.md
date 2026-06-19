@@ -335,3 +335,46 @@ aggiornato con tutte le chiavi. Istruzioni deploy: vedi sotto.
 
 **Stato:** build pulita (tutte le route), dev 200 su tutte; Supabase/Resend degradano con grazia.
 Restano contenuti/foto reali (hero, team, galleria, bio) e l'inserimento delle chiavi.
+
+---
+
+## Fase 17 — "Riempi + wow" (2026-06-19)
+
+Feedback utente: *pagine un po' vuote, pochi effetti wow nello scrolling*. Audit (7 agenti)
+→ confermati due buchi: (a) contenuto sottile (seed popolava solo 4 tipi su 8) e (b) layer
+kinetic assente (manca l'horizontal-scroll pinnato del brief, Parallax era dead-code).
+
+**Wow / motion (nuove primitive + sezioni):**
+- **`DisciplineRail`** (`components/sections/discipline-rail.tsx`) — la firma mancante del brief:
+  discipline in **horizontal-scroll PINNATO** (sticky + scroll verticale → traslazione X, misurata
+  a runtime). Fallback mobile/reduced-motion = scroll orizzontale nativo con snap. Sostituisce
+  `DisciplineShowcase` in home. NB: niente `RevealSection` attorno (il transform romperebbe lo sticky).
+- **`Tilt`** (`components/motion/tilt.tsx`) — hover scale + tilt 3D dal puntatore (card discipline,
+  pilastri, testimonianze, team).
+- **`Statement`** (`components/sections/statement.tsx`) — frase che si "accende" parola per parola
+  **legata allo scroll** (scrub, non solo in-view) + marquee. Il primo vero scroll-linked della home.
+- **`Parallax`** ora ha `fill` → applicato allo sfondo hero (home + dettaglio disciplina). Era usato
+  solo in styleguide.
+- Hero: scroll-cue, scrim alleggerito (ink/65→/50), 2ª CTA magnetica.
+
+**Contenuto (riempimento, senza foto del cliente):**
+- Copy generato e revisionato (accenti IT corretti) in `content/studio-content.ts`:
+  body+suitableFor+youWillLearn per le 6 discipline, 2 insegnanti (Nadia + Giulia), 6 testimonianze,
+  5 news, 10 FAQ.
+- Nuovo schema **`faq`** + campo `context` su `testimonial`; getter `getTestimonials/getInstructors/
+  getFaqs` + query. Seed esteso (ora **79 doc**): + body discipline, accent, badge "Più scelto"
+  (Annuale Open), geo siteSettings, istruttori sugli slot orario.
+- Nuove sezioni: **`Testimonials`**, **`Faq`** (accordion `<details>` zero-JS), **`Team`** (avatar
+  monogramma on-brand se manca la foto).
+- Pagine riempite: home ricomposta (rail, statement, testimonials, faq); `/discipline` (griglia
+  Sanity con immagini/tilt/marquee, niente più nome duplicato); `/discipline/[slug]` (hero parallax/
+  gradient per-disciplina, contenuto animato, gallery se presente, marquee, CTA magnetiche, durata
+  slot); `/chi-siamo` (team + testimonianze + pannello "Lo spazio" on-brand); `/contatti` (orari +
+  sottotitolo); `/prezzi` (piano in evidenza + hover); `/galleria` (empty-state con CTA Instagram).
+
+**Fix importante — `useCdn: false`** (`sanity/lib/client.ts`): con `useCdn:true` la build subito
+dopo il `seed` prerenderizzava dati **stantii** (CDN non ancora propagata) → discipline/news vuote.
+Ora le letture sono fresche; la cache la mette già Next (ISR `revalidate`).
+
+**Collaudo:** `npm run seed` ok (79 doc); `npm run typecheck` pulito; `npm run build` pulito (31
+route); smoke su `next start`: body discipline, testimonianze, news, FAQ, badge → tutti renderizzati.

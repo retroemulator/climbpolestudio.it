@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { routes } from "@/lib/site";
+import { cn } from "@/lib/utils";
 import { getPricing } from "@/sanity/lib/data";
 import type { PricingPlan } from "@/sanity/types";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal } from "@/components/motion/reveal";
+import { Magnetic } from "@/components/motion/magnetic";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
@@ -69,9 +71,16 @@ export default async function PrezziPage() {
                   <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {g.items.map((p, i) => (
                       <Reveal key={p._id} delay={i * 0.04}>
-                        <div className="flex h-full flex-col rounded-lg border border-line p-6">
+                        <div
+                          className={cn(
+                            "flex h-full flex-col rounded-lg border p-6 transition-all duration-300 hover:-translate-y-1",
+                            p.badge
+                              ? "border-brand-strong/50 bg-brand/5 ring-1 ring-brand-strong/15"
+                              : "border-line hover:border-brand-strong/40",
+                          )}
+                        >
                           {p.badge ? (
-                            <span className="eyebrow mb-3 inline-block w-fit rounded-full bg-brand/15 px-3 py-1 text-brand-strong">
+                            <span className="eyebrow mb-3 inline-block w-fit rounded-full bg-brand-strong px-3 py-1 text-paper">
                               {p.badge}
                             </span>
                           ) : null}
@@ -96,9 +105,11 @@ export default async function PrezziPage() {
 
           <div className="mt-16 flex flex-wrap items-center gap-4 border-t border-line pt-10">
             <p className="text-lg">Non sai da dove iniziare?</p>
-            <Button asChild variant="brand" size="lg">
-              <Link href={routes.prenota}>Prenota la prova</Link>
-            </Button>
+            <Magnetic>
+              <Button asChild variant="brand" size="lg">
+                <Link href={routes.prenota}>Prenota la prova</Link>
+              </Button>
+            </Magnetic>
           </div>
         </Container>
       </Section>

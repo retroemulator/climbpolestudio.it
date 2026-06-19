@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 
 import { strings } from "@/lib/strings";
 import { routes } from "@/lib/site";
@@ -12,6 +13,7 @@ import { Stamp } from "@/components/motion/stamp";
 import { RevealText } from "@/components/motion/reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { Magnetic } from "@/components/motion/magnetic";
+import { Parallax } from "@/components/motion/parallax";
 
 /**
  * Hero della home (brief §4). Video-ready: oggi mostra un poster (foto) a tutto
@@ -38,21 +40,25 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
       id="hero"
       className="relative flex min-h-[100svh] flex-col overflow-hidden"
     >
-      {/* Sfondo media (video full-bleed) + overlay per leggibilità */}
-      <div className="absolute inset-0">
-        <Media
-          image={{ src: HERO_POSTER, alt: "Allenamento di arti aeree a Climb Pole Studio" }}
-          videoUrl={HERO_VIDEO}
-          allowMobile
-          overlay
-          priority
-          sizes="100vw"
-          morph
-          morphMs={3500}
-        />
-        {/* Scrim uniforme: garantisce leggibilità del wordmark anche su frame
-            video chiari (l'overlay gradiente da solo non basta in alto). */}
-        <div aria-hidden className="absolute inset-0 bg-ink/65" />
+      {/* Sfondo media (video full-bleed) con parallax + overlay leggibilità.
+          Il media è leggermente sovradimensionato (inset negativo) così la
+          deriva parallasse non scopre i bordi. */}
+      <div className="absolute inset-0 overflow-hidden">
+        <Parallax fill speed={0.4} className="absolute inset-[-8%]">
+          <Media
+            image={{ src: HERO_POSTER, alt: "Allenamento di arti aeree a Climb Pole Studio" }}
+            videoUrl={HERO_VIDEO}
+            allowMobile
+            overlay
+            priority
+            sizes="100vw"
+            morph
+            morphMs={3500}
+            className="h-full"
+          />
+        </Parallax>
+        {/* Scrim: leggibilità del wordmark anche su frame video chiari. */}
+        <div aria-hidden className="absolute inset-0 bg-ink/50" />
       </div>
 
       <Container className="relative z-10 flex flex-1 flex-col justify-end pb-10 pt-28 md:pb-14">
@@ -89,12 +95,23 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
                 <Link href={routes.prenota}>{strings.cta.prenotaProva}</Link>
               </Button>
             </Magnetic>
-            <Button asChild variant="outline" size="lg">
-              <Link href={routes.discipline}>{strings.cta.scopriDiscipline}</Link>
-            </Button>
+            <Magnetic>
+              <Button asChild variant="outline" size="lg">
+                <Link href={routes.discipline}>{strings.cta.scopriDiscipline}</Link>
+              </Button>
+            </Magnetic>
           </div>
         </div>
       </Container>
+
+      {/* Scroll cue */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute bottom-24 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
+      >
+        <span className="eyebrow text-paper/45">Scorri</span>
+        <ChevronDown className="size-5 animate-bounce text-brand" />
+      </div>
 
       {/* Marquee discipline reattivo allo scroll */}
       <div className="relative z-10 border-t border-paper/10 py-4 backdrop-blur-sm">

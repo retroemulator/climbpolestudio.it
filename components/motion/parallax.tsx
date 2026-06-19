@@ -11,10 +11,13 @@ export function Parallax({
   children,
   speed = 0.2,
   className,
+  fill = false,
 }: {
   children: React.ReactNode;
   speed?: number;
   className?: string;
+  /** Il wrapper interno riempie l'altezza (per media full-bleed di sfondo). */
+  fill?: boolean;
 }) {
   const reduced = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
@@ -29,7 +32,9 @@ export function Parallax({
 
   return (
     <div ref={ref} className={className}>
-      <motion.div style={{ y }}>{children}</motion.div>
+      <motion.div className={fill ? "h-full w-full" : undefined} style={{ y }}>
+        {children}
+      </motion.div>
     </div>
   );
 }

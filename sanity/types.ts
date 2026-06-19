@@ -93,8 +93,15 @@ export type Testimonial = {
   _id: string;
   author: string;
   text: string;
+  context?: string;
   rating?: number;
   photo?: SanityImageSource;
+};
+
+export type Faq = {
+  _id: string;
+  question: string;
+  answer: string;
 };
 
 export type NewsPostCard = {

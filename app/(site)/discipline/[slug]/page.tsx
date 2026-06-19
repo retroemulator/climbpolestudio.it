@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { routes, weekdays } from "@/lib/site";
@@ -9,13 +10,13 @@ import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal, RevealText } from "@/components/motion/reveal";
+import { Marquee } from "@/components/motion/marquee";
+import { Magnetic } from "@/components/motion/magnetic";
+import { Parallax } from "@/components/motion/parallax";
+import { Tilt } from "@/components/motion/tilt";
 import { Media } from "@/components/media/media";
 import { Button } from "@/components/ui/button";
 import { RichText } from "@/components/portable-text";
-
-/** Foto stock di fallback finché una disciplina non ha un'immagine in Sanity. */
-const FALLBACK_IMG =
-  "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=2000&q=70";
 
 export async function generateStaticParams() {
   const slugs = await getDisciplineSlugs().catch(() => []);
@@ -41,9 +42,11 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
   ]);
   if (!d) notFound();
 
-  const heroSrc = d.media?.image
-    ? urlFor(d.media.image).width(2000).quality(70).url()
-    : FALLBACK_IMG;
+  const accent = d.accent || "var(--color-brand)";
+  const heroImg = d.media?.image ? urlFor(d.media.image).width(2000).quality(70).url() : null;
+  const heroGradient = `radial-gradient(130% 120% at 18% 8%, color-mix(in oklab, ${accent} 60%, transparent) 0%, transparent 50%), radial-gradient(130% 120% at 86% 96%, color-mix(in oklab, var(--color-electric) 42%, transparent) 0%, transparent 52%)`;
+
+  const gallery = (d.gallery ?? []).filter(Boolean);
 
   const byDay = weekdays
     .map((wd) => ({ ...wd, slots: slots.filter((s) => s.day === wd.key) }))
@@ -51,13 +54,25 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
 
   return (
     <main>
-      {/* HERO (stage) */}
+      {/* HERO (stage) — foto Sanity con parallax, o glow on-brand per-disciplina */}
       <Section
         tone="stage"
-        className="relative flex min-h-[70vh] flex-col justify-end overflow-hidden py-20 pt-32"
+        className="relative flex min-h-[72vh] flex-col justify-end overflow-hidden py-20 pt-32"
       >
-        <div className="absolute inset-0">
-          <Media image={{ src: heroSrc, alt: d.title }} videoUrl={d.media?.videoUrl} overlay priority />
+        <div className="absolute inset-0 overflow-hidden">
+          {heroImg ? (
+            <>
+              <Parallax fill speed={0.4} className="absolute inset-[-8%]">
+                <Media image={{ src: heroImg, alt: d.title }} videoUrl={d.media?.videoUrl} overlay priority className="h-full" />
+              </Parallax>
+              <div aria-hidden className="absolute inset-0 bg-ink/45" />
+            </>
+          ) : (
+            <>
+              <div aria-hidden className="absolute inset-0 bg-ink-soft" style={{ backgroundImage: heroGradient }} />
+              <div aria-hidden className="absolute inset-0 bg-linear-to-t from-ink via-ink/40 to-ink/20" />
+            </>
+          )}
         </div>
         <Container className="relative z-10">
           <div className="relative">
@@ -97,36 +112,75 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
       <Section tone="light" className="py-24 md:py-32">
         <Container className="grid gap-12 md:grid-cols-[1.4fr_0.6fr]">
           <div>
-            {d.body?.length ? (
-              <RichText value={d.body} />
-            ) : (
-              <p className="text-lg leading-relaxed text-ink/80">{d.summary}</p>
-            )}
+            <Reveal>
+              {d.body?.length ? (
+                <RichText value={d.body} />
+              ) : (
+                <p className="text-lg leading-relaxed text-ink/80">{d.summary}</p>
+              )}
+            </Reveal>
 
             {d.suitableFor && (
-              <div className="mt-12">
+              <Reveal delay={0.05} className="mt-12">
                 <p className="eyebrow text-brand-strong">A chi è adatto</p>
                 <p className="mt-3 text-lg text-ink/80">{d.suitableFor}</p>
-              </div>
+              </Reveal>
             )}
           </div>
 
           {d.youWillLearn?.length ? (
-            <aside className="md:pt-1">
-              <p className="eyebrow text-brand-strong">Cosa imparerai</p>
-              <ul className="mt-4 space-y-3">
-                {d.youWillLearn.map((item) => (
-                  <li key={item} className="flex gap-3 text-ink/80">
-                    <span aria-hidden className="text-brand-strong">
-                      ▸
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </aside>
+            <Reveal delay={0.1} className="md:pt-1">
+              <aside>
+                <p className="eyebrow text-brand-strong">Cosa imparerai</p>
+                <ul className="mt-4 space-y-3">
+                  {d.youWillLearn.map((item) => (
+                    <li key={item} className="flex gap-3 text-ink/80">
+                      <span aria-hidden className="text-brand-strong">
+                        ▸
+                      </span>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </aside>
+            </Reveal>
           ) : null}
         </Container>
+      </Section>
+
+      {/* GALLERIA (light) — solo se ci sono immagini in Sanity */}
+      {gallery.length ? (
+        <Section tone="light" className="pb-24 md:pb-32">
+          <Container>
+            <p className="eyebrow text-brand-strong">In sala</p>
+            <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
+              {gallery.map((g, i) => (
+                <Reveal key={i} delay={(i % 3) * 0.05}>
+                  <Tilt max={5} className="overflow-hidden rounded-lg">
+                    <div className="group relative aspect-4/5 overflow-hidden rounded-lg border border-line">
+                      <Image
+                        src={urlFor(g).width(800).height(1000).fit("crop").quality(70).url()}
+                        alt={`${d.title} — ${i + 1}`}
+                        fill
+                        sizes="(max-width: 768px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      />
+                    </div>
+                  </Tilt>
+                </Reveal>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
+      {/* Marquee kinetic di transizione */}
+      <Section tone="stage" className="overflow-hidden border-y border-paper/10 py-4">
+        <Marquee baseVelocity={2}>
+          <span className="text-display mx-6 text-2xl text-paper/12 md:mx-10 md:text-4xl">
+            {d.title} · Prenota la prova ·
+          </span>
+        </Marquee>
       </Section>
 
       {/* ORARI COLLEGATI (stage) */}
@@ -148,6 +202,9 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
                         <span className="text-sm text-paper/80">
                           {s.displayTitle}
                           {s.level ? <span className="text-paper/40"> · {s.level}</span> : null}
+                          {s.durationMin ? (
+                            <span className="text-paper/40"> · {s.durationMin}′</span>
+                          ) : null}
                         </span>
                       </li>
                     ))}
@@ -156,12 +213,16 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
               ))}
             </div>
             <div className="mt-10 flex flex-wrap gap-3">
-              <Button asChild variant="brand" size="lg">
-                <Link href={routes.prenota}>Prenota la prova</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/orari">Orario completo</Link>
-              </Button>
+              <Magnetic>
+                <Button asChild variant="brand" size="lg">
+                  <Link href={routes.prenota}>Prenota la prova</Link>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/orari">Orario completo</Link>
+                </Button>
+              </Magnetic>
             </div>
           </Container>
         </Section>
@@ -170,12 +231,16 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
           <Container className="flex flex-wrap items-center justify-between gap-6">
             <p className="text-xl">Vuoi provare {d.title}?</p>
             <div className="flex gap-3">
-              <Button asChild variant="brand" size="lg">
-                <Link href={routes.prenota}>Prenota la prova</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/discipline">Tutte le discipline</Link>
-              </Button>
+              <Magnetic>
+                <Button asChild variant="brand" size="lg">
+                  <Link href={routes.prenota}>Prenota la prova</Link>
+                </Button>
+              </Magnetic>
+              <Magnetic>
+                <Button asChild variant="outline" size="lg">
+                  <Link href="/discipline">Tutte le discipline</Link>
+                </Button>
+              </Magnetic>
             </div>
           </Container>
         </Section>

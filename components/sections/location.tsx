@@ -2,6 +2,7 @@ import { contact } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { Reveal } from "@/components/motion/reveal";
+import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { StudioMap } from "@/components/sections/studio-map";
 
 /**
@@ -20,11 +21,15 @@ export function Location() {
         <div className="relative">
           <Spine className="left-0 bg-brand/40" />
           <p className="eyebrow pl-4 text-brand md:pl-6">Dove</p>
-          <h2 className="text-display mt-3 pl-4 md:pl-6" style={{ fontSize: "clamp(1.5rem, 4vw, 2.75rem)" }}>
-            {address.street}
-          </h2>
-          <p className="mt-4 pl-4 text-paper/70 md:pl-6">
-            {address.zip} {address.city} · {address.country}
+          <ChromaticShadow
+            as="h2"
+            className="text-display mt-3 pl-4 md:pl-6"
+            style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}
+          >
+            Vieni a trovarci
+          </ChromaticShadow>
+          <p className="mt-4 pl-4 text-lg text-paper/80 md:pl-6">
+            {address.street} · {address.zip} {address.city}
           </p>
           <div className="mt-8 space-y-3 pl-4 md:pl-6">
             <a

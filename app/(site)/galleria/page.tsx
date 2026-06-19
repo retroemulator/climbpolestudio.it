@@ -4,10 +4,12 @@ import Image from "next/image";
 import { getGallery } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
 import type { GalleryItem } from "@/sanity/types";
+import { socials } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal } from "@/components/motion/reveal";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
   title: "Galleria",
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 
 export default async function GalleriaPage() {
   const items = await getGallery().catch(() => [] as GalleryItem[]);
+  const ig = socials.find((s) => s.platform === "instagram") ?? socials[0];
 
   return (
     <main>
@@ -52,10 +55,17 @@ export default async function GalleriaPage() {
               ))}
             </div>
           ) : (
-            <p className="mt-14 max-w-xl text-paper/60">
-              La galleria sta prendendo forma. Nel frattempo, seguici su Instagram per le ultime
-              dallo studio.
-            </p>
+            <div className="mt-14 max-w-xl">
+              <p className="text-lg text-paper/70">
+                La galleria sta prendendo forma. Nel frattempo, le foto e i video più freschi —
+                lezioni, workshop e vita dello studio — li trovi sul nostro Instagram.
+              </p>
+              <Button asChild variant="brand" size="lg" className="mt-6">
+                <a href={ig.href} target="_blank" rel="noopener noreferrer">
+                  {ig.handle} su Instagram
+                </a>
+              </Button>
+            </div>
           )}
         </Container>
       </Section>

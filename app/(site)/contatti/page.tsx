@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 
-import { contact, whatsappUrl } from "@/lib/site";
+import { contact, whatsappUrl, openingHours } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
+import { RevealText } from "@/components/motion/reveal";
 import { StudioMap } from "@/components/sections/studio-map";
 import { SocialIcons } from "@/components/brand/social-icons";
 import { ContactForm } from "@/components/contact-form";
@@ -29,6 +30,11 @@ export default function ContattiPage() {
             <ChromaticShadow as="h1" className="text-display pl-4 md:pl-6" style={{ fontSize: "clamp(3rem, 12vw, 9rem)" }}>
               Contatti
             </ChromaticShadow>
+            <RevealText
+              as="p"
+              text="Scrivici, chiamaci o vieni a trovarci. La prima prova è il modo migliore per iniziare."
+              className="mt-6 max-w-2xl pl-4 text-lg text-paper/70 md:pl-6 md:text-xl"
+            />
           </div>
         </Container>
       </Section>
@@ -63,6 +69,18 @@ export default function ContattiPage() {
             </div>
 
             <SocialIcons tone="light" className="mt-6 -ml-2" />
+
+            <div className="mt-8 border-t border-line pt-6">
+              <p className="eyebrow text-brand-strong">Orari</p>
+              <dl className="mt-3 space-y-1.5">
+                {openingHours.map((o) => (
+                  <div key={o.days} className="flex justify-between gap-6 text-sm">
+                    <dt className="text-muted-foreground">{o.days}</dt>
+                    <dd className="font-mono">{o.hours}</dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
 
             <StudioMap
               href={maps}

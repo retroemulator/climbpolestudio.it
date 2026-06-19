@@ -9,6 +9,9 @@ import {
   PRICING_QUERY,
   GALLERY_QUERY,
   NEWS_QUERY,
+  TESTIMONIALS_QUERY,
+  INSTRUCTORS_QUERY,
+  FAQ_QUERY,
 } from "./queries";
 import type {
   SiteSettings,
@@ -18,6 +21,9 @@ import type {
   PricingPlan,
   GalleryItem,
   NewsPostCard,
+  Testimonial,
+  Instructor,
+  Faq,
 } from "../types";
 
 /** Getter tipizzati usati dai Server Component. ISR ~5 min. */
@@ -64,4 +70,16 @@ export function getGallery() {
 
 export function getNews() {
   return sanityFetch<NewsPostCard[]>({ query: NEWS_QUERY, revalidate: 300 });
+}
+
+export function getTestimonials() {
+  return sanityFetch<Testimonial[]>({ query: TESTIMONIALS_QUERY, revalidate: 300 });
+}
+
+export function getInstructors() {
+  return sanityFetch<Instructor[]>({ query: INSTRUCTORS_QUERY, revalidate: 300 });
+}
+
+export function getFaqs() {
+  return sanityFetch<Faq[]>({ query: FAQ_QUERY, revalidate: 300 });
 }

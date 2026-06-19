@@ -51,9 +51,13 @@ export const GALLERY_QUERY = defineQuery(`*[_type == "galleryItem"]|order(order 
 }`);
 
 export const TESTIMONIALS_QUERY = defineQuery(`*[_type == "testimonial"]{
-  _id, author, text, rating, photo
+  _id, author, text, context, rating, photo
 }`);
 
 export const NEWS_QUERY = defineQuery(`*[_type == "newsPost" && published == true]|order(date desc){
   _id, title, "slug": slug.current, date, cover, excerpt
+}`);
+
+export const FAQ_QUERY = defineQuery(`*[_type == "faq"]|order(order asc){
+  _id, question, answer
 }`);

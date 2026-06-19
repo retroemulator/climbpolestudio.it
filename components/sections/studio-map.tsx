@@ -45,6 +45,8 @@ export function StudioMap({
 
   useEffect(() => {
     let cancelled = false;
+    let ro: ResizeObserver | null = null;
+    const timers: number[] = [];
     if (!containerRef.current || mapRef.current) return;
 
     (async () => {
@@ -71,11 +73,24 @@ export function StudioMap({
         maxZoom: 18,
       }).addTo(map);
 
-      requestAnimationFrame(() => map.invalidateSize());
+      // Leaflet rende le tile solo se conosce la dimensione reale del contenitore.
+      // In layout dove l'altezza (aspect-ratio) si stabilizza dopo il mount, un solo
+      // invalidateSize non basta → la mappa resta vuota (visibile soprattutto sul
+      // tono chiaro). Invalidiamo a più riprese + a ogni resize del contenitore.
+      const invalidate = () => mapRef.current?.invalidateSize();
+      requestAnimationFrame(invalidate);
+      timers.push(window.setTimeout(invalidate, 200));
+      timers.push(window.setTimeout(invalidate, 600));
+      if (containerRef.current) {
+        ro = new ResizeObserver(() => invalidate());
+        ro.observe(containerRef.current);
+      }
     })();
 
     return () => {
       cancelled = true;
+      ro?.disconnect();
+      timers.forEach((t) => window.clearTimeout(t));
       mapRef.current?.remove();
       mapRef.current = null;
     };

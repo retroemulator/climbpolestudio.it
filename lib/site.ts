@@ -67,6 +67,13 @@ export const contact = {
   },
 } as const;
 
+/** Orari di apertura (brief §5). Fallback statico; in futuro da Sanity siteSettings. */
+export const openingHours = [
+  { days: "Lun – Ven", hours: "11:00 – 21:30" },
+  { days: "Sabato", hours: "10:30 – pomeriggio" },
+  { days: "Domenica", hours: "Chiuso" },
+] as const;
+
 /** Link WhatsApp con messaggio precompilato (brief §9). */
 export const whatsappUrl = `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(
   contact.whatsappMessage,

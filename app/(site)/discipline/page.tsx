@@ -14,7 +14,11 @@ import { Reveal, RevealText } from "@/components/motion/reveal";
 import { Marquee } from "@/components/motion/marquee";
 import { Tilt } from "@/components/motion/tilt";
 
-export const metadata: Metadata = { title: "Discipline" };
+export const metadata: Metadata = {
+  title: "Discipline",
+  description:
+    "Le discipline di Climb Pole Studio a Torino: Pole Dance, Cerchio Aereo, Flexibility, Functional, Verticali ed Exotic. Un punto di partenza per ogni livello.",
+};
 
 const GRADIENTS = [
   "radial-gradient(130% 120% at 14% 10%, color-mix(in oklab, var(--color-brand) 75%, transparent) 0%, transparent 48%), radial-gradient(130% 120% at 90% 92%, color-mix(in oklab, var(--color-electric) 58%, transparent) 0%, transparent 46%)",
@@ -90,9 +94,9 @@ export default async function DisciplinePage() {
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <div className="absolute inset-x-0 bottom-0 p-6">
-                        <span className="text-display block text-3xl transition-colors duration-300 group-hover:text-brand">
+                        <h2 className="text-display block text-3xl transition-colors duration-300 group-hover:text-brand">
                           {d.title}
-                        </span>
+                        </h2>
                         {d.summary ? (
                           <span className="mt-2 block max-w-sm text-sm text-paper/70">{d.summary}</span>
                         ) : null}

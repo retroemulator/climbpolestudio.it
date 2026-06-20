@@ -9,7 +9,11 @@ import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Button } from "@/components/ui/button";
 import { BookingList, type SessionRow } from "@/components/booking-list";
 
-export const metadata: Metadata = { title: "Prenota la prova" };
+export const metadata: Metadata = {
+  title: "Prenota la prova",
+  description:
+    "Prenota la tua prova gratuita a Climb Pole Studio, Torino: scegli la lezione e scrivici su WhatsApp. Pole, aeree e movimento per ogni livello.",
+};
 
 export default async function PrenotaPage() {
   let sessions: SessionRow[] = [];

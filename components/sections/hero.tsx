@@ -77,7 +77,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
               {/* "I" = il palo: barra verticale brand, come nel logo. Ombra BIANCA
                   inversa (vedi .cps-pole in globals.css): opposta all'ombra cromatica
                   che la firma dà alle lettere C L M B. */}
-              <span className="sr-only">{strings.brand.name.split(" ")[0]}</span>
+              <span className="sr-only">{strings.brand.name}</span>
               <span aria-hidden>CL</span>
               <span
                 aria-hidden

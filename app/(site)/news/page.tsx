@@ -46,9 +46,9 @@ export default async function NewsPage() {
                     >
                       <span className="font-mono text-sm text-paper/40">{formatDate(p.date)}</span>
                       <div>
-                        <span className="text-display block text-2xl text-paper transition-colors group-hover:text-brand md:text-3xl">
+                        <h2 className="text-display block text-2xl text-paper transition-colors group-hover:text-brand md:text-3xl">
                           {p.title}
-                        </span>
+                        </h2>
                         {p.excerpt ? <span className="mt-1 block text-paper/60">{p.excerpt}</span> : null}
                       </div>
                     </Link>

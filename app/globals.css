@@ -257,18 +257,20 @@ html.lenis body {
   0% {
     transform: scaleY(1);
   }
-  58% {
-    transform: scaleY(1.18);
+  45% {
+    transform: scaleY(1.32);
   }
   100% {
-    transform: scaleY(1.12);
+    transform: scaleY(1.16);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   .cps-pole {
     transform-origin: center;
     will-change: transform;
-    animation: cps-pole-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.45s both;
+    /* Parte a 1.9s: la timbratura si assesta a ~1.7s, così l'allungamento è un
+       beat distinto e leggibile, non sovrapposto all'entrata. */
+    animation: cps-pole-rise 1s cubic-bezier(0.16, 1, 0.3, 1) 1.9s both;
   }
 }
 

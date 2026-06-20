@@ -54,6 +54,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
             sizes="100vw"
             morph
             morphMs={3500}
+            objectPosition="top"
             className="h-full"
           />
         </Parallax>

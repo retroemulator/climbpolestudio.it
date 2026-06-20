@@ -27,6 +27,9 @@ type MediaProps = {
   morph?: boolean;
   /** Durata (ms) della transizione foto→video. Default 700; hero ~2000. */
   morphMs?: number;
+  /** object-position di foto e video (default center). Es. "top" per ancorare in
+   *  alto: l'eventuale ritaglio toglie la parte BASSA, mai le teste. */
+  objectPosition?: string;
 };
 
 /**
@@ -48,6 +51,7 @@ export function Media({
   allowMobile = false,
   morph = false,
   morphMs = 700,
+  objectPosition,
 }: MediaProps) {
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -94,6 +98,7 @@ export function Media({
           priority={priority}
           sizes={sizes}
           className="object-cover"
+          style={{ objectPosition }}
         />
       </motion.div>
 
@@ -102,6 +107,7 @@ export function Media({
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover will-change-[opacity,transform,filter]"
           style={{
+            objectPosition,
             opacity: videoReady ? 1 : 0,
             transform: morph ? (videoReady ? "scale(1)" : "scale(1.06)") : undefined,
             filter: morph ? (videoReady ? "blur(0px)" : "blur(12px)") : undefined,

@@ -51,17 +51,17 @@ export default function ContattiPage() {
             </address>
 
             <div className="mt-6 text-muted-foreground">
-              <a href={`tel:${contact.phoneE164}`} className="flex min-h-[44px] items-center hover:text-brand-strong">
+              <a href={`tel:${contact.phoneE164}`} className="flex min-h-11 items-center hover:text-brand-strong">
                 {contact.phoneDisplay}
               </a>
-              <a href={`mailto:${contact.email}`} className="flex min-h-[44px] items-center hover:text-brand-strong">
+              <a href={`mailto:${contact.email}`} className="flex min-h-11 items-center hover:text-brand-strong">
                 {contact.email}
               </a>
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex min-h-[44px] items-center hover:text-brand-strong"
+                className="flex min-h-11 items-center hover:text-brand-strong"
               >
                 WhatsApp
               </a>

@@ -56,7 +56,7 @@ export function Marquee({
 
   if (reduced) {
     return (
-      <div className={className} role="presentation">
+      <div className={`overflow-hidden ${className ?? ""}`} role="presentation">
         <div className="flex whitespace-nowrap">{children}</div>
       </div>
     );

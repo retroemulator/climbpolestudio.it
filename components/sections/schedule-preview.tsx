@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 import { weekdays } from "@/lib/site";
 import type { ScheduleSlot } from "@/sanity/types";
@@ -9,7 +10,7 @@ import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal } from "@/components/motion/reveal";
-import { Button } from "@/components/ui/button";
+import { Magnetic } from "@/components/motion/magnetic";
 
 // JS getDay() (0=dom … 6=sab) → chiave giorno. Domenica (0) non c'è: studio chiuso.
 const DOW_TO_KEY: Record<number, string> = { 1: "lun", 2: "mar", 3: "mer", 4: "gio", 5: "ven", 6: "sab" };
@@ -57,16 +58,11 @@ export function SchedulePreview({ schedule }: { schedule: ScheduleSlot[] }) {
   return (
     <Section tone="stage" id="orari" className="py-24 md:py-36">
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <p className="eyebrow text-brand">Quando</p>
-            <ChromaticShadow as="h2" className="text-display mt-3" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
-              Prossime lezioni
-            </ChromaticShadow>
-          </div>
-          <Button asChild variant="outline" size="lg">
-            <Link href="/orari">Vedi tutti gli orari</Link>
-          </Button>
+        <div>
+          <p className="eyebrow text-brand">Quando</p>
+          <ChromaticShadow as="h2" className="text-display mt-3" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
+            Prossime lezioni
+          </ChromaticShadow>
         </div>
 
         <div className="mt-12 grid gap-px overflow-hidden rounded-lg border border-paper/10 bg-paper/10 sm:grid-cols-2">
@@ -83,8 +79,13 @@ export function SchedulePreview({ schedule }: { schedule: ScheduleSlot[] }) {
                   {day.slots.map((s) => (
                     <li key={s._id} className="group/slot flex items-baseline gap-4 py-4">
                       <span className="shrink-0 font-mono text-base text-brand md:text-lg">{s.startTime}</span>
-                      <span className="text-lg text-paper/80 transition-colors group-hover/slot:text-paper md:text-xl">
-                        {s.displayTitle}
+                      <span className="min-w-0">
+                        <span className="block text-lg text-paper/80 transition-colors group-hover/slot:text-paper md:text-xl">
+                          {s.displayTitle}
+                        </span>
+                        {s.level ? (
+                          <span className="eyebrow mt-1 block text-paper/45">{s.level}</span>
+                        ) : null}
                       </span>
                     </li>
                   ))}
@@ -93,6 +94,34 @@ export function SchedulePreview({ schedule }: { schedule: ScheduleSlot[] }) {
             );
           })}
         </div>
+
+        {/* CTA "wow": barra brand a tutta larghezza con glow elettrico, riflesso
+            che la attraversa, freccia animata e pull magnetico. Sostituisce il
+            vecchio bottone outline che spariva sul nero. */}
+        <Magnetic strength={0.18} className="mt-5 md:mt-6">
+          <Link
+            href="/orari"
+            aria-label="Vedi tutti gli orari della settimana"
+            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-xl bg-brand px-6 py-6 text-ink shadow-[0_14px_55px_-18px_rgba(255,46,196,0.55)] transition-[background-color,box-shadow,color] duration-300 hover:bg-brand-strong hover:text-paper hover:shadow-[0_22px_72px_-12px_rgba(255,46,196,0.7)] md:px-10 md:py-8"
+          >
+            {/* riflesso che attraversa al passaggio del mouse */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute inset-y-0 left-0 w-1/3 translate-x-[-250%] -skew-x-12 bg-linear-to-r from-transparent via-paper/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[450%]"
+            />
+            <span className="relative">
+              <span className="eyebrow block text-ink/55 transition-colors group-hover:text-paper/70">
+                Tutta la settimana
+              </span>
+              <span className="text-display mt-1 block text-3xl leading-none md:text-5xl">
+                Vedi tutti gli orari
+              </span>
+            </span>
+            <span className="relative grid size-12 shrink-0 place-items-center rounded-full bg-ink/15 transition-colors group-hover:bg-paper/20 md:size-16">
+              <ArrowRight className="size-6 transition-transform duration-300 group-hover:translate-x-1 md:size-8" />
+            </span>
+          </Link>
+        </Magnetic>
       </Container>
     </Section>
   );

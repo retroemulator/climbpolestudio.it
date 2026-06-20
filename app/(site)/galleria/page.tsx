@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 
 import { getGallery } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
@@ -8,8 +7,8 @@ import { socials } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
-import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
+import { Gallery } from "@/components/gallery";
 
 export const metadata: Metadata = {
   title: "Galleria",
@@ -19,6 +18,18 @@ export const metadata: Metadata = {
 export default async function GalleriaPage() {
   const items = await getGallery().catch(() => [] as GalleryItem[]);
   const ig = socials.find((s) => s.platform === "instagram") ?? socials[0];
+
+  // URL pronte (thumb per la griglia, full per il lightbox) calcolate lato server.
+  const photos = items
+    .filter((it) => it.image)
+    .map((it) => ({
+      id: it._id,
+      thumb: urlFor(it.image!).width(800).quality(70).url(),
+      full: urlFor(it.image!).width(1800).quality(80).url(),
+      w: it.dims?.width ?? 800,
+      h: it.dims?.height ?? 1000,
+      caption: it.caption ?? null,
+    }));
 
   return (
     <main>
@@ -32,28 +43,8 @@ export default async function GalleriaPage() {
             </ChromaticShadow>
           </div>
 
-          {items.length ? (
-            <div className="mt-14 columns-2 gap-4 md:columns-3 xl:columns-4 2xl:columns-5">
-              {items.map((it, i) => (
-                <Reveal key={it._id} delay={(i % 6) * 0.04} className="mb-4 break-inside-avoid">
-                  <figure className="overflow-hidden rounded-lg border border-paper/10">
-                    {it.image ? (
-                      <Image
-                        src={urlFor(it.image).width(800).quality(70).url()}
-                        alt={it.caption ?? "Climb Pole Studio"}
-                        width={it.dims?.width ?? 800}
-                        height={it.dims?.height ?? 1000}
-                        sizes="(max-width:768px) 50vw, 33vw"
-                        className="h-auto w-full"
-                      />
-                    ) : null}
-                    {it.caption ? (
-                      <figcaption className="p-3 text-sm text-paper/60">{it.caption}</figcaption>
-                    ) : null}
-                  </figure>
-                </Reveal>
-              ))}
-            </div>
+          {photos.length ? (
+            <Gallery photos={photos} />
           ) : (
             <div className="mt-14 max-w-xl">
               <p className="text-lg text-paper/70">

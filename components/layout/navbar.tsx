@@ -137,9 +137,10 @@ export function Navbar() {
           </Button>
         </div>
 
-        {/* Cluster mobile/tablet: social + toggle hamburger */}
-        <div className="flex items-center gap-1 lg:hidden">
-          <SocialIcons tone="dark" />
+        {/* Cluster mobile/tablet: social + toggle hamburger.
+            gap ampio: separa la zona-tap social dall'hamburger (no mis-tap). */}
+        <div className="flex items-center gap-3 lg:hidden">
+          <SocialIcons tone="dark" size="lg" />
           <button
             type="button"
             aria-label={mobileOpen ? "Chiudi menu" : "Apri menu"}

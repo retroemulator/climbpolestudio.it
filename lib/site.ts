@@ -80,6 +80,9 @@ export const whatsappUrl = `https://wa.me/${contact.whatsapp}?text=${encodeURICo
   contact.whatsappMessage,
 )}`;
 
+/** Scheda Google Maps ufficiale dello studio (short link). Usata da mappa/CTA. */
+export const mapsUrl = "https://maps.app.goo.gl/DYGYSmDkfBCjRur99";
+
 /** Giorni della settimana: chiave stabile (come in Sanity) → etichette. */
 export const weekdays = [
   { key: "lun", short: "Lun", long: "Lunedì" },

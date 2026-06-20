@@ -1,4 +1,4 @@
-import { contact } from "@/lib/site";
+import { contact, mapsUrl } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { Reveal } from "@/components/motion/reveal";
@@ -11,9 +11,6 @@ import { StudioMap } from "@/components/sections/studio-map";
  */
 export function Location() {
   const { address } = contact;
-  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${address.street}, ${address.zip} ${address.city}`,
-  )}`;
 
   return (
     <Section tone="stage" id="dove" className="py-24 md:py-36">
@@ -50,7 +47,7 @@ export function Location() {
         {/* Mappa interattiva on-brand (radar + pin); scroll in hover = zoom. */}
         <Reveal delay={0.1}>
           <StudioMap
-            href={maps}
+            href={mapsUrl}
             tone="stage"
             geo={{ lat: address.lat, lon: address.lon }}
             address={{ street: address.street, cityLine: `${address.zip} ${address.city}` }}

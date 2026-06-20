@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { contact, whatsappUrl, openingHours } from "@/lib/site";
+import { contact, whatsappUrl, openingHours, mapsUrl } from "@/lib/site";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
@@ -16,9 +16,7 @@ export const metadata: Metadata = {
 
 export default function ContattiPage() {
   const { address } = contact;
-  const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    `${address.street}, ${address.zip} ${address.city}`,
-  )}`;
+  const maps = mapsUrl;
 
   return (
     <main>

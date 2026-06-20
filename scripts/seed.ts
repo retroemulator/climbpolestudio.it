@@ -211,7 +211,7 @@ async function main() {
     email: "info@climbpolestudio.it",
     address: { street: "Corso Dante 109/A", zip: "10126", city: "Torino", country: "Italia" },
     geo: { lat: 45.0460915, lng: 7.6806417 },
-    openingHours: ["Lun–Ven 11:00–21:30", "Sab 10:30–pomeriggio"],
+    openingHours: ["Lun–Ven 13:00–21:30", "Sab 11:00–16:00"],
     socials: [
       { _key: "ig", label: "Instagram dello studio", handle: "@climbpolestudio", url: "https://instagram.com/climbpolestudio" },
       { _key: "fb", label: "Facebook dello studio", handle: "Climb Pole Studio", url: "https://facebook.com/climbpolestudio" },

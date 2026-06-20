@@ -70,8 +70,8 @@ export const contact = {
 
 /** Orari di apertura (brief §5). Fallback statico; in futuro da Sanity siteSettings. */
 export const openingHours = [
-  { days: "Lun – Ven", hours: "11:00 – 21:30" },
-  { days: "Sabato", hours: "10:30 – pomeriggio" },
+  { days: "Lun – Ven", hours: "13:00 – 21:30" },
+  { days: "Sabato", hours: "11:00 – 16:00" },
   { days: "Domenica", hours: "Chiuso" },
 ] as const;
 

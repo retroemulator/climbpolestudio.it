@@ -249,6 +249,28 @@ html.lenis body {
 [aria-hidden] .cps-pole {
   box-shadow: none;
 }
+/* Una volta "timbrata" la scritta (impatto ~1s), il palo si allunga leggermente
+   sopra e sotto e ci resta: scaleY centrato (origin center → cresce simmetrico),
+   con micro-overshoot. Parte dopo l'assestamento della timbratura.
+   Solo no-preference → con reduced-motion il palo resta alla sua altezza. */
+@keyframes cps-pole-rise {
+  0% {
+    transform: scaleY(1);
+  }
+  58% {
+    transform: scaleY(1.18);
+  }
+  100% {
+    transform: scaleY(1.12);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .cps-pole {
+    transform-origin: center;
+    will-change: transform;
+    animation: cps-pole-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.45s both;
+  }
+}
 
 /* ──────────────────────────────────────────────────────────────
    "chiaro" (teaser prezzi) — gioco su "light": parola BIANCA con contorno

@@ -41,8 +41,8 @@ export function Team({ items }: { items: Instructor[] }) {
           {items.map((p, i) => (
             <Reveal key={p._id} delay={(i % 2) * 0.08}>
               <Tilt max={4} scale={1.01} className="h-full">
-                <article className="flex h-full gap-5 rounded-xl border border-paper/12 bg-ink-soft/50 p-6 md:p-7">
-                  <div className="relative size-20 shrink-0 overflow-hidden rounded-full border border-paper/15 md:size-24">
+                <article className="flex h-full gap-4 rounded-xl border border-paper/12 bg-ink-soft/50 p-6 sm:gap-5 md:p-7">
+                  <div className="relative size-16 shrink-0 overflow-hidden rounded-full border border-paper/15 sm:size-20 md:size-24">
                     {p.photo ? (
                       <Image
                         src={urlFor(p.photo).width(200).height(200).fit("crop").quality(75).url()}
@@ -61,8 +61,8 @@ export function Team({ items }: { items: Instructor[] }) {
                       </div>
                     )}
                   </div>
-                  <div className="min-w-0">
-                    <span className="text-display block text-2xl">{p.name}</span>
+                  <div className="min-w-0 overflow-hidden">
+                    <span className="text-display block text-xl break-words [overflow-wrap:anywhere] sm:text-2xl">{p.name}</span>
                     {p.role ? (
                       <span className="eyebrow mt-1 block text-brand">{p.role}</span>
                     ) : null}

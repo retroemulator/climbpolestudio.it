@@ -137,14 +137,16 @@ export function Navbar() {
           </Button>
         </div>
 
-        {/* Toggle mobile */}
-        <button
-          type="button"
-          aria-label={mobileOpen ? "Chiudi menu" : "Apri menu"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((v) => !v)}
-          className="relative z-50 flex size-10 items-center justify-center lg:hidden"
-        >
+        {/* Cluster mobile/tablet: social + toggle hamburger */}
+        <div className="flex items-center gap-1 lg:hidden">
+          <SocialIcons tone="dark" />
+          <button
+            type="button"
+            aria-label={mobileOpen ? "Chiudi menu" : "Apri menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+            className="relative z-50 flex size-10 items-center justify-center"
+          >
           <span className="sr-only">Menu</span>
           <span className="relative block h-4 w-6">
             <span
@@ -160,7 +162,8 @@ export function Navbar() {
               )}
             />
           </span>
-        </button>
+          </button>
+        </div>
       </Container>
     </header>
 

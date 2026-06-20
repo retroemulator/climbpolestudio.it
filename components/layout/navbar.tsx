@@ -59,6 +59,7 @@ export function Navbar() {
   }, [mobileOpen]);
 
   return (
+    <>
     <header
       className={cn(
         "dark fixed inset-x-0 top-0 z-50 text-paper transition-colors duration-300",
@@ -161,16 +162,20 @@ export function Navbar() {
           </span>
         </button>
       </Container>
+    </header>
 
-      {/* Drawer mobile a tutto schermo */}
+      {/* Drawer mobile — FUORI dall'<header>: il backdrop-blur dell'header (stato
+          scrolled) crea un containing block che spezzerebbe il position:fixed del
+          drawer, facendolo "sparire" scrollando (visibile solo in cima). */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            data-lenis-prevent
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="dark fixed inset-0 top-16 md:top-20 z-40 overflow-y-auto bg-ink text-paper lg:hidden"
+            className="dark fixed inset-0 top-16 md:top-20 z-40 overflow-y-auto overscroll-contain bg-ink text-paper lg:hidden"
           >
             <Container className="flex flex-col gap-1 py-8">
               {navItems.map((item) => (
@@ -211,6 +216,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

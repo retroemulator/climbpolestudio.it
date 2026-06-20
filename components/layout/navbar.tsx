@@ -170,7 +170,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="dark fixed inset-0 top-16 z-40 overflow-y-auto bg-ink text-paper lg:hidden"
+            className="dark fixed inset-0 top-16 md:top-20 z-40 overflow-y-auto bg-ink text-paper lg:hidden"
           >
             <Container className="flex flex-col gap-1 py-8">
               {navItems.map((item) => (
@@ -200,7 +200,7 @@ export function Navbar() {
                 <Button asChild variant="brand" size="lg">
                   <Link href={routes.prenota}>{strings.nav.prenota}</Link>
                 </Button>
-                <Link href={routes.accedi} className="navlink text-center">
+                <Link href={routes.accedi} className="navlink min-h-11 justify-center text-center">
                   {strings.nav.accedi}
                 </Link>
               </div>

@@ -86,6 +86,7 @@ export type GalleryItem = {
   _id: string;
   type: "photo" | "video";
   image?: SanityImageSource;
+  dims?: { width: number; height: number } | null;
   videoUrl?: string;
   caption?: string;
   discipline?: { title: string; slug: string } | null;

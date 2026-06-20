@@ -168,7 +168,7 @@ export function StudioMap({
         target="_blank"
         rel="noopener noreferrer"
         className={cn(
-          "group/cta eyebrow pointer-events-auto absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[0.65rem] backdrop-blur-sm transition-colors",
+          "group/cta eyebrow pointer-events-auto absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 rounded-full px-3 py-2 min-h-11 sm:py-1 sm:min-h-0 text-[0.65rem] backdrop-blur-sm transition-colors",
           stage ? "bg-ink/55 text-paper/80 hover:text-brand" : "bg-paper-pure/80 text-brand-strong",
         )}
       >

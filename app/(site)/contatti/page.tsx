@@ -50,22 +50,21 @@ export default function ContattiPage() {
               {address.zip} {address.city}
             </address>
 
-            <div className="mt-6 space-y-2 text-muted-foreground">
-              <p>
-                <a href={`tel:${contact.phoneE164}`} className="hover:text-brand-strong">
-                  {contact.phoneDisplay}
-                </a>
-              </p>
-              <p>
-                <a href={`mailto:${contact.email}`} className="hover:text-brand-strong">
-                  {contact.email}
-                </a>
-              </p>
-              <p>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="hover:text-brand-strong">
-                  WhatsApp
-                </a>
-              </p>
+            <div className="mt-6 text-muted-foreground">
+              <a href={`tel:${contact.phoneE164}`} className="flex min-h-[44px] items-center hover:text-brand-strong">
+                {contact.phoneDisplay}
+              </a>
+              <a href={`mailto:${contact.email}`} className="flex min-h-[44px] items-center hover:text-brand-strong">
+                {contact.email}
+              </a>
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex min-h-[44px] items-center hover:text-brand-strong"
+              >
+                WhatsApp
+              </a>
             </div>
 
             <SocialIcons tone="light" className="mt-6 -ml-2" />

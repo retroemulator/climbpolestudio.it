@@ -91,7 +91,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
         </select>
 
         {(discipline !== "all" || day !== "all" || level !== "all") && (
-          <button onClick={reset} className="navlink text-muted-foreground">
+          <button onClick={reset} className="inline-flex h-11 items-center px-3 text-sm text-muted-foreground hover:text-brand transition-colors">
             Azzera filtri
           </button>
         )}
@@ -116,7 +116,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
                   <li key={s._id}>
                     <button
                       onClick={() => setSelected(s)}
-                      className="group flex w-full items-baseline gap-3 rounded-md py-1.5 text-left transition-colors hover:bg-ink/5"
+                      className="group flex min-h-11 w-full items-center gap-3 rounded-md px-1 py-2 text-left transition-colors hover:bg-ink/5"
                     >
                       <span className="font-mono text-sm text-brand-strong">{s.startTime}</span>
                       <span className="text-base text-ink/80 group-hover:text-ink">
@@ -139,7 +139,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
       <AnimatePresence>
         {selected && (
           <motion.div
-            className="fixed inset-0 z-[60] flex items-end justify-center bg-ink/70 p-4 backdrop-blur-sm sm:items-center"
+            className="fixed inset-0 z-[60] flex items-end justify-center overflow-y-auto bg-ink/70 p-4 backdrop-blur-sm sm:items-center"
             initial={reduce ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -149,7 +149,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
             aria-label={`Dettaglio ${selected.displayTitle}`}
           >
             <motion.div
-              className="dark w-full max-w-md rounded-lg border border-paper/15 bg-ink-soft p-6 text-paper"
+              className="dark flex max-h-[85dvh] w-full max-w-md flex-col overflow-y-auto rounded-lg border border-paper/15 bg-ink-soft p-6 text-paper"
               initial={reduce ? false : { y: 24, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={reduce ? { opacity: 0 } : { y: 24, opacity: 0 }}
@@ -162,7 +162,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
                   </p>
                   <h3 className="text-display mt-2 text-3xl">{selected.displayTitle}</h3>
                 </div>
-                <button onClick={() => setSelected(null)} aria-label="Chiudi" className="text-2xl text-paper/50 hover:text-paper">
+                <button onClick={() => setSelected(null)} aria-label="Chiudi" className="-m-2 grid size-11 place-items-center text-2xl leading-none text-paper/50 hover:text-paper">
                   ×
                 </button>
               </div>

@@ -46,7 +46,7 @@ export const INSTRUCTORS_QUERY = defineQuery(`*[_type == "instructor"]|order(ord
 }`);
 
 export const GALLERY_QUERY = defineQuery(`*[_type == "galleryItem"]|order(order asc){
-  _id, type, image, videoUrl, caption,
+  _id, type, image, "dims": image.asset->metadata.dimensions{width, height}, videoUrl, caption,
   "discipline": disciplineTag->{ title, "slug": slug.current }
 }`);
 

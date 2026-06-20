@@ -23,7 +23,7 @@ import { Parallax } from "@/components/motion/parallax";
 
 // Poster provvisorio (stock) finché non arrivano le foto reali dello studio.
 const HERO_POSTER =
-  "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=2000&q=70";
+  "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=3840&q=70";
 
 // Video hero (in `public/`). Verticale provvisorio → zoom a riempire l'hero
 // (object-cover, centrato: ritaglia sopra/sotto, niente bande laterali).

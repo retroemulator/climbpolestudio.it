@@ -65,7 +65,7 @@ export default async function ChiSiamoPage() {
             <RevealText
               as="p"
               text="Climb nasce dall'idea che salire, girare e restare sospesi sia alla portata di tutte e tutti."
-              className="text-2xl leading-snug md:text-4xl"
+              className="max-w-2xl text-2xl leading-snug md:text-4xl"
             />
             <Reveal delay={0.1}>
               <p className="mt-6 max-w-xl text-muted-foreground">

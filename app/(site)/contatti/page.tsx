@@ -69,7 +69,7 @@ export default function ContattiPage() {
 
             <div className="mt-8 border-t border-line pt-6">
               <p className="eyebrow text-brand-strong">Orari</p>
-              <dl className="mt-3 space-y-1.5">
+              <dl className="mt-3 max-w-sm space-y-1.5">
                 {openingHours.map((o) => (
                   <div key={o.days} className="flex justify-between gap-6 text-sm">
                     <dt className="text-muted-foreground">{o.days}</dt>

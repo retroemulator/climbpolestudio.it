@@ -32,7 +32,7 @@ export function Manifesto() {
           <RevealText
             as="h2"
             text="Portare le arti aeree fuori dallo spettacolo e dentro la vita di tutti i giorni."
-            className="text-2xl leading-snug md:text-4xl"
+            className="max-w-2xl text-2xl leading-snug md:text-4xl"
           />
           <Reveal delay={0.1}>
             <p className="mt-6 max-w-2xl text-muted-foreground">

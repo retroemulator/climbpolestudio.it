@@ -37,7 +37,7 @@ export function Team({ items }: { items: Instructor[] }) {
           Le insegnanti
         </ChromaticShadow>
 
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
           {items.map((p, i) => (
             <Reveal key={p._id} delay={(i % 2) * 0.08}>
               <Tilt max={4} scale={1.01} className="h-full">

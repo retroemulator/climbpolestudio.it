@@ -60,7 +60,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
             <div aria-hidden className="absolute inset-0 bg-ink-soft" />
           )}
         </div>
-        <Container className="relative z-10">
+        <Container className="relative z-10 max-w-3xl">
           <div className="relative">
             <Spine className="left-0 bg-brand/40" />
             <p className="eyebrow pl-4 text-brand md:pl-6">

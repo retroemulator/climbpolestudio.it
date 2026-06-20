@@ -45,7 +45,7 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
 
   const accent = d.accent || "var(--color-brand)";
   const heroImg = d.media?.image
-    ? urlFor(d.media.image).width(2000).quality(70).url()
+    ? urlFor(d.media.image).width(3840).quality(70).url()
     : (disciplineImageFor(slug) ?? null);
   const heroGradient = `radial-gradient(130% 120% at 18% 8%, color-mix(in oklab, ${accent} 60%, transparent) 0%, transparent 50%), radial-gradient(130% 120% at 86% 96%, color-mix(in oklab, var(--color-electric) 42%, transparent) 0%, transparent 52%)`;
 
@@ -117,16 +117,16 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
           <div>
             <Reveal>
               {d.body?.length ? (
-                <RichText value={d.body} />
+                <RichText value={d.body} className="max-w-[68ch]" />
               ) : (
-                <p className="text-lg leading-relaxed text-ink/80">{d.summary}</p>
+                <p className="max-w-[68ch] text-lg leading-relaxed text-ink/80">{d.summary}</p>
               )}
             </Reveal>
 
             {d.suitableFor && (
               <Reveal delay={0.05} className="mt-12">
                 <p className="eyebrow text-brand-strong">A chi è adatto</p>
-                <p className="mt-3 text-lg text-ink/80">{d.suitableFor}</p>
+                <p className="mt-3 max-w-[68ch] text-lg text-ink/80">{d.suitableFor}</p>
               </Reveal>
             )}
           </div>
@@ -194,7 +194,7 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
             <h2 className="text-display mt-3" style={{ fontSize: "clamp(2rem, 6vw, 4rem)" }}>
               Quando si pratica
             </h2>
-            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-paper/10 bg-paper/10 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-px overflow-hidden rounded-lg border border-paper/10 bg-paper/10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
               {byDay.map((day) => (
                 <Reveal key={day.key} className="bg-ink p-5">
                   <p className="eyebrow text-paper/40">{day.long}</p>

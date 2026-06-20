@@ -93,7 +93,7 @@ export function DisciplineRail({ items }: { items: RailItem[] }) {
         {items.map((it, i) => (
           <li
             key={it.slug}
-            className="w-[80vw] shrink-0 snap-start sm:w-[56vw] md:w-[42vw] lg:w-[32vw] xl:w-[26vw]"
+            className="w-[80vw] shrink-0 snap-start sm:w-[56vw] md:w-[42vw] lg:w-[32vw] lg:max-w-[24rem] xl:w-[26vw] xl:max-w-[26rem] 2xl:w-[24rem]"
           >
             <Link
               href={`/discipline/${it.slug}`}

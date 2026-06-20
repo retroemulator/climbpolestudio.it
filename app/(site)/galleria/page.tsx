@@ -33,7 +33,7 @@ export default async function GalleriaPage() {
           </div>
 
           {items.length ? (
-            <div className="mt-14 columns-2 gap-4 md:columns-3">
+            <div className="mt-14 columns-2 gap-4 md:columns-3 xl:columns-4 2xl:columns-5">
               {items.map((it, i) => (
                 <Reveal key={it._id} delay={(i % 6) * 0.04} className="mb-4 break-inside-avoid">
                   <figure className="overflow-hidden rounded-lg border border-paper/10">

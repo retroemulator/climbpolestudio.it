@@ -45,7 +45,7 @@ export default async function NewsPage() {
                       className="group flex flex-col gap-1 py-6 md:flex-row md:items-baseline md:gap-8"
                     >
                       <span className="font-mono text-sm text-paper/40">{formatDate(p.date)}</span>
-                      <div>
+                      <div className="max-w-2xl">
                         <h2 className="text-display block text-2xl text-paper transition-colors group-hover:text-brand md:text-3xl">
                           {p.title}
                         </h2>

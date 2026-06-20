@@ -68,7 +68,7 @@ export default async function PrezziPage() {
               {groups.map((g) => (
                 <div key={g.key}>
                   <h2 className="eyebrow text-brand-strong">{g.label}</h2>
-                  <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                     {g.items.map((p, i) => (
                       <Reveal key={p._id} delay={i * 0.04}>
                         <div

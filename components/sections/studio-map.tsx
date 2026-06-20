@@ -61,7 +61,7 @@ export function StudioMap({
         zoomControl: false,
         attributionControl: false,
         dragging: false,
-        scrollWheelZoom: "center",
+        scrollWheelZoom: false,
         doubleClickZoom: true,
         touchZoom: "center",
         keyboard: false,
@@ -107,7 +107,6 @@ export function StudioMap({
       {/* Mappa interattiva reale — scroll in hover = zoom */}
       <div
         ref={containerRef}
-        data-lenis-prevent
         role="img"
         aria-label={`Mappa di ${address.street}, ${address.cityLine}`}
         className="studio-map__embed absolute inset-0"

@@ -73,7 +73,7 @@ export default async function DisciplinePage() {
                   <Tilt className="h-full">
                     <Link
                       href={`/discipline/${d.slug}`}
-                      className="group relative block h-[44vh] min-h-72 overflow-hidden rounded-xl border border-paper/12"
+                      className="group relative block aspect-[9/11] min-h-72 overflow-hidden rounded-xl border border-paper/12"
                     >
                       <div className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.06]">
                         {img ? (

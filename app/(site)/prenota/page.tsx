@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Check } from "lucide-react";
 
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import { createClient } from "@/lib/supabase/server";
@@ -44,22 +45,57 @@ export default async function PrenotaPage() {
             </ChromaticShadow>
           </div>
 
-          <div className="mt-12 max-w-2xl pl-4 md:pl-6">
-            {isSupabaseConfigured ? (
-              <BookingList sessions={sessions} />
-            ) : (
-              <div>
-                <p className="text-lg text-paper/75">
-                  Le prenotazioni online stanno per essere attivate. Nel frattempo, prenota la tua
-                  prova gratuita in un attimo su WhatsApp: ti rispondiamo noi.
-                </p>
-                <Button asChild variant="brand" size="lg" className="mt-6">
-                  <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-                    Prenota su WhatsApp
-                  </a>
-                </Button>
+          <div className="mt-12 grid gap-10 pl-4 md:pl-6 lg:grid-cols-[minmax(0,40rem)_minmax(0,22rem)] lg:gap-16">
+            <div>
+              {isSupabaseConfigured ? (
+                <BookingList sessions={sessions} />
+              ) : (
+                <div>
+                  <p className="text-lg text-paper/75">
+                    Le prenotazioni online stanno per essere attivate. Nel frattempo, prenota la tua
+                    prova gratuita in un attimo su WhatsApp: ti rispondiamo noi.
+                  </p>
+                  <Button asChild variant="brand" size="lg" className="mt-6">
+                    <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                      Prenota su WhatsApp
+                    </a>
+                  </Button>
+                </div>
+              )}
+            </div>
+
+            <aside className="lg:sticky lg:top-28 lg:self-start">
+              <div className="rounded-xl border border-paper/12 bg-ink-soft/40 p-6 md:p-8">
+                <p className="eyebrow text-brand">La prima volta</p>
+                <h2 className="text-display mt-3 text-2xl md:text-3xl">La prova è gratuita</h2>
+                <ul className="mt-5 space-y-3 text-paper/75">
+                  <li className="flex gap-3">
+                    <Check className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
+                    Nessun obbligo: vieni, provi, decidi.
+                  </li>
+                  <li className="flex gap-3">
+                    <Check className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
+                    Per ogni livello, anche se parti da zero.
+                  </li>
+                  <li className="flex gap-3">
+                    <Check className="mt-0.5 size-5 shrink-0 text-brand" aria-hidden />
+                    Ti seguiamo noi, passo dopo passo.
+                  </li>
+                </ul>
+                {isSupabaseConfigured && (
+                  <>
+                    <p className="mt-6 text-sm text-paper/60">
+                      Preferisci scrivere? Ti rispondiamo su WhatsApp.
+                    </p>
+                    <Button asChild variant="brand" size="lg" className="mt-3 w-full">
+                      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                        Scrivici su WhatsApp
+                      </a>
+                    </Button>
+                  </>
+                )}
               </div>
-            )}
+            </aside>
           </div>
         </Container>
       </Section>

@@ -21,9 +21,9 @@ import { Parallax } from "@/components/motion/parallax";
  * Wordmark gigante con la firma Chromatic Shadow + marquee discipline + scroll cue.
  */
 
-// Poster provvisorio (stock) finché non arrivano le foto reali dello studio.
-const HERO_POSTER =
-  "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=3840&q=70";
+// Poster reale dello studio (2560px). È sia il frame LCP sia il fallback del video
+// su mobile/data-saver/reduced-motion.
+const HERO_POSTER = "/hero.jpg";
 
 // Video hero (in `public/`). Verticale provvisorio → zoom a riempire l'hero
 // (object-cover, centrato: ritaglia sopra/sotto, niente bande laterali).

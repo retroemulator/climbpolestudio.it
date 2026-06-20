@@ -46,7 +46,7 @@ export function RichText({
 }) {
   if (!value?.length) return null;
   return (
-    <div className={cn(className)}>
+    <div className={cn('[overflow-wrap:anywhere]', className)}>
       <PortableText value={value} components={components} />
     </div>
   );

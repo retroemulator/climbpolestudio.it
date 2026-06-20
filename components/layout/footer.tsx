@@ -52,21 +52,21 @@ export function Footer() {
         {/* Naviga */}
         <nav aria-label="Footer — pagine">
           <p className="eyebrow text-paper/40">Naviga</p>
-          <ul className="mt-4 space-y-2 text-sm">
+          <ul className="mt-4 space-y-1 md:space-y-2 text-sm">
             {navItems.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className="text-paper/75 transition-colors hover:text-brand">
+                <Link href={item.href} className="inline-flex min-h-11 items-center text-paper/75 transition-colors hover:text-brand">
                   {item.label}
                 </Link>
               </li>
             ))}
             <li>
-              <Link href="/galleria" className="text-paper/75 transition-colors hover:text-brand">
+              <Link href="/galleria" className="inline-flex min-h-11 items-center text-paper/75 transition-colors hover:text-brand">
                 Galleria
               </Link>
             </li>
             <li>
-              <Link href={routes.prenota} className="text-paper/75 transition-colors hover:text-brand">
+              <Link href={routes.prenota} className="inline-flex min-h-11 items-center text-paper/75 transition-colors hover:text-brand">
                 {strings.nav.prenota}
               </Link>
             </li>
@@ -76,11 +76,11 @@ export function Footer() {
         {/* Contatti */}
         <div>
           <p className="eyebrow text-paper/40">Contatti</p>
-          <ul className="mt-4 space-y-2 text-sm">
+          <ul className="mt-4 space-y-1 md:space-y-2 text-sm">
             <li>
               <a
                 href={`tel:${contact.phoneE164}`}
-                className="text-paper/75 transition-colors hover:text-brand"
+                className="inline-flex min-h-11 items-center text-paper/75 transition-colors hover:text-brand"
               >
                 {contact.phoneDisplay}
               </a>
@@ -88,7 +88,7 @@ export function Footer() {
             <li>
               <a
                 href={`mailto:${contact.email}`}
-                className="text-paper/75 transition-colors hover:text-brand"
+                className="inline-flex min-h-11 items-center text-paper/75 transition-colors hover:text-brand"
               >
                 {contact.email}
               </a>
@@ -98,7 +98,7 @@ export function Footer() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-paper/75 transition-colors hover:text-brand"
+                className="inline-flex min-h-11 items-center text-paper/75 transition-colors hover:text-brand"
               >
                 WhatsApp
               </a>
@@ -119,10 +119,10 @@ export function Footer() {
           © {strings.brand.name} · {address.city}
         </p>
         <div className="flex gap-4">
-          <Link href="/privacy" className="transition-colors hover:text-paper/70">
+          <Link href="/privacy" className="inline-flex min-h-11 items-center transition-colors hover:text-paper/70">
             Privacy
           </Link>
-          <Link href="/cookie" className="transition-colors hover:text-paper/70">
+          <Link href="/cookie" className="inline-flex min-h-11 items-center transition-colors hover:text-paper/70">
             Cookie
           </Link>
         </div>

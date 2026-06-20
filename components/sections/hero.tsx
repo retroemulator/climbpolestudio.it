@@ -64,7 +64,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
       <Container className="relative z-10 flex flex-1 flex-col justify-end pb-10 pt-28 md:pb-14">
         <div className="relative">
           <Spine className="left-0 bg-brand/40" />
-          <p className="eyebrow pl-4 text-paper/80 md:pl-6">
+          <p className="eyebrow pl-4 text-[0.7rem] tracking-[0.18em] text-balance text-paper/80 sm:text-xs sm:tracking-[0.3em] md:pl-6">
             {strings.brand.city} · {strings.brand.payoff}
           </p>
           <Stamp className="pl-4 md:pl-6">

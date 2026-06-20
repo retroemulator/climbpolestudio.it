@@ -26,7 +26,7 @@ export function PagePlaceholder({
 }) {
   return (
     <main>
-      <Section tone="stage" className="flex min-h-screen flex-col justify-center py-32">
+      <Section tone="stage" className="flex min-h-[100svh] flex-col justify-center py-32">
         <Container className="relative">
           <Spine className="left-6 bg-brand/30 md:left-10 lg:left-14" />
           <p className="eyebrow pl-3 text-brand md:pl-6">{eyebrow}</p>

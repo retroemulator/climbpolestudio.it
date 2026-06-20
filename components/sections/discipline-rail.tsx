@@ -98,7 +98,7 @@ export function DisciplineRail({ items }: { items: RailItem[] }) {
             <Link
               href={`/discipline/${it.slug}`}
               draggable={false}
-              className="group relative block h-[58vh] overflow-hidden rounded-xl border border-paper/12 md:h-[62vh]"
+              className="group relative block h-[58vh] min-h-[440px] max-h-[620px] overflow-hidden rounded-xl border border-paper/12 md:h-[62vh]"
             >
               <div
                 aria-hidden
@@ -109,7 +109,7 @@ export function DisciplineRail({ items }: { items: RailItem[] }) {
                     src={it.imageUrl}
                     alt={it.title}
                     fill
-                    sizes="(max-width: 768px) 80vw, 32vw"
+                    sizes="(max-width:640px) 80vw, (max-width:768px) 56vw, (max-width:1024px) 42vw, (max-width:1280px) 32vw, 26vw"
                     className="object-cover"
                     draggable={false}
                   />

@@ -77,7 +77,7 @@ export function BookingList({ sessions }: { sessions: SessionRow[] }) {
             {res ? (
               <span className="text-sm text-brand">{LABEL[res] ?? "Errore"}</span>
             ) : (
-              <Button variant="brand" size="sm" disabled={busy === s.id} onClick={() => book(s.id)}>
+              <Button variant="brand" size="sm" className="min-h-11" disabled={busy === s.id} onClick={() => book(s.id)}>
                 {busy === s.id ? "…" : authed === false ? "Accedi" : "Prenota"}
               </Button>
             )}

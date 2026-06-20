@@ -68,7 +68,7 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
             </p>
             <ChromaticShadow
               as="h1"
-              className="text-display pl-4 md:pl-6"
+              className="text-display pl-4 md:pl-6 [overflow-wrap:anywhere] hyphens-auto"
               style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
             >
               {post.title}

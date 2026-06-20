@@ -27,8 +27,8 @@ type MediaProps = {
   morph?: boolean;
   /** Durata (ms) della transizione foto→video. Default 700; hero ~2000. */
   morphMs?: number;
-  /** object-position di foto e video (default center). Es. "top" per ancorare in
-   *  alto: l'eventuale ritaglio toglie la parte BASSA, mai le teste. */
+  /** object-position della SOLA immagine (poster/fallback); il video resta sempre
+   *  centrato. Es. "top" per ancorare in alto: il ritaglio toglie la parte BASSA. */
   objectPosition?: string;
 };
 
@@ -107,7 +107,6 @@ export function Media({
           ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover will-change-[opacity,transform,filter]"
           style={{
-            objectPosition,
             opacity: videoReady ? 1 : 0,
             transform: morph ? (videoReady ? "scale(1)" : "scale(1.06)") : undefined,
             filter: morph ? (videoReady ? "blur(0px)" : "blur(12px)") : undefined,

@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
-import { Reveal } from "@/components/motion/reveal";
-
 export type GalleryPhoto = {
   id: string;
   thumb: string;
@@ -14,21 +12,68 @@ export type GalleryPhoto = {
   caption: string | null;
 };
 
+const GAP = 12;
+
+type Tile = { p: GalleryPhoto; i: number; w: number; h: number };
+
 /**
- * Griglia masonry + lightbox accessibile: click → overlay a tutto schermo con
- * frecce ←/→, Esc/click-fuori per chiudere, focus-trap e return-focus. Client
- * (stato + tastiera); le URL (thumb/full) arrivano già pronte dal server.
+ * Layout a MOSAICO giustificato (stile Google Photos/Flickr): righe a tutta
+ * larghezza, altezza uniforme per riga, immagini di larghezza variabile che si
+ * incastrano senza crop. Calcolato sulle proporzioni reali in base alla
+ * larghezza del contenitore (ResizeObserver).
+ */
+function justify(photos: GalleryPhoto[], width: number, target: number): Tile[][] {
+  const rows: Tile[][] = [];
+  let row: { p: GalleryPhoto; i: number; ar: number }[] = [];
+  let arSum = 0;
+  photos.forEach((p, i) => {
+    const ar = p.w / p.h || 0.8;
+    row.push({ p, i, ar });
+    arSum += ar;
+    const rowWidth = arSum * target + GAP * (row.length - 1);
+    if (rowWidth >= width) {
+      const h = (width - GAP * (row.length - 1)) / arSum;
+      rows.push(row.map((it) => ({ p: it.p, i: it.i, w: it.ar * h, h })));
+      row = [];
+      arSum = 0;
+    }
+  });
+  if (row.length) {
+    // ultima riga: altezza target, senza stiramento a tutta larghezza
+    rows.push(row.map((it) => ({ p: it.p, i: it.i, w: it.ar * target, h: target })));
+  }
+  return rows;
+}
+
+/**
+ * Galleria a mosaico + lightbox accessibile: click → overlay a tutto schermo con
+ * frecce ←/→, Esc/click-fuori per chiudere, focus-trap e return-focus. Le URL
+ * (thumb/full) arrivano già pronte dal server.
  */
 export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(0);
+
   const [index, setIndex] = useState<number | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const openerRef = useRef<HTMLElement | null>(null);
 
+  // Larghezza del contenitore per il calcolo del mosaico.
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el) return;
+    setWidth(el.clientWidth);
+    const ro = new ResizeObserver((entries) => setWidth(entries[0].contentRect.width));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   const open = index !== null;
   const go = (delta: number) =>
     setIndex((i) => (i === null ? i : (i + delta + photos.length) % photos.length));
 
+  // Lightbox: focus iniziale, Esc/frecce, focus-trap, return-focus.
   useEffect(() => {
     if (!open) return;
     const prev = openerRef.current ?? (document.activeElement as HTMLElement | null);
@@ -61,36 +106,49 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
     };
   }, [open, photos.length]);
 
+  const target = width < 600 ? 170 : width < 1024 ? 230 : width < 1536 ? 280 : 320;
+  const rows = width > 0 ? justify(photos, width, target) : [];
   const current = index === null ? null : photos[index];
 
   return (
     <>
-      <div className="mt-14 columns-2 gap-4 md:columns-3 xl:columns-4 2xl:columns-5">
-        {photos.map((p, i) => (
-          <Reveal key={p.id} delay={(i % 6) * 0.04} className="mb-4 break-inside-avoid">
-            <button
-              type="button"
-              onClick={(e) => {
-                openerRef.current = e.currentTarget;
-                setIndex(i);
-              }}
-              aria-label={p.caption ? `Apri immagine: ${p.caption}` : "Apri immagine"}
-              className="group block w-full overflow-hidden rounded-lg border border-paper/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-            >
-              <Image
-                src={p.thumb}
-                alt={p.caption ?? "Climb Pole Studio"}
-                width={p.w}
-                height={p.h}
-                sizes="(max-width:768px) 50vw, (max-width:1280px) 33vw, 20vw"
-                className="h-auto w-full transition-transform duration-500 group-hover:scale-[1.03]"
-              />
-              {p.caption ? (
-                <span className="block p-3 text-left text-sm text-paper/60">{p.caption}</span>
-              ) : null}
-            </button>
-          </Reveal>
-        ))}
+      <div ref={gridRef} className="mt-14">
+        {rows.length === 0 ? (
+          <div className="min-h-[60vh]" aria-hidden />
+        ) : (
+          <div className="flex flex-col" style={{ gap: GAP }}>
+            {rows.map((row, ri) => (
+              <div key={ri} className="flex" style={{ gap: GAP }}>
+                {row.map((t) => (
+                  <button
+                    key={t.p.id}
+                    type="button"
+                    onClick={(e) => {
+                      openerRef.current = e.currentTarget;
+                      setIndex(t.i);
+                    }}
+                    aria-label={t.p.caption ? `Apri immagine: ${t.p.caption}` : "Apri immagine"}
+                    style={{ width: `${t.w}px`, height: `${t.h}px` }}
+                    className="group relative shrink-0 overflow-hidden rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+                  >
+                    <Image
+                      src={t.p.thumb}
+                      alt={t.p.caption ?? "Climb Pole Studio"}
+                      fill
+                      sizes={`${Math.ceil(t.w)}px`}
+                      className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    />
+                    {t.p.caption ? (
+                      <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-ink/85 to-transparent p-3 pt-8 text-left text-sm text-paper opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                        {t.p.caption}
+                      </span>
+                    ) : null}
+                  </button>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {current && (
@@ -100,7 +158,7 @@ export function Gallery({ photos }: { photos: GalleryPhoto[] }) {
           role="dialog"
           aria-modal="true"
           aria-label="Galleria immagini"
-          className="fixed inset-0 z-[80] flex flex-col bg-ink/95 backdrop-blur-sm"
+          className="fixed inset-0 z-80 flex flex-col bg-ink/95 backdrop-blur-sm"
         >
           <div className="flex items-center justify-between p-4 text-paper">
             <span className="font-mono text-sm text-paper/60">

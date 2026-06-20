@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
@@ -20,6 +20,42 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
   const [day, setDay] = useState("all");
   const [level, setLevel] = useState("all");
   const [selected, setSelected] = useState<ScheduleSlot | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const openerRef = useRef<HTMLElement | null>(null);
+
+  // Focus della modale: focus su "Chiudi" all'apertura, Esc chiude, Tab confinato,
+  // focus ripristinato all'elemento che l'ha aperta.
+  useEffect(() => {
+    if (!selected) return;
+    const prev = openerRef.current ?? (document.activeElement as HTMLElement | null);
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelected(null);
+        return;
+      }
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const f = dialogRef.current.querySelectorAll<HTMLElement>(
+        'a[href],button:not([disabled]),[tabindex]:not([tabindex="-1"])',
+      );
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      prev?.focus?.();
+    };
+  }, [selected]);
 
   const disciplineOptions = useMemo(
     () => Array.from(new Set(slots.map((s) => s.discipline?.title).filter(Boolean))) as string[],
@@ -95,7 +131,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
             Azzera filtri
           </button>
         )}
-        <span className="ml-auto font-mono text-sm text-muted-foreground">
+        <span className="font-mono text-sm text-muted-foreground">
           {filtered.length} lezioni
         </span>
       </div>
@@ -105,7 +141,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
         <div
           className={cn(
             "mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line",
-            day === "all" ? "sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1",
+            day === "all" ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6" : "grid-cols-1",
           )}
         >
           {byDay.map((d) => (
@@ -115,7 +151,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
                 {d.items.map((s) => (
                   <li key={s._id}>
                     <button
-                      onClick={() => setSelected(s)}
+                      onClick={(e) => { openerRef.current = e.currentTarget; setSelected(s); }}
                       className="group flex min-h-11 w-full items-center gap-3 rounded-md px-1 py-2 text-left transition-colors hover:bg-ink/5"
                     >
                       <span className="font-mono text-sm text-brand-strong">{s.startTime}</span>
@@ -149,6 +185,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
             aria-label={`Dettaglio ${selected.displayTitle}`}
           >
             <motion.div
+              ref={dialogRef}
               className="dark flex max-h-[85dvh] w-full max-w-md flex-col overflow-y-auto rounded-lg border border-paper/15 bg-ink-soft p-6 text-paper"
               initial={reduce ? false : { y: 24, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -162,7 +199,7 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
                   </p>
                   <h3 className="text-display mt-2 text-3xl">{selected.displayTitle}</h3>
                 </div>
-                <button onClick={() => setSelected(null)} aria-label="Chiudi" className="-m-2 grid size-11 place-items-center text-2xl leading-none text-paper/50 hover:text-paper">
+                <button ref={closeRef} onClick={() => setSelected(null)} aria-label="Chiudi" className="-m-2 grid size-11 place-items-center text-2xl leading-none text-paper/50 hover:text-paper">
                   ×
                 </button>
               </div>

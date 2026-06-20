@@ -80,12 +80,13 @@ export function Navbar() {
                 className="relative"
                 onMouseEnter={() => setMegaOpen(true)}
                 onMouseLeave={() => setMegaOpen(false)}
+                onFocus={() => setMegaOpen(true)}
+                onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setMegaOpen(false); }}
               >
                 <Link
                   href={item.href}
                   aria-expanded={megaOpen}
                   aria-haspopup="true"
-                  onFocus={() => setMegaOpen(true)}
                   className="navlink"
                 >
                   {item.label}

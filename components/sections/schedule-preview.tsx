@@ -110,7 +110,7 @@ export function SchedulePreview({ schedule }: { schedule: ScheduleSlot[] }) {
               className="pointer-events-none absolute inset-y-0 left-0 w-1/3 translate-x-[-250%] -skew-x-12 bg-linear-to-r from-transparent via-paper/30 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[450%]"
             />
             <span className="relative">
-              <span className="eyebrow block text-ink/55 transition-colors group-hover:text-paper/70">
+              <span className="eyebrow block text-ink/80 transition-colors group-hover:text-paper">
                 Tutta la settimana
               </span>
               <span className="text-display mt-1 block text-3xl leading-none md:text-5xl">

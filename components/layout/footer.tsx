@@ -51,7 +51,7 @@ export function Footer() {
 
         {/* Naviga */}
         <nav aria-label="Footer — pagine">
-          <p className="eyebrow text-paper/40">Naviga</p>
+          <p className="eyebrow text-paper/70">Naviga</p>
           <ul className="mt-4 space-y-1 md:space-y-2 text-sm">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -75,7 +75,7 @@ export function Footer() {
 
         {/* Contatti */}
         <div>
-          <p className="eyebrow text-paper/40">Contatti</p>
+          <p className="eyebrow text-paper/70">Contatti</p>
           <ul className="mt-4 space-y-1 md:space-y-2 text-sm">
             <li>
               <a
@@ -108,21 +108,21 @@ export function Footer() {
 
         {/* Social */}
         <div>
-          <p className="eyebrow text-paper/40">Seguici</p>
+          <p className="eyebrow text-paper/70">Seguici</p>
           <SocialIcons tone="dark" className="mt-4 -ml-2" />
         </div>
       </Container>
 
       {/* Riga legale */}
-      <Container className="flex flex-col items-start justify-between gap-3 border-t border-paper/10 py-6 text-xs text-paper/40 md:flex-row md:items-center">
+      <Container className="flex flex-col items-start justify-between gap-3 border-t border-paper/10 py-6 text-xs text-paper/60 md:flex-row md:items-center">
         <p>
           © {strings.brand.name} · {address.city}
         </p>
         <div className="flex gap-4">
-          <Link href="/privacy" className="inline-flex min-h-11 items-center transition-colors hover:text-paper/70">
+          <Link href="/privacy" className="inline-flex min-h-11 items-center transition-colors hover:text-paper">
             Privacy
           </Link>
-          <Link href="/cookie" className="inline-flex min-h-11 items-center transition-colors hover:text-paper/70">
+          <Link href="/cookie" className="inline-flex min-h-11 items-center transition-colors hover:text-paper">
             Cookie
           </Link>
         </div>

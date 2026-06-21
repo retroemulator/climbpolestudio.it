@@ -13,14 +13,15 @@ import { Button } from "@/components/ui/button";
 export function Manifesto() {
   return (
     <Section tone="light" className="py-24 md:py-36">
-      <Container className="grid items-stretch gap-10 md:grid-cols-[0.8fr_1.2fr]">
-        <div className="flex h-full flex-col">
+      <Container className="grid items-stretch gap-6 md:grid-cols-[0.8fr_1.2fr] md:gap-10">
+        <div className="flex flex-col md:h-full">
           <Reveal>
             <p className="eyebrow text-brand-strong">Chi siamo</p>
           </Reveal>
-          {/* Logo centrato verticalmente nello spazio sotto l'eyebrow → allineato
-              al centro del box testo a destra; più grande (max-w-md). */}
-          <Reveal delay={0.08} className="flex grow items-center">
+          {/* Desktop: logo centrato verticalmente sotto l'eyebrow → allineato al
+              centro del box testo a destra. Mobile: flusso normale (niente flex
+              grow), così non resta spazio vuoto tra logo e testo. Più grande. */}
+          <Reveal delay={0.08} className="md:flex md:grow md:items-center">
             <Image
               src="/logo.png"
               alt="Climb Pole Studio — arti aeree e movimento"

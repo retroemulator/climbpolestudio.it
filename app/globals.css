@@ -285,7 +285,7 @@ html.lenis body {
 .cps-pole {
   /* Offset in em (come l'ombra cromatica delle lettere): scala col testo, così
      l'ombra resta attaccata uguale su desktop e mobile. */
-  box-shadow: 0.025em 0.025em 0 0 var(--color-paper);
+  box-shadow: 0.045em 0.045em 0 0 var(--color-paper);
   /* Micro-nudge di allineamento del palo alla baseline. Prima era una utility
      translate-y sul markup, ma l'animazione scaleY (transform) la sovrascriveva;
      ora vive qui (e composto nei keyframe) → coerente con e senza motion. */
@@ -317,6 +317,21 @@ html.lenis body {
        (Niente will-change permanente: l'animazione è one-shot e composited già
        di suo; l'hint lasciato fisso terrebbe un layer GPU per sempre.) */
     animation: cps-pole-rise 1s cubic-bezier(0.16, 1, 0.3, 1) 1.9s both;
+  }
+}
+/* Su mobile lo spazio sopra il wordmark è stretto (line-height 0.9): il palo al
+   massimo (1.32) finirebbe sopra l'eyebrow "Torino · …". Qui si assesta più
+   contenuto (1.16, come prima della modifica) → niente sovrapposizione; su
+   desktop resta al massimo. Il blocco è DOPO il keyframe di default così, dove
+   la media query è attiva (≤767px), vince questa definizione. */
+@media (max-width: 767px) {
+  @keyframes cps-pole-rise {
+    0% {
+      transform: translateY(0.04em) scaleY(1);
+    }
+    100% {
+      transform: translateY(0.04em) scaleY(1.16);
+    }
   }
 }
 

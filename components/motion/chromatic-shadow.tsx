@@ -42,7 +42,7 @@ export function ChromaticShadow({
   style,
   ghostColor = "var(--color-brand)",
   splitColor = "var(--color-cyan)",
-  offset = 0.025,
+  offset = 0.045,
   interactive = true,
   entrance = true,
 }: ChromaticShadowProps) {

@@ -26,7 +26,7 @@ function Word({
 }
 
 const DEFAULT =
-  "Non vendiamo lo spettacolo. Ti insegniamo la forza, la tecnica e il movimento.";
+  "Non vendiamo lo spettacolo.\nTi insegniamo la forza, la tecnica e il movimento.";
 
 /**
  * Fascia "manifesto" KINETIC (stage): un marquee reattivo allo scroll + una frase
@@ -41,7 +41,16 @@ export function Statement({ text = DEFAULT }: { text?: string }) {
     target: ref,
     offset: ["start 0.85", "end 0.45"],
   });
-  const words = text.split(" ");
+  // Frase divisa in righe (\n) e parole: lo scrub illumina le parole in sequenza
+  // continua su tutte le righe; ogni riga va a capo.
+  const lines = text.split("\n").map((l) => l.trim().split(" "));
+  const total = lines.reduce((n, l) => n + l.length, 0);
+  let acc = 0;
+  const lineStart = lines.map((l) => {
+    const start = acc;
+    acc += l.length;
+    return start;
+  });
 
   return (
     <Section tone="stage" className="overflow-hidden">
@@ -56,17 +65,24 @@ export function Statement({ text = DEFAULT }: { text?: string }) {
       <Container>
         <div ref={ref} className="mx-auto max-w-5xl py-24 md:py-36">
           <p className="font-display text-3xl font-semibold leading-[1.08] tracking-tight md:text-6xl">
-            {reduced
-              ? text
-              : words.map((w, i) => (
-                  <Word
-                    key={i}
-                    progress={scrollYProgress}
-                    range={[i / words.length, (i + 1) / words.length]}
-                  >
-                    {w}
-                  </Word>
-                ))}
+            {lines.map((line, li) => (
+              <span key={li} className="block">
+                {reduced
+                  ? line.join(" ")
+                  : line.map((w, wi) => {
+                      const i = lineStart[li] + wi;
+                      return (
+                        <Word
+                          key={wi}
+                          progress={scrollYProgress}
+                          range={[i / total, (i + 1) / total]}
+                        >
+                          {w}
+                        </Word>
+                      );
+                    })}
+              </span>
+            ))}
           </p>
         </div>
       </Container>

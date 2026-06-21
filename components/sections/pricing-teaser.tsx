@@ -25,7 +25,7 @@ const VALUES = [
   "Prima prova gratuita",
   "Sospendi o cambi corso quando vuoi",
   "Pole, aeree e functional in un unico spazio",
-  "Insegnanti certificate",
+  "Insegnante certificata",
   "Community vera, dentro e fuori la sala",
   "Nessun costo nascosto",
 ];

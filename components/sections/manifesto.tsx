@@ -44,8 +44,8 @@ export function Manifesto() {
           </Reveal>
           <Reveal delay={0.16}>
             <p className="mt-4 max-w-2xl text-muted-foreground">
-              Lavoriamo per livelli reali, dall&apos;intro all&apos;avanzato, con insegnanti
-              certificate che ti seguono passo dopo passo: niente giudizio, niente fretta. Che tu
+              Lavoriamo per livelli reali, dall&apos;intro all&apos;avanzato, con un&apos;insegnante
+              certificata che ti segue passo dopo passo: niente giudizio, niente fretta. Che tu
               salga su un palo per la prima volta o viva già a testa in giù, qui cresci insieme a una
               community che spinge nella stessa direzione — dentro e fuori dalla sala.
             </p>

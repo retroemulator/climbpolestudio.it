@@ -19,7 +19,7 @@ import { Testimonials } from "@/components/sections/testimonials";
 export const metadata: Metadata = {
   title: "Chi siamo",
   description:
-    "Climb Pole Studio: arti aeree e movimento a Torino. Lo studio, le insegnanti, la community.",
+    "Climb Pole Studio: arti aeree e movimento a Torino. Lo studio, l'insegnamento e la community.",
 };
 
 const PILLARS = [
@@ -71,7 +71,7 @@ export default async function ChiSiamoPage() {
               <p className="mt-6 max-w-xl text-muted-foreground">
                 Niente performance da esibire: tecnica, ascolto del corpo e una community che spinge
                 nella stessa direzione. Lavoriamo per livelli reali — dall&apos;intro
-                all&apos;avanzato — con insegnanti che ti seguono passo dopo passo. Lo spazio è
+                all&apos;avanzato — con un&apos;insegnante che ti segue passo dopo passo. Lo spazio è
                 curato, sicuro e pensato per il movimento.
               </p>
             </Reveal>

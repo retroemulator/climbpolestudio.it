@@ -7,6 +7,8 @@ import { routes, weekdays } from "@/lib/site";
 import { getDisciplineSlugs, getDisciplineBySlug, getScheduleByDiscipline } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
 import { disciplineImageFor } from "@/lib/discipline-images";
+import { strings } from "@/lib/strings";
+import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
@@ -18,6 +20,8 @@ import { Tilt } from "@/components/motion/tilt";
 import { Media } from "@/components/media/media";
 import { Button } from "@/components/ui/button";
 import { RichText } from "@/components/portable-text";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://climbpolestudio.it";
 
 export async function generateStaticParams() {
   const slugs = await getDisciplineSlugs().catch(() => []);
@@ -65,8 +69,31 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
     .map((wd) => ({ ...wd, slots: slots.filter((s) => s.day === wd.key) }))
     .filter((wd) => wd.slots.length);
 
+  const url = `${SITE_URL}/discipline/${slug}`;
+
+  const courseLd = {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    name: d.title,
+    ...(d.summary ? { description: d.summary } : {}),
+    url,
+    provider: { "@type": "Organization", name: strings.brand.name, sameAs: SITE_URL },
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Discipline", item: `${SITE_URL}/discipline` },
+      { "@type": "ListItem", position: 3, name: d.title, item: url },
+    ],
+  };
+
   return (
     <main>
+      <JsonLd data={courseLd} />
+      <JsonLd data={breadcrumbLd} />
       {/* HERO (stage) — foto Sanity con parallax, o glow on-brand per-disciplina */}
       <Section
         tone="stage"

@@ -5,12 +5,17 @@ import { notFound } from "next/navigation";
 
 import { getNewsSlugs, getNewsBySlug } from "@/sanity/lib/data";
 import { urlFor } from "@/sanity/lib/image";
+import { legal } from "@/lib/site";
+import { strings } from "@/lib/strings";
+import { JsonLd } from "@/components/json-ld";
 import { Container } from "@/components/layout/container";
 import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import { RichText } from "@/components/portable-text";
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://climbpolestudio.it";
 
 function formatDate(iso?: string) {
   if (!iso) return "";
@@ -52,9 +57,39 @@ export default async function NewsArticlePage({ params }: { params: Promise<{ sl
   if (!post) notFound();
 
   const cover = post.cover ? urlFor(post.cover).width(2000).quality(70).url() : null;
+  const url = `${SITE_URL}/news/${slug}`;
+
+  const articleLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    ...(post.excerpt ? { description: post.excerpt } : {}),
+    ...(post.date ? { datePublished: post.date } : {}),
+    ...(cover ? { image: cover } : {}),
+    url,
+    mainEntityOfPage: url,
+    author: { "@type": "Organization", name: strings.brand.name },
+    publisher: {
+      "@type": "Organization",
+      name: legal.entity,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.png` },
+    },
+  };
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "News", item: `${SITE_URL}/news` },
+      { "@type": "ListItem", position: 3, name: post.title, item: url },
+    ],
+  };
 
   return (
     <main>
+      <JsonLd data={articleLd} />
+      <JsonLd data={breadcrumbLd} />
       {/* HERO (stage) — cover Sanity se presente, altrimenti fondo scuro */}
       <Section
         tone="stage"

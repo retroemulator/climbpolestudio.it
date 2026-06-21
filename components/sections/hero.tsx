@@ -68,7 +68,10 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
           <p className="eyebrow pl-4 text-[0.7rem] tracking-[0.18em] text-balance text-paper/80 sm:text-xs sm:tracking-[0.3em] md:pl-6">
             {strings.brand.city} · {strings.brand.payoff}
           </p>
-          <Stamp className="pl-4 md:pl-6">
+          {/* mt in vw solo su mobile: dà aria tra l'eyebrow e CLIMB così il palo,
+              che si allunga verso l'alto, non tocca "Torino · …". Scala in vw
+              perché il wordmark è 20vw nel range mobile → il margine segue il palo. */}
+          <Stamp className="mt-[7vw] pl-4 md:mt-0 md:pl-6">
             {/* Lockup del wordmark: il wrapper inline-block prende la larghezza di
                 CLIMB, così "Pole Studio" sotto (flex justify-between) si distribuisce
                 ESATTAMENTE sulla stessa larghezza → allineato sotto CLIMB e

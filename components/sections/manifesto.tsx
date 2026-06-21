@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 export function Manifesto() {
   return (
     <Section tone="light" className="py-24 md:py-36">
-      <Container className="grid items-stretch gap-6 md:grid-cols-[0.8fr_1.2fr] md:gap-10">
+      <Container className="grid items-stretch gap-4 md:grid-cols-[0.8fr_1.2fr] md:gap-10">
         <div className="flex flex-col md:h-full">
           <Reveal>
             <p className="eyebrow text-brand-strong">Chi siamo</p>
@@ -27,7 +27,10 @@ export function Manifesto() {
               alt="Climb Pole Studio — arti aeree e movimento"
               width={512}
               height={512}
-              className="mt-6 h-auto w-full max-w-sm md:max-w-md"
+              // -mb in % (solo mobile) recupera il padding trasparente sotto il
+              // triangolo del logo, così il testo non resta lontano. Scala con la
+              // larghezza del logo. Su desktop niente (md:mb-0).
+              className="mt-6 mb-[-12%] h-auto w-full max-w-sm md:mb-0 md:max-w-md"
             />
           </Reveal>
         </div>

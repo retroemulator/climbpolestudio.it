@@ -55,7 +55,7 @@ export const contact = {
   phoneDisplay: "+39 393 025 1482",
   phoneE164: "+393930251482",
   whatsapp: "393930251482",
-  whatsappMessage: "Ciao Nadia, vorrei informazioni su…",
+  whatsappMessage: "Ciao, vorrei informazioni su…",
   email: "info@climbpolestudio.it",
   address: {
     street: "Corso Dante 109/A",

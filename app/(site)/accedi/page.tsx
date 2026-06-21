@@ -8,9 +8,17 @@ import { Section, Spine } from "@/components/layout/section";
 import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { AuthForm } from "@/components/auth-form";
 
-export const metadata: Metadata = { title: "Accedi" };
+export const metadata: Metadata = {
+  title: "Accedi",
+  // Pagina funzionale di login (dati personali): fuori dall'indice.
+  robots: { index: false, follow: true },
+};
 
-export default async function AccediPage() {
+export default async function AccediPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   // Se già loggato → area personale.
   if (isSupabaseConfigured) {
     const supabase = await createClient();
@@ -19,6 +27,9 @@ export default async function AccediPage() {
     } = await supabase.auth.getUser();
     if (user) redirect("/area");
   }
+
+  // Messaggio d'errore propagato da /auth/callback (link scaduto/già usato).
+  const { error } = await searchParams;
 
   return (
     <main>
@@ -35,6 +46,14 @@ export default async function AccediPage() {
               Accedi
             </ChromaticShadow>
             <div className="mt-8 pl-4 md:pl-6">
+              {error && (
+                <p
+                  role="alert"
+                  className="mb-5 max-w-sm rounded-md border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                >
+                  {error}
+                </p>
+              )}
               <AuthForm />
             </div>
           </div>

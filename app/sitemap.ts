@@ -15,7 +15,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/contatti",
     "/galleria",
     "/news",
-    "/prenota",
   ];
 
   const slugs = await getDisciplineSlugs().catch(() => [] as { slug: string }[]);

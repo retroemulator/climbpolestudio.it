@@ -14,6 +14,8 @@ export const metadata: Metadata = {
   title: "Prenota la prova",
   description:
     "Prenota la tua prova gratuita a Climb Pole Studio, Torino: scegli la lezione e scrivici su WhatsApp. Pole, aeree e movimento per ogni livello.",
+  // Pagina d'azione (form/prenotazioni), non un contenuto da indicizzare.
+  robots: { index: false, follow: true },
 };
 
 export default async function PrenotaPage() {

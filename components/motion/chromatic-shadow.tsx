@@ -15,7 +15,8 @@ type ChromaticShadowProps = {
   ghostColor?: string;
   /** colore della traccia secondaria nello split RGB (default: cyan) */
   splitColor?: string;
-  /** offset di riposo, in px */
+  /** offset di riposo, in `em` (frazione della dimensione del testo): così la
+   *  distanza dell'ombra scala col font e resta identica tra desktop e mobile. */
   offset?: number;
   /** abilita lo split RGB su hover */
   interactive?: boolean;
@@ -41,7 +42,7 @@ export function ChromaticShadow({
   style,
   ghostColor = "var(--color-brand)",
   splitColor = "var(--color-cyan)",
-  offset = 6,
+  offset = 0.025,
   interactive = true,
   entrance = true,
 }: ChromaticShadowProps) {
@@ -59,7 +60,7 @@ export function ChromaticShadow({
           <span
             aria-hidden
             className="absolute inset-0"
-            style={{ color: ghostColor, transform: `translate(${offset}px, ${offset}px)` }}
+            style={{ color: ghostColor, transform: `translate(${offset}em, ${offset}em)` }}
           >
             {children}
           </span>
@@ -71,15 +72,17 @@ export function ChromaticShadow({
 
   const state = hovered ? "split" : inView || !entrance ? "rest" : "enter";
 
+  // Offset in `em` (stringhe): framer interpola mantenendo l'unità → l'ombra
+  // scala con la dimensione del testo (coerente desktop/mobile).
   const magenta: Variants = {
-    enter: { x: offset * 3, y: offset * 3, opacity: 0 },
-    rest: { x: offset, y: offset, opacity: 1 },
-    split: { x: -offset * 1.6, y: 0, opacity: 1 },
+    enter: { x: `${offset * 3}em`, y: `${offset * 3}em`, opacity: 0 },
+    rest: { x: `${offset}em`, y: `${offset}em`, opacity: 1 },
+    split: { x: `${-offset * 1.6}em`, y: "0em", opacity: 1 },
   };
   const cyan: Variants = {
-    enter: { x: 0, y: 0, opacity: 0 },
-    rest: { x: offset, y: offset, opacity: 0 },
-    split: { x: offset * 1.9, y: -offset * 0.4, opacity: 0.55 },
+    enter: { x: "0em", y: "0em", opacity: 0 },
+    rest: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
+    split: { x: `${offset * 1.9}em`, y: `${-offset * 0.4}em`, opacity: 0.55 },
   };
 
   return (

@@ -283,7 +283,9 @@ html.lenis body {
    (aria-hidden) di ChromaticShadow → resta solo sul palo reale.
    ────────────────────────────────────────────────────────────── */
 .cps-pole {
-  box-shadow: 6px 6px 0 0 var(--color-paper);
+  /* Offset in em (come l'ombra cromatica delle lettere): scala col testo, così
+     l'ombra resta attaccata uguale su desktop e mobile. */
+  box-shadow: 0.025em 0.025em 0 0 var(--color-paper);
   /* Micro-nudge di allineamento del palo alla baseline. Prima era una utility
      translate-y sul markup, ma l'animazione scaleY (transform) la sovrascriveva;
      ora vive qui (e composto nei keyframe) → coerente con e senza motion. */

@@ -87,6 +87,16 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
               <span aria-hidden>MB</span>
             </ChromaticShadow>
           </Stamp>
+          {/* "Pole Studio" sotto il wordmark: completa il nome del brand (la
+              versione accessibile completa è già nello sr-only dell'h1, quindi
+              qui è aria-hidden). text-display → maiuscolo automatico. */}
+          <p
+            aria-hidden
+            className="text-display mt-2 pl-4 leading-none tracking-[0.22em] text-paper/90 md:mt-3 md:pl-6"
+            style={{ fontSize: "clamp(1.1rem, 5.5vw, 3.75rem)" }}
+          >
+            Pole Studio
+          </p>
           <RevealText
             as="p"
             text="Salire, girare, restare sospesi. La pole è forza che diventa linguaggio."

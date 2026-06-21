@@ -26,7 +26,7 @@ function Word({
 }
 
 const DEFAULT =
-  "Non vendiamo lo spettacolo.\nTi insegniamo la forza, la tecnica e il movimento.";
+  "Non vendiamo lo spettacolo.\nTi insegniamo la forza, la tecnica\ne il movimento.";
 
 /**
  * Fascia "manifesto" KINETIC (stage): un marquee reattivo allo scroll + una frase

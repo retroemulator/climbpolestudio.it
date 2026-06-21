@@ -82,7 +82,7 @@ export function ChromaticShadow({
   const cyan: Variants = {
     enter: { x: "0em", y: "0em", opacity: 0 },
     rest: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
-    split: { x: `${offset * 1.9}em`, y: `${-offset * 0.4}em`, opacity: 0.55 },
+    split: { x: `${offset * 1.1}em`, y: `${-offset * 0.4}em`, opacity: 0.55 },
   };
 
   return (

@@ -292,7 +292,12 @@ html.lenis body {
   transform: translateY(0.04em);
 }
 [aria-hidden] .cps-pole {
+  /* Nei layer fantasma (aria-hidden) il palo non deve duplicarsi: niente ombra
+     bianca e fondo trasparente → l'effetto cromatico (anche lo split in hover)
+     resta solo sulle lettere C L M B, non sul palo. La larghezza del palo resta
+     (inline-block w-[0.12em]) così CL e MB fantasma stanno allineati. */
   box-shadow: none;
+  background-color: transparent;
 }
 /* Una volta "timbrata" la scritta (impatto ~1s), il palo si allunga SOLO verso
    l'alto e ci resta: transform-origin bottom → il fondo resta sulla baseline

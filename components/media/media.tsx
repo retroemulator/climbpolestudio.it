@@ -13,6 +13,10 @@ import { cn } from "@/lib/utils";
 const LOOP_MS = 700;
 const LOOP_LEAD = 0.85; // secondi prima della fine in cui parte la transizione
 
+// Quanto il poster (foto) resta visibile DOPO che il video è pronto, prima di
+// sfumare nel video: dà più respiro all'immagine d'apertura dell'hero.
+const POSTER_HOLD_MS = 1000;
+
 type MediaProps = {
   /** Immagine SEMPRE renderizzata: poster + fallback (LCP-safe). */
   image: { src: string; alt: string };
@@ -63,6 +67,7 @@ export function Media({
   const reduced = useReducedMotion();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showVideo, setShowVideo] = useState(false);
+  const [canPlay, setCanPlay] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
   const [entranceDone, setEntranceDone] = useState(false);
   const [loopOut, setLoopOut] = useState(false);
@@ -74,6 +79,14 @@ export function Media({
     if (!allowMobile && window.matchMedia("(max-width: 768px)").matches) return;
     setShowVideo(true);
   }, [videoUrl, reduced, allowMobile]);
+
+  // Tiene il poster ancora un attimo dopo che il video può partire, poi sblocca
+  // il morph foto→video (videoReady): l'immagine d'apertura dura di più.
+  useEffect(() => {
+    if (!canPlay) return;
+    const id = window.setTimeout(() => setVideoReady(true), POSTER_HOLD_MS);
+    return () => window.clearTimeout(id);
+  }, [canPlay]);
 
   // In modalità morph il video parte SUBITO (dall'inizio) appena è pronto, mentre
   // la dissolvenza+blur lo fanno emergere dal poster: il movimento è già in corso
@@ -161,8 +174,8 @@ export function Media({
           loop
           playsInline
           poster={morph ? undefined : poster ?? image.src}
-          onCanPlay={() => setVideoReady(true)}
-          onPlaying={() => setVideoReady(true)}
+          onCanPlay={() => setCanPlay(true)}
+          onPlaying={() => setCanPlay(true)}
           onTimeUpdate={handleTimeUpdate}
         >
           <source src={videoUrl} />

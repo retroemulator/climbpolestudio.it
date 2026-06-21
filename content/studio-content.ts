@@ -139,6 +139,8 @@ export type InstructorContent = {
   disciplineSlugs: string[];
 };
 
+// Per ora solo Nadia (titolare). La struttura `instructor` è pronta per
+// aggiungerne altri (reali) qui o direttamente da /studio.
 export const instructors: InstructorContent[] = [
   {
     name: "Nadia Senatore",
@@ -149,16 +151,6 @@ export const instructors: InstructorContent[] = [
       "Insegna pole dance in tutti i livelli, exotic, flexibility e functional training, intrecciando tonicità, mobilità e musicalità perché ogni figura abbia basi solide e un'espressione personale.",
     ],
     disciplineSlugs: ["pole-dance", "exotic", "flexibility", "functional-training"],
-  },
-  {
-    name: "Giulia Conti",
-    role: "Insegnante di discipline aeree",
-    bio: [
-      "Giulia affianca Nadia nelle discipline aeree, con una formazione che unisce ginnastica, danza e tecnica circense. In aria cerca sempre l'equilibrio fra controllo e leggerezza, trasmettendo la cura per l'allineamento e per ogni dettaglio del gesto.",
-      "Lavora per livelli reali, dalla base all'intermedio, con una progressione attenta e mai forzata: prima la sicurezza e le fondamenta, poi le figure sospese e gli equilibri. Crede nella community come motore della crescita e accoglie chi inizia da zero con la stessa attenzione di chi è più avanti.",
-      "Insegna cerchio aereo e verticali, costruendo la forza e il controllo necessari per restare sospesi e per gli handstand, dal muro al libero.",
-    ],
-    disciplineSlugs: ["cerchio-aereo", "verticali"],
   },
 ];
 

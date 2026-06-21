@@ -34,7 +34,7 @@ export function Team({ items }: { items: Instructor[] }) {
           className="text-display mt-3"
           style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}
         >
-          Le insegnanti
+          {items.length === 1 ? "L'insegnante" : "Le insegnanti"}
         </ChromaticShadow>
 
         <div className="mt-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">

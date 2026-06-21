@@ -29,7 +29,7 @@ const STOCK = "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <div className="border-t border-line py-12">
+    <div className="border-t border-border py-12">
       <p className="eyebrow mb-6 text-muted-foreground">{title}</p>
       {children}
     </div>
@@ -38,7 +38,7 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
 
 export default function Styleguide() {
   return (
-    <>
+    <main>
       <Section tone="light">
         <Container className="py-16 pt-28">
           <p className="eyebrow text-brand-strong">Climb Pole Studio · Design System</p>
@@ -158,6 +158,6 @@ export default function Styleguide() {
           </Reveal>
         </Container>
       </Section>
-    </>
+    </main>
   );
 }

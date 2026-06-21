@@ -233,8 +233,10 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
                     <dd>{selected.instructor.name}</dd>
                   </div>
                 )}
-                {selected.notes && <p className="pt-2 text-paper/60">{selected.notes}</p>}
               </dl>
+              {selected.notes && (
+                <p className="mt-3 text-sm text-paper/60">{selected.notes}</p>
+              )}
 
               <Button asChild variant="brand" size="lg" className="mt-6 w-full">
                 <Link href={routes.prenota}>Prenota questa lezione</Link>

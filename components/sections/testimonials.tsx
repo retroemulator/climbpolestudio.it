@@ -36,7 +36,7 @@ export function Testimonials({ items }: { items: TestimonialItem[] }) {
             <Reveal key={t._id ?? t.author} delay={(i % 3) * 0.06}>
               <Tilt max={5} scale={1.02} className="h-full">
                 <figure className="flex h-full flex-col rounded-xl border border-paper/12 bg-ink-soft/60 p-6 md:p-7">
-                  <div aria-hidden className="text-brand" aria-label={`${t.rating ?? 5} su 5`}>
+                  <div role="img" className="text-brand" aria-label={`${t.rating ?? 5} su 5`}>
                     {"★".repeat(Math.round(t.rating ?? 5))}
                   </div>
                   <blockquote className="mt-4 flex-1 text-paper/85">{t.text}</blockquote>

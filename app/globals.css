@@ -271,7 +271,6 @@ html.lenis body {
     width: max-content;
     max-width: 100%;
     transform-origin: center;
-    will-change: transform, opacity;
     animation: cps-stamp 1.3s linear 0.4s both;
   }
 }
@@ -285,6 +284,10 @@ html.lenis body {
    ────────────────────────────────────────────────────────────── */
 .cps-pole {
   box-shadow: 6px 6px 0 0 var(--color-paper);
+  /* Micro-nudge di allineamento del palo alla baseline. Prima era una utility
+     translate-y sul markup, ma l'animazione scaleY (transform) la sovrascriveva;
+     ora vive qui (e composto nei keyframe) → coerente con e senza motion. */
+  transform: translateY(0.04em);
 }
 [aria-hidden] .cps-pole {
   box-shadow: none;
@@ -294,22 +297,25 @@ html.lenis body {
    con micro-overshoot. Parte dopo l'assestamento della timbratura.
    Solo no-preference → con reduced-motion il palo resta alla sua altezza. */
 @keyframes cps-pole-rise {
+  /* Compone il micro-nudge di baseline (translateY 0.04em) con lo scaleY, così
+     non viene azzerato dall'animazione: transform non è additivo. */
   0% {
-    transform: scaleY(1);
+    transform: translateY(0.04em) scaleY(1);
   }
   45% {
-    transform: scaleY(1.32);
+    transform: translateY(0.04em) scaleY(1.32);
   }
   100% {
-    transform: scaleY(1.16);
+    transform: translateY(0.04em) scaleY(1.16);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   .cps-pole {
     transform-origin: center;
-    will-change: transform;
     /* Parte a 1.9s: la timbratura si assesta a ~1.7s, così l'allungamento è un
-       beat distinto e leggibile, non sovrapposto all'entrata. */
+       beat distinto e leggibile, non sovrapposto all'entrata.
+       (Niente will-change permanente: l'animazione è one-shot e composited già
+       di suo; l'hint lasciato fisso terrebbe un layer GPU per sempre.) */
     animation: cps-pole-rise 1s cubic-bezier(0.16, 1, 0.3, 1) 1.9s both;
   }
 }

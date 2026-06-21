@@ -82,7 +82,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
               <span aria-hidden>CL</span>
               <span
                 aria-hidden
-                className="cps-pole mx-[0.06em] inline-block h-[0.95em] w-[0.12em] translate-y-[0.04em] bg-brand align-baseline"
+                className="cps-pole mx-[0.06em] inline-block h-[0.95em] w-[0.12em] bg-brand align-baseline"
               />
               <span aria-hidden>MB</span>
             </ChromaticShadow>

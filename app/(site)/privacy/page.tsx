@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { LegalPage, LegalContent, type LegalSection } from "@/components/layout/legal-page";
-import { contact } from "@/lib/site";
+import { contact, legal } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -16,7 +16,9 @@ const sections: LegalSection[] = [
     title: "Titolare del trattamento",
     blocks: [
       {
-        p: `Il titolare del trattamento dei dati personali è ${contact.owner} (Climb Pole Studio), ${addr}.`,
+        p: `Il titolare del trattamento dei dati personali è ${legal.entity}${
+          legal.taxId ? ` (C.F./P.IVA ${legal.taxId})` : ""
+        }, nella persona del legale rappresentante ${legal.representative}, con sede in ${addr}.`,
       },
       {
         p: "Per qualsiasi richiesta relativa ai tuoi dati puoi scrivere a ",

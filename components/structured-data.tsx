@@ -1,4 +1,4 @@
-import { contact, socials } from "@/lib/site";
+import { contact, legal, socials } from "@/lib/site";
 import { strings } from "@/lib/strings";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://climbpolestudio.it";
@@ -12,6 +12,7 @@ export function StructuredData() {
     "@context": "https://schema.org",
     "@type": "SportsActivityLocation",
     name: strings.brand.name,
+    legalName: legal.entity,
     description: strings.brand.payoff,
     url: SITE_URL,
     telephone: contact.phoneE164,

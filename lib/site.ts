@@ -68,6 +68,19 @@ export const contact = {
   },
 } as const;
 
+/**
+ * Entità legale = TITOLARE DEL TRATTAMENTO (GDPR) e intestataria dell'attività.
+ * Per un'ASD il titolare è l'associazione, non la persona fisica: Nadia Senatore
+ * ne è la legale rappresentante. `contact.owner` resta il riferimento "umano"
+ * (founder / persona di contatto), usato altrove sul sito.
+ */
+export const legal = {
+  entity: "ASD Climb Pole Studio",
+  representative: contact.owner,
+  /** C.F./P.IVA dell'associazione — da inserire: compare nell'informativa privacy. */
+  taxId: "",
+} as const;
+
 /** Orari di apertura (brief §5). Fallback statico; in futuro da Sanity siteSettings. */
 export const openingHours = [
   { days: "Lun – Ven", hours: "13:00 – 21:30" },

@@ -12,6 +12,7 @@ import { ContactForm } from "@/components/contact-form";
 export const metadata: Metadata = {
   title: "Contatti",
   description: "Scrivici, chiamaci o vieni a trovarci in Corso Dante 109/A, Torino.",
+  alternates: { canonical: "/contatti" },
 };
 
 export default function ContattiPage() {

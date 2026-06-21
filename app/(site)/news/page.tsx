@@ -11,6 +11,7 @@ import { Reveal } from "@/components/motion/reveal";
 export const metadata: Metadata = {
   title: "News",
   description: "Workshop, eventi e novità di Climb Pole Studio.",
+  alternates: { canonical: "/news" },
 };
 
 function formatDate(iso?: string) {

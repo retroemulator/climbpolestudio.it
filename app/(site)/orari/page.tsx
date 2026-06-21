@@ -10,6 +10,7 @@ import { ScheduleExplorer } from "@/components/sections/schedule-explorer";
 export const metadata: Metadata = {
   title: "Orari",
   description: "Orario settimanale delle lezioni di Climb Pole Studio, filtrabile per disciplina, giorno e livello.",
+  alternates: { canonical: "/orari" },
 };
 
 export default async function OrariPage() {

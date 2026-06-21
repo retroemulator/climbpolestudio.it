@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "Discipline",
   description:
     "Le discipline di Climb Pole Studio a Torino: Pole Dance, Cerchio Aereo, Flexibility, Functional, Verticali ed Exotic. Un punto di partenza per ogni livello.",
+  alternates: { canonical: "/discipline" },
 };
 
 const GRADIENTS = [

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Cookie",
   description:
     "Cookie policy di Climb Pole Studio: usiamo solo cookie tecnici necessari, nessun tracciamento o profilazione.",
+  alternates: { canonical: "/cookie" },
 };
 
 const sections: LegalSection[] = [

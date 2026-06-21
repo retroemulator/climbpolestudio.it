@@ -29,6 +29,21 @@ export function StructuredData() {
       latitude: contact.address.lat,
       longitude: contact.address.lon,
     },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "13:00",
+        closes: "21:30",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "11:00",
+        closes: "16:00",
+      },
+    ],
+    priceRange: "€€",
     sameAs: socials.map((s) => s.href),
     image: `${SITE_URL}/logo.png`,
   };

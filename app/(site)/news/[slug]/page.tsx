@@ -32,7 +32,18 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getNewsBySlug(slug).catch(() => null);
   if (!post) return { title: "News" };
-  return { title: post.title, description: post.excerpt };
+  const ogSrc = post.cover
+    ? urlFor(post.cover).width(1200).height(630).fit("crop").quality(75).url()
+    : undefined;
+  return {
+    title: post.title,
+    description: post.excerpt,
+    alternates: { canonical: `/news/${slug}` },
+    openGraph: {
+      type: "article",
+      ...(ogSrc ? { images: [{ url: ogSrc, width: 1200, height: 630, alt: post.title }] } : {}),
+    },
+  };
 }
 
 export default async function NewsArticlePage({ params }: { params: Promise<{ slug: string }> }) {

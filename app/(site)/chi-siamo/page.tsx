@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: "Chi siamo",
   description:
     "Climb Pole Studio: arti aeree e movimento a Torino. Lo studio, l'insegnamento e la community.",
+  alternates: { canonical: "/chi-siamo" },
 };
 
 const PILLARS = [

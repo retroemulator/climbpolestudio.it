@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-import { getDisciplineSlugs } from "@/sanity/lib/data";
+import { getDisciplineSlugs, getNewsSlugs } from "@/sanity/lib/data";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://climbpolestudio.it";
 
@@ -17,10 +17,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     "/news",
   ];
 
-  const slugs = await getDisciplineSlugs().catch(() => [] as { slug: string }[]);
+  const [disciplineSlugs, newsSlugs] = await Promise.all([
+    getDisciplineSlugs().catch(() => [] as { slug: string }[]),
+    getNewsSlugs().catch(() => [] as { slug: string }[]),
+  ]);
 
   return [
     ...staticPaths.map((p) => ({ url: `${SITE_URL}${p}`, changeFrequency: "weekly" as const, priority: p === "" ? 1 : 0.7 })),
-    ...slugs.map((s) => ({ url: `${SITE_URL}/discipline/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.6 })),
+    ...disciplineSlugs.map((s) => ({ url: `${SITE_URL}/discipline/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.6 })),
+    ...newsSlugs.map((s) => ({ url: `${SITE_URL}/news/${s.slug}`, changeFrequency: "monthly" as const, priority: 0.5 })),
   ];
 }

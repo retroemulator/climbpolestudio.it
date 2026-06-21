@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 export const metadata: Metadata = {
   title: "Prezzi",
   description: "Listino di Climb Pole Studio: iscrizione, mensili, trimestrali, pacchetti e lezioni private.",
+  alternates: { canonical: "/prezzi" },
 };
 
 /** Ordine ed etichette delle categorie di listino. */

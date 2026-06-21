@@ -19,7 +19,11 @@ export const metadata: Metadata = {
     locale: "it_IT",
     siteName: strings.brand.name,
     url: SITE_URL,
-    images: [{ url: "/logo.png", width: 1024, height: 1024, alt: strings.brand.name }],
+    // OG image: generata da app/opengraph-image.tsx (1200×630). Niente `images`
+    // qui, altrimenti il logo quadrato sovrascriverebbe la grafica file-based.
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   // favicon/apple-touch generati da app/icon.png e app/apple-icon.png
 };

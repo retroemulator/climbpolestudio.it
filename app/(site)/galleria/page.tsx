@@ -13,6 +13,7 @@ import { Gallery } from "@/components/gallery";
 export const metadata: Metadata = {
   title: "Galleria",
   description: "Foto e video di Climb Pole Studio: lezioni, performance e vita dello studio.",
+  alternates: { canonical: "/galleria" },
 };
 
 export default async function GalleriaPage() {

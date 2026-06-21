@@ -32,7 +32,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const d = await getDisciplineBySlug(slug).catch(() => null);
   if (!d) return { title: "Disciplina" };
-  return { title: d.title, description: d.summary };
+  const ogSrc = d.media?.image
+    ? urlFor(d.media.image).width(1200).height(630).fit("crop").quality(75).url()
+    : disciplineImageFor(slug);
+  return {
+    title: d.title,
+    description: d.summary,
+    alternates: { canonical: `/discipline/${slug}` },
+    ...(ogSrc
+      ? { openGraph: { images: [{ url: ogSrc, width: 1200, height: 630, alt: d.title }] } }
+      : {}),
+  };
 }
 
 export default async function DisciplinaPage({ params }: { params: Promise<{ slug: string }> }) {

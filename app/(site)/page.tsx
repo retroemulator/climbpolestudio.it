@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { getDisciplines, getSchedule, getTestimonials, getFaqs } from "@/sanity/lib/data";
 import type { DisciplineCard, ScheduleSlot, Testimonial, Faq as FaqDoc } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
@@ -23,6 +25,10 @@ async function safe<T>(p: Promise<T>, fallback: T): Promise<T> {
     return fallback;
   }
 }
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /**
  * Home. Ritmo Luce/Stage + layer KINETIC (hero parallax, discipline in

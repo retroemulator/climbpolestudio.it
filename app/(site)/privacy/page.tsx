@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: "Privacy",
   description:
     "Informativa privacy di Climb Pole Studio: quali dati trattiamo, perché, per quanto tempo e come esercitare i tuoi diritti.",
+  alternates: { canonical: "/privacy" },
 };
 
 const addr = `${contact.address.street}, ${contact.address.zip} ${contact.address.city}`;

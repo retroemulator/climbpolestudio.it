@@ -13,7 +13,9 @@ const buttonVariants = cva(
         // CTA di brand — magenta saturo su chiaro, testo paper (AA verificato).
         brand:
           "bg-brand-strong text-paper hover:bg-brand-strong/90 uppercase tracking-wide font-mono text-xs",
-        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
+        // Hover allineato alla CTA di brand (brand-strong), non a --accent che su
+        // sfondo scuro diventa electric → rosa diverso dal pulsante pieno a fianco.
+        outline: "border border-input bg-transparent hover:bg-brand-strong hover:text-paper",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-brand-strong underline-offset-4 hover:underline",
       },

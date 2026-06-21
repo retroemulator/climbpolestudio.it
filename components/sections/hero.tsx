@@ -69,34 +69,45 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
             {strings.brand.city} · {strings.brand.payoff}
           </p>
           <Stamp className="pl-4 md:pl-6">
-            <ChromaticShadow
-              as="h1"
-              entrance={false}
-              className="text-display"
-              style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
-            >
-              {/* "I" = il palo: barra verticale brand, come nel logo. Ombra BIANCA
-                  inversa (vedi .cps-pole in globals.css): opposta all'ombra cromatica
-                  che la firma dà alle lettere C L M B. */}
-              <span className="sr-only">{strings.brand.name}</span>
-              <span aria-hidden>CL</span>
+            {/* Lockup del wordmark: il wrapper inline-block prende la larghezza di
+                CLIMB, così "Pole Studio" sotto (flex justify-between) si distribuisce
+                ESATTAMENTE sulla stessa larghezza → allineato sotto CLIMB e
+                bilanciato, niente vuoto a destra. */}
+            <span className="inline-block">
+              <ChromaticShadow
+                as="h1"
+                entrance={false}
+                className="text-display block"
+                style={{ fontSize: "clamp(4.5rem, 20vw, 18rem)" }}
+              >
+                {/* "I" = il palo: barra verticale brand, come nel logo. Ombra BIANCA
+                    inversa (vedi .cps-pole in globals.css): opposta all'ombra cromatica
+                    che la firma dà alle lettere C L M B. */}
+                <span className="sr-only">{strings.brand.name}</span>
+                <span aria-hidden>CL</span>
+                <span
+                  aria-hidden
+                  className="cps-pole mx-[0.06em] inline-block h-[0.95em] w-[0.12em] bg-brand align-baseline"
+                />
+                <span aria-hidden>MB</span>
+              </ChromaticShadow>
+              {/* "Pole Studio": nome completo già nell'sr-only dell'h1 → aria-hidden.
+                  Lettere distribuite (flex) per riempire la larghezza di CLIMB. */}
               <span
                 aria-hidden
-                className="cps-pole mx-[0.06em] inline-block h-[0.95em] w-[0.12em] bg-brand align-baseline"
-              />
-              <span aria-hidden>MB</span>
-            </ChromaticShadow>
+                className="text-display mt-2 flex w-full justify-between leading-none text-paper md:mt-4"
+                style={{ fontSize: "clamp(1.4rem, 6vw, 4rem)" }}
+              >
+                {"POLE".split("").map((c, i) => (
+                  <span key={`p-${i}`}>{c}</span>
+                ))}
+                <span aria-hidden className="px-[0.35em]" />
+                {"STUDIO".split("").map((c, i) => (
+                  <span key={`s-${i}`}>{c}</span>
+                ))}
+              </span>
+            </span>
           </Stamp>
-          {/* "Pole Studio" sotto il wordmark: completa il nome del brand (la
-              versione accessibile completa è già nello sr-only dell'h1, quindi
-              qui è aria-hidden). text-display → maiuscolo automatico. */}
-          <p
-            aria-hidden
-            className="text-display mt-2 pl-4 leading-none tracking-[0.22em] text-paper/90 md:mt-3 md:pl-6"
-            style={{ fontSize: "clamp(1.1rem, 5.5vw, 3.75rem)" }}
-          >
-            Pole Studio
-          </p>
           <RevealText
             as="p"
             text="Salire, girare, restare sospesi. La pole è forza che diventa linguaggio."

@@ -66,20 +66,18 @@ export function Media({
     setShowVideo(true);
   }, [videoUrl, reduced, allowMobile]);
 
-  // In modalità morph il video NON parte in autoplay: durante la dissolvenza
-  // resta in pausa sul primo frame, e la riproduzione parte DALL'INIZIO solo a
-  // morph concluso (così non si perdono i primi secondi). Negli altri casi
-  // l'autoplay gestisce tutto e questo effetto è un no-op.
+  // In modalità morph il video parte SUBITO (dall'inizio) appena è pronto, mentre
+  // la dissolvenza+blur lo fanno emergere dal poster: il movimento è già in corso
+  // DURANTE il morph, così non c'è lo stacco "frame congelato → play" (la pausa che
+  // si percepiva attendendo la fine del morph). Negli altri casi l'autoplay gestisce
+  // tutto e questo effetto è un no-op.
   useEffect(() => {
     if (!morph || !videoReady) return;
-    const id = window.setTimeout(() => {
-      const v = videoRef.current;
-      if (!v) return;
-      v.currentTime = 0;
-      void v.play().catch(() => {});
-    }, morphMs);
-    return () => window.clearTimeout(id);
-  }, [morph, videoReady, morphMs]);
+    const v = videoRef.current;
+    if (!v) return;
+    v.currentTime = 0;
+    void v.play().catch(() => {});
+  }, [morph, videoReady]);
 
   const animateKenBurns = kenBurns && !reduced && !showVideo;
 
@@ -115,8 +113,9 @@ export function Media({
                 `opacity ${morphMs}ms cubic-bezier(0.45,0,0.55,1), transform ${morphMs}ms cubic-bezier(0.45,0,0.55,1), filter ${morphMs}ms cubic-bezier(0.45,0,0.55,1)`
               : `opacity ${morphMs}ms ease`,
           }}
-          // morph: niente autoplay → la dissolvenza va dal poster al primo frame,
-          // poi l'effetto sopra avvia play() dall'inizio. Altrimenti autoplay.
+          // morph: niente autoplay nel markup → l'effetto sopra avvia play()
+          // dall'inizio appena il video è pronto, mentre la dissolvenza lo fa
+          // emergere dal poster (movimento già in corso). Altrimenti autoplay nativo.
           autoPlay={!morph}
           preload="auto"
           muted

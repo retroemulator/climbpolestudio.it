@@ -75,7 +75,7 @@ export const contact = {
  * (founder / persona di contatto), usato altrove sul sito.
  */
 export const legal = {
-  entity: "ASD Climb Pole Studio",
+  entity: "A.S.D. Climb Pole Studio",
   representative: contact.owner,
   /** C.F./P.IVA dell'associazione — da inserire: compare nell'informativa privacy. */
   taxId: "",

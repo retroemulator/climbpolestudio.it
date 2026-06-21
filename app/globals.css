@@ -294,10 +294,11 @@ html.lenis body {
 [aria-hidden] .cps-pole {
   box-shadow: none;
 }
-/* Una volta "timbrata" la scritta (impatto ~1s), il palo si allunga sopra e sotto
-   e CI RESTA alla lunghezza massima: scaleY centrato (origin center → cresce
-   simmetrico) fino al valore pieno, senza tornare indietro. Parte dopo
-   l'assestamento della timbratura.
+/* Una volta "timbrata" la scritta (impatto ~1s), il palo si allunga SOLO verso
+   l'alto e ci resta: transform-origin bottom → il fondo resta sulla baseline
+   (niente crescita verso il basso, così non invade la riga "Pole Studio"), sale
+   solo la cima. Lo scaleY è tarato per dare la stessa altezza di prima (quando
+   cresceva simmetrico). Parte dopo l'assestamento della timbratura.
    Solo no-preference → con reduced-motion il palo resta alla sua altezza. */
 @keyframes cps-pole-rise {
   /* Compone il micro-nudge di baseline (translateY 0.04em) con lo scaleY, così
@@ -306,12 +307,12 @@ html.lenis body {
     transform: translateY(0.04em) scaleY(1);
   }
   100% {
-    transform: translateY(0.04em) scaleY(1.32);
+    transform: translateY(0.04em) scaleY(1.16);
   }
 }
 @media (prefers-reduced-motion: no-preference) {
   .cps-pole {
-    transform-origin: center;
+    transform-origin: bottom;
     /* Parte a 1.9s: la timbratura si assesta a ~1.7s, così l'allungamento è un
        beat distinto e leggibile, non sovrapposto all'entrata.
        (Niente will-change permanente: l'animazione è one-shot e composited già
@@ -319,18 +320,18 @@ html.lenis body {
     animation: cps-pole-rise 1s cubic-bezier(0.16, 1, 0.3, 1) 1.9s both;
   }
 }
-/* Su mobile lo spazio sopra il wordmark è stretto (line-height 0.9): il palo al
-   massimo (1.32) finirebbe sopra l'eyebrow "Torino · …". Qui si assesta più
-   contenuto (1.16, come prima della modifica) → niente sovrapposizione; su
-   desktop resta al massimo. Il blocco è DOPO il keyframe di default così, dove
-   la media query è attiva (≤767px), vince questa definizione. */
+/* Su mobile lo spazio sopra il wordmark è stretto (line-height 0.9): crescendo
+   solo verso l'alto (origin bottom) il palo arriverebbe sull'eyebrow "Torino · …".
+   Qui sale meno (1.08) → stessa altezza contenuta di prima, niente sovrapposizione;
+   su desktop sale di più. Il blocco è DOPO il keyframe di default così, dove la
+   media query è attiva (≤767px), vince questa definizione. */
 @media (max-width: 767px) {
   @keyframes cps-pole-rise {
     0% {
       transform: translateY(0.04em) scaleY(1);
     }
     100% {
-      transform: translateY(0.04em) scaleY(1.16);
+      transform: translateY(0.04em) scaleY(1.08);
     }
   }
 }

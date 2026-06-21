@@ -292,9 +292,10 @@ html.lenis body {
 [aria-hidden] .cps-pole {
   box-shadow: none;
 }
-/* Una volta "timbrata" la scritta (impatto ~1s), il palo si allunga leggermente
-   sopra e sotto e ci resta: scaleY centrato (origin center → cresce simmetrico),
-   con micro-overshoot. Parte dopo l'assestamento della timbratura.
+/* Una volta "timbrata" la scritta (impatto ~1s), il palo si allunga sopra e sotto
+   e CI RESTA alla lunghezza massima: scaleY centrato (origin center → cresce
+   simmetrico) fino al valore pieno, senza tornare indietro. Parte dopo
+   l'assestamento della timbratura.
    Solo no-preference → con reduced-motion il palo resta alla sua altezza. */
 @keyframes cps-pole-rise {
   /* Compone il micro-nudge di baseline (translateY 0.04em) con lo scaleY, così
@@ -302,11 +303,8 @@ html.lenis body {
   0% {
     transform: translateY(0.04em) scaleY(1);
   }
-  45% {
-    transform: translateY(0.04em) scaleY(1.32);
-  }
   100% {
-    transform: translateY(0.04em) scaleY(1.16);
+    transform: translateY(0.04em) scaleY(1.32);
   }
 }
 @media (prefers-reduced-motion: no-preference) {

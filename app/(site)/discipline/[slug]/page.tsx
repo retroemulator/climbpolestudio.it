@@ -163,7 +163,9 @@ export default async function DisciplinaPage({ params }: { params: Promise<{ slu
             {d.suitableFor && (
               <Reveal delay={0.05} className="mt-12">
                 <p className="eyebrow text-brand-strong">A chi è adatto</p>
-                <p className="mt-3 max-w-[68ch] text-lg text-ink/80">{d.suitableFor}</p>
+                <p className="mt-4 max-w-[60ch] text-xl leading-snug text-ink md:text-2xl">
+                  {d.suitableFor}
+                </p>
               </Reveal>
             )}
           </div>

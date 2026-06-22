@@ -59,7 +59,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
           />
         </Parallax>
         {/* Scrim: leggibilità del wordmark anche su frame video chiari. */}
-        <div aria-hidden className="absolute inset-0 bg-ink/50" />
+        <div aria-hidden className="absolute inset-0 bg-ink/65" />
       </div>
 
       <Container className="relative z-10 flex flex-1 flex-col justify-end pb-10 pt-28 md:pb-14">

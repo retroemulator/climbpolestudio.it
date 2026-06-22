@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView, useReducedMotion, type Variants } from "framer-motion";
 
 import { cn } from "@/lib/utils";
-import { EASE_OUT } from "@/lib/motion";
+import { EASE_IN_OUT } from "@/lib/motion";
 
 type ChromaticShadowProps = {
   children: React.ReactNode;
@@ -104,9 +104,9 @@ export function ChromaticShadow({
           variants={magenta}
           initial={entrance ? "enter" : "rest"}
           animate={state}
-          // Hover morbido (tween) invece dello spring: il crossfade rosa↔ciano non
-          // è più scattoso. L'entrata (non-hover) tiene il suo timing più lungo.
-          transition={hovered ? { duration: 0.4, ease: EASE_OUT } : { duration: 0.7, ease: EASE_OUT }}
+          // Crossfade rosa↔ciano "burroso": tween lungo con ease-in-out (accelera
+          // e decelera dolce), niente spring → passaggio fluido in entrata e uscita.
+          transition={{ duration: 0.6, ease: EASE_IN_OUT }}
         >
           {children}
         </motion.span>
@@ -117,7 +117,7 @@ export function ChromaticShadow({
           variants={cyan}
           initial={entrance ? "enter" : "rest"}
           animate={state}
-          transition={hovered ? { duration: 0.4, ease: EASE_OUT } : { duration: 0.7, ease: EASE_OUT }}
+          transition={{ duration: 0.6, ease: EASE_IN_OUT }}
         >
           {children}
         </motion.span>

@@ -18,9 +18,12 @@ const buttonVariants = cva(
         default: `bg-primary text-primary-foreground hover:bg-primary/90 ${shine}`,
         // CTA di brand — magenta saturo su chiaro, testo paper (AA verificato).
         brand: `bg-brand-strong text-paper hover:bg-brand-strong/90 uppercase tracking-wide font-mono text-xs ${shine}`,
-        // Hover allineato alla CTA di brand (brand-strong), non a --accent che su
-        // sfondo scuro diventa electric → rosa diverso dal pulsante pieno a fianco.
-        outline: `border border-input bg-transparent hover:bg-brand-strong hover:text-paper ${shine}`,
+        // Tasto secondario (trasparente): in hover accento CIANO — fill ink con
+        // testo/bordo/glow ciano. Leggibile sia su scuro (hero) sia su chiaro
+        // (chi-siamo), perché il ciano sta sul fill scuro. Distinto dalla CTA
+        // piena (magenta). Niente shine: l'effetto qui è il glow ciano.
+        outline:
+          "border border-input bg-transparent transition-[color,background-color,border-color,box-shadow] duration-300 hover:border-cyan hover:bg-ink hover:text-cyan hover:shadow-[0_0_34px_-8px_var(--color-cyan)]",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-brand-strong underline-offset-4 hover:underline",
       },

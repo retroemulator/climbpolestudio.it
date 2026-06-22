@@ -74,17 +74,17 @@ export function ChromaticShadow({
 
   // Offset in `em` (stringhe): framer interpola mantenendo l'unità → l'ombra
   // scala con la dimensione del testo (coerente desktop/mobile).
-  // In hover l'ombra resta NELLO STESSO punto ma cambia colore: il magenta sfuma
-  // via e il ciano compare (crossfade, niente movimento). A riposo solo magenta.
+  // A riposo: ombra ROSA in BASSO a DESTRA (+offset,+offset). In hover: la rosa
+  // sparisce e compare l'ombra CIANO in ALTO a SINISTRA (−offset,−offset).
   const magenta: Variants = {
     enter: { x: `${offset * 3}em`, y: `${offset * 3}em`, opacity: 0 },
     rest: { x: `${offset}em`, y: `${offset}em`, opacity: 1 },
     split: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
   };
   const cyan: Variants = {
-    enter: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
-    rest: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
-    split: { x: `${offset}em`, y: `${offset}em`, opacity: 1 },
+    enter: { x: `${-offset}em`, y: `${-offset}em`, opacity: 0 },
+    rest: { x: `${-offset}em`, y: `${-offset}em`, opacity: 0 },
+    split: { x: `${-offset}em`, y: `${-offset}em`, opacity: 1 },
   };
 
   return (

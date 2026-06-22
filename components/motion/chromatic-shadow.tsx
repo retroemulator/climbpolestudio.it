@@ -74,16 +74,18 @@ export function ChromaticShadow({
 
   // Offset in `em` (stringhe): framer interpola mantenendo l'unità → l'ombra
   // scala con la dimensione del testo (coerente desktop/mobile).
-  // A riposo: ombra ROSA in BASSO a DESTRA (+offset,+offset). In hover: la rosa
-  // sparisce e compare l'ombra CIANO in ALTO a SINISTRA (−offset,−offset).
+  // A riposo: ombra ROSA in basso a destra (+offset). In hover l'ombra SCIVOLA
+  // verso alto-sinistra (−offset) virando al CIANO. I due layer sono SOVRAPPOSTI
+  // e percorrono lo stesso tragitto → si vede UNA sola ombra che si muove e cambia
+  // colore, niente doppia immagine/“salto” (era il crossfade tra due punti fissi).
   const magenta: Variants = {
     enter: { x: `${offset * 3}em`, y: `${offset * 3}em`, opacity: 0 },
     rest: { x: `${offset}em`, y: `${offset}em`, opacity: 1 },
-    split: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
+    split: { x: `${-offset}em`, y: `${-offset}em`, opacity: 0 },
   };
   const cyan: Variants = {
-    enter: { x: `${-offset}em`, y: `${-offset}em`, opacity: 0 },
-    rest: { x: `${-offset}em`, y: `${-offset}em`, opacity: 0 },
+    enter: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
+    rest: { x: `${offset}em`, y: `${offset}em`, opacity: 0 },
     split: { x: `${-offset}em`, y: `${-offset}em`, opacity: 1 },
   };
 

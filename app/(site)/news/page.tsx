@@ -26,7 +26,8 @@ export default async function NewsPage() {
 
   return (
     <main>
-      <Section tone="stage" className="py-28 pt-32 md:py-32 md:pt-40">
+      {/* HERO (stage) — navbar leggibile su scuro */}
+      <Section tone="stage" className="py-24 pt-32 md:py-28 md:pt-40">
         <Container>
           <div className="relative">
             <Spine className="left-0 bg-brand/40" />
@@ -35,22 +36,29 @@ export default async function NewsPage() {
               News
             </ChromaticShadow>
           </div>
+        </Container>
+      </Section>
 
+      {/* LISTA (light) — più leggibile dello sfondo scuro */}
+      <Section tone="light" className="py-16 md:py-24">
+        <Container>
           {posts.length ? (
-            <ul className="mt-14 border-t border-paper/10">
+            <ul className="border-t border-line">
               {posts.map((p, i) => (
                 <Reveal key={p._id} delay={i * 0.05}>
-                  <li className="border-b border-paper/10">
+                  <li className="border-b border-line">
                     <Link
                       href={`/news/${p.slug}`}
                       className="group flex flex-col gap-1 py-6 md:flex-row md:items-baseline md:gap-8"
                     >
-                      <span className="font-mono text-sm text-paper/40">{formatDate(p.date)}</span>
+                      <span className="font-mono text-sm text-muted-foreground">{formatDate(p.date)}</span>
                       <div className="max-w-2xl">
-                        <h2 className="text-display block text-2xl text-paper transition-colors group-hover:text-brand md:text-3xl">
+                        <h2 className="text-display block text-2xl text-ink transition-colors group-hover:text-brand-strong md:text-3xl">
                           {p.title}
                         </h2>
-                        {p.excerpt ? <span className="mt-1 block text-paper/60">{p.excerpt}</span> : null}
+                        {p.excerpt ? (
+                          <span className="mt-1 block text-muted-foreground">{p.excerpt}</span>
+                        ) : null}
                       </div>
                     </Link>
                   </li>
@@ -58,7 +66,7 @@ export default async function NewsPage() {
               ))}
             </ul>
           ) : (
-            <p className="mt-14 max-w-xl text-paper/60">
+            <p className="max-w-xl text-muted-foreground">
               Nessuna news per ora. Workshop ed eventi compariranno qui.
             </p>
           )}

@@ -141,28 +141,32 @@ export function ScheduleExplorer({ slots }: { slots: ScheduleSlot[] }) {
         <div
           className={cn(
             "mt-8 grid gap-px overflow-hidden rounded-lg border border-line bg-line",
-            day === "all" ? "sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6" : "grid-cols-1",
+            // 3 colonne → i 6 giorni stanno in 3×2: più spazio orizzontale per box,
+            // così i caratteri possono essere grandi come nel box orari della home.
+            day === "all" ? "sm:grid-cols-2 md:grid-cols-3" : "grid-cols-1",
           )}
         >
           {byDay.map((d) => (
-            <div key={d.key} className="bg-paper-pure p-4">
-              <p className="eyebrow text-muted-foreground">{d.long}</p>
-              <ul className="mt-3 space-y-2">
+            <div key={d.key} className="bg-paper-pure p-5 md:p-6">
+              <p className="text-display text-2xl text-ink md:text-3xl">{d.long}</p>
+              <ul className="mt-4 space-y-1">
                 {d.items.map((s) => (
                   <li key={s._id}>
                     <button
                       onClick={(e) => { openerRef.current = e.currentTarget; setSelected(s); }}
-                      className="group flex min-h-11 w-full items-center gap-3 rounded-md px-1 py-2 text-left transition-colors hover:bg-ink/5"
+                      className="group flex min-h-11 w-full items-baseline gap-4 rounded-md px-2 py-2.5 text-left transition-colors hover:bg-ink/5"
                     >
-                      <span className="font-mono text-sm text-brand-strong">{s.startTime}</span>
-                      <span className="text-base text-ink/80 group-hover:text-ink">
-                        {s.displayTitle}
-                        {s.level ? <span className="text-ink/40"> · {s.level}</span> : null}
+                      <span className="shrink-0 font-mono text-base text-brand-strong md:text-lg">{s.startTime}</span>
+                      <span className="min-w-0">
+                        <span className="block text-lg text-ink/80 transition-colors group-hover:text-ink md:text-xl">
+                          {s.displayTitle}
+                        </span>
+                        {s.level ? <span className="eyebrow mt-1 block text-ink/40">{s.level}</span> : null}
                       </span>
                     </button>
                   </li>
                 ))}
-                {!d.items.length && <li className="text-sm text-ink/30">—</li>}
+                {!d.items.length && <li className="px-2 py-2.5 text-ink/30">—</li>}
               </ul>
             </div>
           ))}

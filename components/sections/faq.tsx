@@ -18,7 +18,7 @@ export function Faq({ items }: { items: FaqItem[] }) {
       <Container className="grid gap-12 md:grid-cols-[0.5fr_1fr] md:gap-16">
         <div className="relative md:sticky md:top-28 md:self-start">
           <Spine className="left-0 bg-brand/40" />
-          <p className="eyebrow pl-4 text-brand-strong md:pl-6">Domande</p>
+          <p className="eyebrow pl-4 text-brand-strong md:pl-6">F.A.Q.</p>
           <ChromaticShadow
             as="h2"
             className="text-display mt-3 pl-4 md:pl-6"

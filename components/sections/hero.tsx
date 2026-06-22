@@ -66,7 +66,7 @@ export function Hero({ disciplines }: { disciplines: DisciplineCard[] }) {
         <div className="relative">
           <Spine className="left-0 bg-brand/40" />
           <p className="eyebrow pl-4 text-[0.7rem] tracking-[0.18em] text-balance text-paper/80 sm:text-xs sm:tracking-[0.3em] md:pl-6">
-            {strings.brand.city} · {strings.brand.payoff}
+            {strings.brand.city} · Aerial arts and movement
           </p>
           {/* mt in vw solo su mobile: dà aria tra l'eyebrow e CLIMB così il palo,
               che si allunga verso l'alto, non tocca "Torino · …". Scala in vw

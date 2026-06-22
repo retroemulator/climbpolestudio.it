@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 import { routes } from "@/lib/site";
 import { strings } from "@/lib/strings";
@@ -56,12 +57,26 @@ export default async function ChiSiamoPage() {
       {/* 1 — HERO full-screen con crossfade delle due foto del team */}
       <ChiSiamoHero />
 
-      {/* 2 — MANIFESTO (light) */}
+      {/* 2 — MANIFESTO (light) — logo + testo, come la sezione "Chi siamo" della home */}
       <Section tone="light" className="py-24 md:py-32">
-        <Container className="grid gap-10 md:grid-cols-[0.8fr_1.2fr]">
-          <Reveal>
-            <p className="eyebrow text-brand-strong">Il manifesto</p>
-          </Reveal>
+        <Container className="grid items-stretch gap-4 md:grid-cols-[0.8fr_1.2fr] md:gap-10">
+          <div className="flex flex-col md:h-full">
+            <Reveal>
+              <p className="eyebrow text-brand-strong">La nostra idea</p>
+            </Reveal>
+            {/* Logo centrato (orizz. con mx-auto, vert. su desktop) accanto al testo,
+                come in home. Il mb negativo recupera il padding trasparente sotto il
+                triangolo del logo su mobile; su desktop niente (md:mb-0). */}
+            <Reveal delay={0.08} className="md:flex md:grow md:items-center">
+              <Image
+                src="/logo.png"
+                alt="Climb Pole Studio — arti aeree e movimento"
+                width={512}
+                height={512}
+                className="mx-auto mt-6 mb-[-12%] h-auto w-full max-w-sm md:mb-0 md:max-w-md"
+              />
+            </Reveal>
+          </div>
           <div>
             <RevealText
               as="p"
@@ -69,11 +84,15 @@ export default async function ChiSiamoPage() {
               className="max-w-2xl text-2xl leading-snug md:text-4xl"
             />
             <Reveal delay={0.1}>
-              <p className="mt-6 max-w-xl text-muted-foreground">
-                Niente performance da esibire: tecnica, ascolto del corpo e una community che spinge
-                nella stessa direzione. Lavoriamo per livelli reali — dall&apos;intro
-                all&apos;avanzato — con un&apos;insegnante che ti segue passo dopo passo. Lo spazio è
-                curato, sicuro e pensato per il movimento.
+              <p className="mt-6 max-w-2xl text-muted-foreground">
+                Niente performance da esibire: qui contano la tecnica, l&apos;ascolto del corpo e una
+                community che spinge nella stessa direzione. Lavoriamo per livelli reali —
+                dall&apos;intro all&apos;avanzato — con un&apos;insegnante che ti segue passo dopo
+                passo, rispettando i tempi e i limiti di ognuno. Lo spazio è curato, sicuro e pensato
+                per il movimento: pole, discipline aeree, flexibility e functional training convivono
+                nello stesso luogo. Non importa da dove parti o quanta esperienza hai: la forza,
+                quella vera, arriva strada facendo, una lezione dopo l&apos;altra — e con lei la
+                fiducia di abitare il proprio corpo.
               </p>
             </Reveal>
           </div>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { getDisciplines, getSchedule, getTestimonials, getFaqs } from "@/sanity/lib/data";
+import { getInstagramFeed, EMPTY_FEED, type InstagramFeed } from "@/lib/instagram";
 import type { DisciplineCard, ScheduleSlot, Testimonial, Faq as FaqDoc } from "@/sanity/types";
 import { urlFor } from "@/sanity/lib/image";
 import { disciplines as staticDisciplines } from "@/lib/site";
@@ -10,6 +11,7 @@ import { Manifesto } from "@/components/sections/manifesto";
 import { DisciplineRail, type RailItem } from "@/components/sections/discipline-rail";
 import { WhyClimb } from "@/components/sections/why-climb";
 import { SchedulePreview } from "@/components/sections/schedule-preview";
+import { InstagramFeedSection } from "@/components/sections/instagram";
 import { PricingTeaser } from "@/components/sections/pricing-teaser";
 import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
@@ -36,11 +38,12 @@ export const metadata: Metadata = {
  * Contenuti reali da Sanity con fallback statici dove serve.
  */
 export default async function Home() {
-  const [disciplines, schedule, testimonials, faqs] = await Promise.all([
+  const [disciplines, schedule, testimonials, faqs, instagram] = await Promise.all([
     safe<DisciplineCard[]>(getDisciplines(), []),
     safe<ScheduleSlot[]>(getSchedule(), []),
     safe<Testimonial[]>(getTestimonials(), []),
     safe<FaqDoc[]>(getFaqs(), []),
+    safe<InstagramFeed>(getInstagramFeed(), EMPTY_FEED),
   ]);
 
   // Pannelli del rail: da Sanity (con foto se presente), altrimenti fallback statico.
@@ -77,6 +80,9 @@ export default async function Home() {
       </RevealSection>
       <RevealSection>
         <SchedulePreview schedule={schedule} />
+      </RevealSection>
+      <RevealSection>
+        <InstagramFeedSection feed={instagram} />
       </RevealSection>
       <RevealSection>
         <PricingTeaser />

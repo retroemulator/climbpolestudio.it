@@ -27,7 +27,7 @@ export function InstagramFeedSection({ feed }: { feed: InstagramFeed }) {
             href={profileUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 rounded-full border border-paper/20 px-5 py-3 text-sm font-medium text-paper/80 transition-colors hover:border-brand hover:bg-brand hover:text-ink"
+            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_40px_-14px_rgba(255,46,196,0.6)] transition-colors hover:bg-brand-strong hover:text-paper"
           >
             <Instagram className="size-5" aria-hidden />
             Seguici su Instagram

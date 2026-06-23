@@ -3,6 +3,8 @@
 > **Documento unico** per trasferire il progetto a un nuovo PC / nuovo utente / nuovo account Claude Code.
 > Aggiornato: **2026‑06‑23**. Stack: **Next.js 15 (App Router) + Sanity (CMS) + Supabase (auth/prenotazioni, opzionale) + Vercel (hosting)**.
 > Lingua del progetto e dei contenuti: **italiano**.
+>
+> 🌱 **Non hai mai usato terminale / GitHub / Vercel / Claude Code?** Parti dalla guida passo‑passo per principianti: **[`GUIDA-PRINCIPIANTE.md`](GUIDA-PRINCIPIANTE.md)** (spiega tutto da zero). Questo `HANDOFF.md` è invece il riferimento tecnico/sintetico.
 
 Indice:
 1. [Cos'è il progetto e com'è fatto](#1-cosè-il-progetto-e-comè-fatto-per-ripartire-da-qui) — per far ripartire un nuovo Claude Code

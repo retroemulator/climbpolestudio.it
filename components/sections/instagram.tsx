@@ -3,7 +3,6 @@ import { Instagram } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { ChromaticShadow } from "@/components/motion/chromatic-shadow";
 import { Reveal } from "@/components/motion/reveal";
 import { type InstagramFeed, postImage, postAlt } from "@/lib/instagram";
 
@@ -22,13 +21,8 @@ export function InstagramFeedSection({ feed }: { feed: InstagramFeed }) {
   return (
     <Section tone="stage" className="py-24 md:py-36">
       <Container>
-        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
-          <div>
-            <p className="eyebrow text-brand">Seguici</p>
-            <ChromaticShadow as="h2" className="text-display mt-3" style={{ fontSize: "clamp(2.5rem, 8vw, 6rem)" }}>
-              @{handle}
-            </ChromaticShadow>
-          </div>
+        <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
+          <p className="eyebrow text-brand">Seguici</p>
           <Link
             href={profileUrl}
             target="_blank"

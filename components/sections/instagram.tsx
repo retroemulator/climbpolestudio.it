@@ -3,6 +3,7 @@ import { Instagram } from "lucide-react";
 
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
+import { Button } from "@/components/ui/button";
 import { Reveal } from "@/components/motion/reveal";
 import { type InstagramFeed, postImage, postAlt } from "@/lib/instagram";
 
@@ -23,15 +24,12 @@ export function InstagramFeedSection({ feed }: { feed: InstagramFeed }) {
       <Container>
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
           <p className="eyebrow text-brand">Seguici</p>
-          <Link
-            href={profileUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2.5 rounded-full bg-brand px-5 py-3 text-sm font-semibold text-ink shadow-[0_10px_40px_-14px_rgba(255,46,196,0.6)] transition-colors hover:bg-brand-strong hover:text-paper"
-          >
-            <Instagram className="size-5" aria-hidden />
-            Seguici su Instagram
-          </Link>
+          <Button asChild variant="brand">
+            <Link href={profileUrl} target="_blank" rel="noopener noreferrer">
+              <Instagram aria-hidden />
+              Seguici su Instagram
+            </Link>
+          </Button>
         </div>
 
         <div className="mt-12 grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-3">

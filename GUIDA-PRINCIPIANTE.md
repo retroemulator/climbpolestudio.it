@@ -86,7 +86,7 @@ Claude Code è un assistente con intelligenza artificiale che scrive e modifica 
 
 In questo capitolo facciamo partire il sito **sul tuo computer**. Solo sul tuo, per ora: nessuno su Internet vedrà quello che fai. È come provare una ricetta in cucina prima di servirla agli ospiti.
 
-Mettiti comoda. Andiamo un passo alla volta. E ricordati una cosa, che ripeterò spesso: **non puoi rompere niente di grave**. Il sito "vero" online è un'altra cosa, separata. Qui stai solo lavorando su una copia.
+Mettiti comodo. Andiamo un passo alla volta. E ricordati una cosa, che ripeterò spesso: **non puoi rompere niente di grave**. Il sito "vero" online è un'altra cosa, separata. Qui stai solo lavorando su una copia.
 
 Ti servirà circa **un'ora** la prima volta. Le volte successive saranno pochi minuti.
 
@@ -100,7 +100,7 @@ Ti servirà circa **un'ora** la prima volta. Le volte successive saranno pochi m
 6. Creare il file dei segreti, `.env.local`.
 7. Dare il comando `npm run dev` e aprire il sito nel browser.
 
-Pronta? Iniziamo.
+Pronto? Iniziamo.
 
 ---
 
@@ -294,7 +294,7 @@ PS C:\Users\Nadia\Documents\climbpolestudio.it>
 
 #### Come capire in che cartella sei (se hai un dubbio)
 
-Se non sei sicura di essere nel posto giusto, scrivi questo comando e premi Invio:
+Se non sei sicuro di essere nel posto giusto, scrivi questo comando e premi Invio:
 
 ```
 dir
@@ -456,7 +456,7 @@ Nel prossimo capitolo iniziamo a **toccare i contenuti** e a capire dove si modi
 
 ## 3. Usare Claude Code (il tuo assistente che modifica il sito)
 
-Questo è il capitolo più importante di tutta la guida. Se imparerai bene solo questo, sarai già in grado di gestire il tuo sito da sola. Prenditi il tuo tempo: non c'è fretta e, come ripeteremo spesso, non puoi rompere niente di grave.
+Questo è il capitolo più importante di tutta la guida. Se imparerai bene solo questo, sarai già in grado di gestire il tuo sito da solo. Prenditi il tuo tempo: non c'è fretta e, come ripeteremo spesso, non puoi rompere niente di grave.
 
 ### 3.1 Cos'è Claude Code (e perché lo userai quasi sempre)
 
@@ -575,7 +575,7 @@ Nel Capitolo 2 hai installato VS Code, l'editor che ti mostra i file in modo ord
 
 3. Apri il terminale **dentro** VS Code dal menu in alto: **Terminale → Nuovo terminale** (Terminal → New Terminal). **Cosa vedrai:** una finestra nera si apre nella parte bassa di VS Code, ed è **già posizionata nella cartella giusta** (questo è il bello: non devi fare `cd`).
 
-4. In quel terminale scrivi `claude` e premi Invio. Sei pronta.
+4. In quel terminale scrivi `claude` e premi Invio. Sei pronto.
 
 C'è anche un'estensione ufficiale di Claude Code per VS Code (la trovi cercando "Claude Code" nella sezione Estensioni, l'icona dei quadratini sulla sinistra). Non è obbligatoria, ma rende l'esperienza più piacevole: ti mostra meglio le modifiche proposte, con i colori del "prima e dopo". Se ti trovi bene con VS Code, installala pure; se ti confonde, lascia stare e usa il terminale: il risultato è identico.
 
@@ -674,7 +674,7 @@ Oltre a parlargli in italiano, dentro Claude Code esistono dei **comandi special
 
 Non devi impararli tutti. Questi tre ti bastano per partire:
 
-- `/help` → mostra l'**aiuto**, cioè l'elenco delle cose che puoi fare e dei comandi disponibili. Quando sei persa, parti da qui.
+- `/help` → mostra l'**aiuto**, cioè l'elenco delle cose che puoi fare e dei comandi disponibili. Quando sei perso, parti da qui.
 - `/clear` → **pulisce** la conversazione e ricomincia da capo "a mente fresca". Utile quando passi a un argomento completamente diverso e non vuoi che si confonda con quello di prima.
 - `/exit` → **esci** da Claude Code (torni al terminale normale).
 
@@ -682,7 +682,7 @@ Suggerimento: appena scrivi `/` ti compare un elenco dei comandi disponibili. Pu
 
 ### 3.9 Cosa NON fare / sicurezza
 
-Poche regole, semplici, per stare tranquilla.
+Poche regole, semplici, per stare tranquillo.
 
 **1. Non condividere mai i file segreti.** C'è un file speciale chiamato `.env.local`: contiene le "chiavi" del sito, cioè password e codici segreti che fanno funzionare email, contenuti, prenotazioni. Tratta quel file come le chiavi di casa: **non incollarlo in chat, email o messaggi**, non pubblicarlo, non mandarlo a nessuno se non sei sicurissima. Per fortuna è già impostato perché **non** finisca su GitHub. Se qualcuno ti chiede "mandami il file con le chiavi", fermati e verifica chi è davvero.
 
@@ -702,7 +702,7 @@ Non ho capito cosa stai per cancellare e perché: spiegamelo come a un principia
 
 Lui ti risponderà in modo comprensibile. Non c'è nessuna domanda "stupida": chiedere è sempre la mossa giusta.
 
-### 3.10 Tranquilla: non puoi rompere il sito in modo permanente
+### 3.10 Tranquillo: non puoi rompere il sito in modo permanente
 
 Chiudiamo con la cosa più importante da ricordare di tutto il capitolo.
 
@@ -727,7 +727,7 @@ Immagina il sito come un giornale. Il **codice** è la macchina da stampa: compl
 
 Il termine tecnico è **CMS** (Content Management System, cioè "sistema per gestire i contenuti"). Tutte le volte che senti "CMS" o "Sanity", pensa: "il pannello dove cambio testi e foto".
 
-> Tranquilla: qui dentro **non puoi rompere il sito**. Nel peggiore dei casi scrivi una cosa sbagliata, te ne accorgi e la correggi. Il sito tecnico (la "macchina da stampa") resta intatto.
+> Tranquillo: qui dentro **non puoi rompere il sito**. Nel peggiore dei casi scrivi una cosa sbagliata, te ne accorgi e la correggi. Il sito tecnico (la "macchina da stampa") resta intatto.
 
 ### 4.1 Aprire lo Studio e fare il login
 
@@ -743,7 +743,7 @@ Questo è l'indirizzo del tuo pannello. La parte `/studio` alla fine è la "port
 
    - **Cosa vedrai:** una pagina con il logo e un pulsante per accedere (di solito "Continue with Google" o simili).
 
-3. Clicca sul pulsante di accesso e scegli l'account con cui sei stata registrata (in genere il tuo indirizzo Google).
+3. Clicca sul pulsante di accesso e scegli l'account con cui sei stato registrato (in genere il tuo indirizzo Google).
 
    - **Cosa vedrai:** dopo qualche secondo si apre lo Studio vero e proprio: a **sinistra** una lista di voci (i tipi di contenuto), al **centro** lo spazio dove compaiono i campi da modificare.
 
@@ -793,7 +793,7 @@ Facciamo l'esempio più semplice: cambiare una frase.
 
    - **Cosa vedrai:** in basso o in alto compare la scritta che il documento ha modifiche non pubblicate (spesso un pallino o la parola "Unpublished changes").
 
-5. Quando sei soddisfatta, premi **Pubblica** (vedi il punto 4.6). Solo allora la modifica va sul sito vero.
+5. Quando sei soddisfatto, premi **Pubblica** (vedi il punto 4.6). Solo allora la modifica va sul sito vero.
 
 > La differenza tra **bozza** e **pubblicato** è importante: finché non premi "Pubblica", quello che scrivi lo vedi solo tu qui dentro. I visitatori del sito vedono ancora la versione vecchia. Questo ti permette di scrivere con calma e correggere prima di mostrare tutto al mondo.
 
@@ -880,7 +880,7 @@ Questo è il momento che rende le tue modifiche visibili a tutti.
 
 - Una distinzione tecnica, giusto perché tu la conosca (ma **non è compito tuo**): gli orari e i prezzi "di partenza" che furono caricati la prima volta sul sito vengono da una procedura tecnica chiamata **"seed"** (in inglese "seme": i dati iniziali piantati nel sistema). Quella è roba di chi sviluppa. **Tu non devi rifare il seed:** da oggi in poi orari e prezzi li cambi **normalmente dallo Studio**, scheda per scheda, come hai imparato qui sopra. Se un giorno senti parlare di "rifare il seed", sappi solo che riguarda il codice e non queste modifiche di tutti i giorni.
 
-- Se non trovi un campo o non sei sicura, **non forzare**: lascia stare, non premere Pubblica, e chiedi. Una bozza non pubblicata non fa danni.
+- Se non trovi un campo o non sei sicuro, **non forzare**: lascia stare, non premere Pubblica, e chiedi. Una bozza non pubblicata non fa danni.
 
 ## 5. Vercel: dove vive il sito online (deploy e variabili)
 
@@ -986,7 +986,7 @@ Il deploy su Vercel è fallito con questo errore, me lo risolvi?
 
 **Cosa vedrai:** Claude Code leggerà l'errore, ti spiegherà cosa è successo e proverà a sistemarlo. Quando avrà finito e fatto un nuovo push, su Vercel comparirà una **nuova riga** che (si spera) diventerà verde.
 
-> In breve: pallino verde = festeggia. Pallino rosso = copia il diario di bordo e dallo in pasto a Claude Code. Non devi diagnosticare nulla da sola.
+> In breve: pallino verde = festeggia. Pallino rosso = copia il diario di bordo e dallo in pasto a Claude Code. Non devi diagnosticare nulla da solo.
 
 ### 5.6 Le "Environment Variables": le chiavi segrete del sito
 
@@ -1102,7 +1102,7 @@ In questo capitolo facciamo comparire gli ultimi 6 post di Instagram dello studi
 
 Per capirci con un'immagine: Instagram è la vetrina dei tuoi post. Behold è un "fattorino" gratuito che va a prendere quei post e li consegna al tuo sito. Tu devi solo dare al sito il numero di "consegna" giusto (il FEED ID), così sa quali post mostrare.
 
-Tranquilla: come sempre, non puoi rompere niente di grave. Se qualcosa non va, il sito continua a funzionare e questa sezione semplicemente non appare.
+Tranquillo: come sempre, non puoi rompere niente di grave. Se qualcosa non va, il sito continua a funzionare e questa sezione semplicemente non appare.
 
 ### Prerequisito: l'Instagram deve essere "Business" o "Creator"
 
@@ -1161,7 +1161,7 @@ https://feeds.behold.so/AbCd1234XyZ
 
 **Se non funziona:** se nell'indirizzo non vedi `feeds.behold.so/...`, cerca dentro la pagina del feed una voce chiamata **Feed ID** o un riquadro "Embed/Code": lì lo stesso codice è scritto in chiaro e puoi copiarlo da quel punto.
 
-Un consiglio: incolla per un attimo questo codice in una nota o in una mail a te stessa, così non lo perdi mentre passi al prossimo passo.
+Un consiglio: incolla per un attimo questo codice in una nota o in una mail a te stesso, così non lo perdi mentre passi al prossimo passo.
 
 ### Passo 4 — Incolla l'ID in Vercel (variabile BEHOLD_FEED_ID)
 
@@ -1362,7 +1362,7 @@ Sul sito c'è una pagina "Contatti" con un piccolo modulo: il visitatore scrive 
 
 Pensa a Resend come al "postino" del sito. Il sito scrive la lettera, ma da solo non sa portarla all'ufficio postale. Resend è il postino che la prende e la consegna.
 
-### Tranquilla: senza Resend il sito NON è rotto
+### Tranquillo: senza Resend il sito NON è rotto
 
 Questa è la cosa più importante da capire prima di iniziare, così la affronti senza ansia.
 
@@ -1440,7 +1440,7 @@ poi conferma (pulsante "Add").
 - controlla che nel "Name/Host" non ci sia per sbaglio scritto due volte il dominio (a volte Register.it lo aggiunge da solo: se Resend chiede `resend._domainkey` potrebbe bastare quello, non `resend._domainkey.climbpolestudio.it`);
 - dai più tempo: spesso è solo lentezza della propagazione, non un errore tuo.
 
-> Se a questo punto ti senti persa tra "TXT", "CNAME" e "Host", non incaponirti da sola. Apri Claude Code (il comando `claude` nel terminale, come nel Capitolo 2) e scrivigli una cosa tipo: *"Sto verificando il dominio climbpolestudio.it su Resend, ho questi record DNS da mettere su Register.it, mi guidi uno per uno?"* e incolla quello che vedi. Ti accompagna passo passo. Non è un esame: chiedere aiuto è la mossa giusta.
+> Se a questo punto ti senti perso tra "TXT", "CNAME" e "Host", non incaponirti da solo. Apri Claude Code (il comando `claude` nel terminale, come nel Capitolo 2) e scrivigli una cosa tipo: *"Sto verificando il dominio climbpolestudio.it su Resend, ho questi record DNS da mettere su Register.it, mi guidi uno per uno?"* e incolla quello che vedi. Ti accompagna passo passo. Non è un esame: chiedere aiuto è la mossa giusta.
 
 ### Passo 3 — Genera la API KEY
 
@@ -1537,7 +1537,7 @@ In pratica:
 
 C'è una regola d'oro che ripeteremo più volte: **i dati sulla scheda devono essere IDENTICI a quelli del sito**. Stesso nome, stesso indirizzo, stesso telefono, scritti nello stesso identico modo. Questa coerenza in gergo si chiama **NAP** (dall'inglese *Name, Address, Phone* = Nome, Indirizzo, Telefono). Pensala così: se a Google racconti due versioni leggermente diverse della stessa cosa (es. "Corso Dante 109/A" sul sito e "C.so Dante 109" su Google), Google si insospettisce e ti penalizza. Una versione sola, scritta uguale ovunque: è questo il segreto.
 
-Non puoi rompere niente di grave qui. Le modifiche alla scheda si possono sempre correggere, e Google tiene una cronologia delle modifiche. Quindi vai tranquilla.
+Non puoi rompere niente di grave qui. Le modifiche alla scheda si possono sempre correggere, e Google tiene una cronologia delle modifiche. Quindi vai tranquillo.
 
 ### I dati ufficiali (copia-incolla da qui, sempre uguali)
 
@@ -1774,7 +1774,7 @@ Le cause più comuni sono due, in ordine di probabilità:
 
    **Se non funziona:** se anche `node -v` dà "comando non riconosciuto", torna al Capitolo 2 e rifai l'installazione di Node. Tutto il resto dipende da lui.
 
-Se dopo questi due controlli sei ancora bloccata: incolla l'errore a Claude Code. Lui ti dirà esattamente cosa manca.
+Se dopo questi due controlli sei ancora bloccato: incolla l'errore a Claude Code. Lui ti dirà esattamente cosa manca.
 
 ### 10.2 "Sono nella cartella sbagliata"
 
@@ -1952,7 +1952,7 @@ Quando qualcosa non va, metà del lavoro è capire **a quale "sportello" rivolge
 
 Regola pratica: prima di agire, chiediti "questo è codice o è contenuto?". Se è un testo, una foto, un orario, vai su Sanity. Se è il modo in cui il sito funziona o appare, è codice, e parti da Claude Code. Nel dubbio, indovina un po'... chiedi a Claude Code: ti saprà dire a quale sportello bussare.
 
-E ricordati sempre l'idea di fondo di tutto questo capitolo: **non puoi rompere niente di grave.** C'è la cronologia di Git, ci sono le versioni precedenti su Vercel, e c'è Claude Code che ti aiuta a leggere ogni errore. Vai tranquilla.
+E ricordati sempre l'idea di fondo di tutto questo capitolo: **non puoi rompere niente di grave.** C'è la cronologia di Git, ci sono le versioni precedenti su Vercel, e c'è Claude Code che ti aiuta a leggere ogni errore. Vai tranquillo.
 
 ---
 
